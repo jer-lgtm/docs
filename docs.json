@@ -1,68 +1,90 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Comput3 Network",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#FF6B35",
+    "light": "#FF8A65",
+    "dark": "#E65100"
   },
   "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Documentation",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Getting Started",
             "pages": [
               "index",
-              "quickstart",
-              "development"
+              "quickstart"
             ]
           },
           {
-            "group": "Customization",
+            "group": "API",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
+              "api-reference/introduction",
               "api-reference/endpoint/get",
               "api-reference/endpoint/create",
               "api-reference/endpoint/delete",
               "api-reference/endpoint/webhook"
+            ]
+          },
+          {
+            "group": "Chat",
+            "pages": [
+              "chat/introduction",
+              "chat/web-interface",
+              "chat/mobile-apps",
+              "chat/api-usage"
+            ]
+          },
+          {
+            "group": "IDE/CLI",
+            "pages": [
+              "ide-cli/cursor",
+              "ide-cli/vscode",
+              "ide-cli/claude-cli"
+            ]
+          },
+          {
+            "group": "Launch GPU",
+            "pages": [
+              "launch-gpu/introduction",
+              "launch-gpu/instance-types",
+              "launch-gpu/management"
+            ]
+          },
+          {
+            "group": "Generate Medias",
+            "pages": [
+              "generate-medias/introduction",
+              "generate-medias/images",
+              "generate-medias/videos"
+            ]
+          },
+          {
+            "group": "COM Token",
+            "pages": [
+              "com/introduction",
+              "com/staking",
+              "com/access-tiers"
+            ]
+          },
+          {
+            "group": "MCP",
+            "pages": [
+              "mcp/introduction",
+              "mcp/setup",
+              "mcp/tools"
+            ]
+          },
+          {
+            "group": "ELIZAOS",
+            "pages": [
+              "elizaos/introduction",
+              "elizaos/setup",
+              "elizaos/integration"
             ]
           }
         ]
@@ -71,38 +93,38 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "Network",
+          "href": "https://comput3.ai",
+          "icon": "network-wired"
         },
         {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
+          "anchor": "Discord",
+          "href": "https://discord.gg/comput3",
+          "icon": "discord"
         },
         {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "GitHub",
+          "href": "https://github.com/comput3",
+          "icon": "github"
         }
       ]
     }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/comput3-light.svg",
+    "dark": "/logo/comput3-dark.svg"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:support@comput3.ai"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Launch App",
+      "href": "https://app.comput3.ai"
     }
   },
   "contextual": {
@@ -119,9 +141,9 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/comput3ai",
+      "github": "https://github.com/comput3",
+      "discord": "https://discord.gg/comput3"
     }
   }
 }

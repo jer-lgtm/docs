@@ -1,0 +1,270 @@
+---
+title: "VSCode Setup"
+description: "Configure Visual Studio Code to use Comput3 Network for AI assistance"
+icon: "code"
+---
+
+Configure Visual Studio Code with AI extensions to use the Comput3 Network API for enhanced coding assistance.
+
+## Prerequisites
+
+- Visual Studio Code installed ([Download here](https://code.visualstudio.com))
+- Comput3 API key ([Get yours here](https://app.comput3.ai))
+
+## Recommended Extensions
+
+<CardGroup cols={2}>
+<Card title="GitHub Copilot" icon="github">
+  **Alternative**: Use Comput3 as OpenAI-compatible backend
+</Card>
+
+<Card title="CodeGPT" icon="robot">
+  **Recommended**: Native support for custom API endpoints
+</Card>
+
+<Card title="Continue" icon="arrow-right">
+  **Best Choice**: Open-source with full Comput3 support
+</Card>
+
+<Card title="Tabnine" icon="tab">
+  **Enterprise**: Custom model deployment options
+</Card>
+</CardGroup>
+
+## Setup with Continue Extension (Recommended)
+
+<Steps>
+<Step title="Install Continue Extension">
+  1. Open VSCode Extensions panel (`Cmd+Shift+X` or `Ctrl+Shift+X`)
+  2. Search for "Continue" 
+  3. Install the Continue extension by Continue Dev
+  
+  <Frame>
+  <img src="/images/vscode-continue.png" alt="Continue extension in VSCode marketplace" />
+  </Frame>
+</Step>
+
+<Step title="Configure Comput3 API">
+  1. Open Continue configuration (`Cmd+Shift+P` → "Continue: Open config.json")
+  2. Replace the configuration with:
+  
+  ```json config.json
+  {
+    "models": [
+      {
+        "title": "Comput3 DeepSeek",
+        "provider": "openai",
+        "model": "deepseek-v3.1",
+        "apiKey": "YOUR_COMPUT3_API_KEY",
+        "apiBase": "https://api.comput3.ai/v1"
+      },
+      {
+        "title": "Comput3 Hermes",
+        "provider": "openai",
+        "model": "hermes4:70b",
+        "apiKey": "YOUR_COMPUT3_API_KEY", 
+        "apiBase": "https://api.comput3.ai/v1"
+      }
+    ],
+    "tabAutocompleteModel": {
+      "title": "Comput3 Autocomplete",
+      "provider": "openai",
+      "model": "kimi-k2",
+      "apiKey": "YOUR_COMPUT3_API_KEY",
+      "apiBase": "https://api.comput3.ai/v1"
+    },
+    "allowAnonymousTelemetry": false
+  }
+  ```
+  
+  <Warning>
+  Replace `YOUR_COMPUT3_API_KEY` with your actual API key from the Comput3 dashboard.
+  </Warning>
+</Step>
+
+<Step title="Test the Setup">
+  1. Open any code file in VSCode
+  2. Highlight some code and press `Cmd+Shift+M` (or `Ctrl+Shift+M`)
+  3. Ask "Explain this code" or request a code review
+  
+  <Check>
+  You should see responses powered by Comput3's GPU infrastructure.
+  </Check>
+</Step>
+</Steps>
+
+## Setup with CodeGPT Extension
+
+<Steps>
+<Step title="Install CodeGPT">
+  1. Search for "CodeGPT" in VSCode Extensions
+  2. Install the CodeGPT extension
+  3. Reload VSCode
+</Step>
+
+<Step title="Configure API Settings">
+  1. Open Settings (`Cmd+,` or `Ctrl+,`)
+  2. Search for "CodeGPT"
+  3. Set the following configurations:
+  
+  <ParamField path="API Provider" type="string" required>
+  Select "OpenAI Compatible"
+  </ParamField>
+  
+  <ParamField path="API Base URL" type="string" required>
+  ```
+  https://api.comput3.ai/v1
+  ```
+  </ParamField>
+  
+  <ParamField path="API Key" type="string" required>
+  Your Comput3 API key
+  </ParamField>
+  
+  <ParamField path="Model" type="string" default="deepseek-v3.1">
+  ```
+  deepseek-v3.1
+  hermes4:70b
+  hermes4:405b
+  qwen3-coder:480b
+  kimi-k2
+  ```
+  </ParamField>
+</Step>
+</Steps>
+
+## Environment Variables Setup
+
+For team projects, use environment variables:
+
+<Tabs>
+<Tab title="macOS/Linux">
+  Add to your shell profile (`~/.bashrc`, `~/.zshrc`):
+  
+  ```bash
+  export COMPUT3_API_KEY="your_api_key_here"
+  export OPENAI_API_BASE="https://api.comput3.ai/v1"
+  ```
+</Tab>
+
+<Tab title="Windows">
+  Set in PowerShell or System Environment Variables:
+  
+  ```powershell
+  $env:COMPUT3_API_KEY="your_api_key_here"
+  $env:OPENAI_API_BASE="https://api.comput3.ai/v1"
+  ```
+</Tab>
+</Tabs>
+
+## Features and Usage
+
+### Code Completion
+- **Trigger**: Type code and pause for auto-suggestions
+- **Accept**: Press `Tab` to accept suggestions
+- **Reject**: Press `Esc` or continue typing
+
+### Code Chat
+- **Trigger**: `Cmd+Shift+P` → "CodeGPT: Ask"
+- **Usage**: Ask questions about your code, request explanations, or get help
+
+### Code Generation
+- **Trigger**: Write a comment describing what you want
+- **Example**: `// Create a function to validate email addresses`
+- **Generate**: Press `Cmd+Enter` or use the command palette
+
+### Code Review
+- **Select**: Highlight code you want reviewed
+- **Review**: Right-click → "CodeGPT: Review Code"
+- **Result**: Get suggestions for improvements, bugs, and optimizations
+
+## Troubleshooting
+
+<AccordionGroup>
+<Accordion title="Extension Not Working">
+  **Common Issues**:
+  - Restart VSCode after configuration changes
+  - Check API key is correctly set in settings
+  - Verify internet connection and firewall settings
+  
+  <Tip>
+  Check the VSCode Developer Console (`Help` → `Toggle Developer Tools`) for error messages.
+  </Tip>
+</Accordion>
+
+<Accordion title="API Rate Limits">
+  **Solutions**:
+  - Monitor usage in Comput3 dashboard
+  - Implement request queuing
+  - Consider upgrading your plan
+  
+  <Info>
+  Rate limits reset every minute. Check your current limits at [app.comput3.ai](https://app.comput3.ai).
+  </Info>
+</Accordion>
+
+<Accordion title="Model Not Responding">
+  **Checks**:
+  - Verify model name matches available models
+  - Test API key with curl:
+  ```bash
+  curl -H "Authorization: Bearer YOUR_API_KEY" https://api.comput3.ai/v1/models
+  ```
+  - Check Comput3 service status
+</Accordion>
+</AccordionGroup>
+
+## Advanced Configuration
+
+### Custom Keybindings
+
+Add to your `keybindings.json`:
+
+```json
+[
+  {
+    "key": "cmd+shift+a",
+    "command": "codegpt.ask",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+shift+r", 
+    "command": "codegpt.review",
+    "when": "editorHasSelection"
+  }
+]
+```
+
+### Workspace Settings
+
+Create `.vscode/settings.json` in your project:
+
+```json
+{
+  "codegpt.apiKey": "${env:COMPUT3_API_KEY}",
+  "codegpt.apiBase": "https://api.comput3.ai/v1",
+  "codegpt.model": "deepseek-v3.1",
+  "codegpt.temperature": 0.2,
+  "codegpt.maxTokens": 2048
+}
+```
+
+## Benefits
+
+<CardGroup cols={2}>
+<Card title="Native Integration" icon="puzzle-piece">
+  Seamless integration with VSCode's existing workflow and shortcuts.
+</Card>
+
+<Card title="Offline Capable" icon="wifi-slash">
+  Continue working with cached responses when connectivity is limited.
+</Card>
+
+<Card title="Team Consistency" icon="users">
+  Shared configuration ensures consistent AI assistance across your team.
+</Card>
+
+<Card title="Privacy Control" icon="shield-alt">
+  Your code stays secure within the Comput3 network infrastructure.
+</Card>
+</CardGroup>

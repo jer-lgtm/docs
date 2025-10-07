@@ -1,0 +1,405 @@
+---
+title: "MCP Introduction"
+description: "Model Context Protocol integration with Comput3 Network for enhanced AI capabilities"
+icon: "link"
+---
+
+Model Context Protocol (MCP) is an open standard that enables AI assistants to securely connect to external data sources and tools. Comput3 Network provides full MCP support for enhanced AI interactions.
+
+## Overview
+
+MCP integration with Comput3 Network enables:
+
+<CardGroup cols={2}>
+<Card title="External Data Access" icon="database">
+  Connect AI models to external databases, APIs, and data sources securely.
+</Card>
+
+<Card title="Tool Integration" icon="wrench">
+  Enable AI models to use external tools and services for enhanced capabilities.
+</Card>
+
+<Card title="Secure Connections" icon="shield-check">
+  All MCP connections are authenticated and encrypted for enterprise security.
+</Card>
+
+<Card title="Real-time Data" icon="clock">
+  Access live data sources for up-to-date information in AI responses.
+</Card>
+</CardGroup>
+
+## What is MCP?
+
+Model Context Protocol is an open standard developed by Anthropic that allows AI models to:
+
+- **Connect to Data Sources**: Databases, file systems, APIs, and web services
+- **Use External Tools**: Calculators, code executors, web browsers, and custom applications
+- **Maintain Security**: Authenticated and permission-based access to resources
+- **Scale Efficiently**: Handle multiple concurrent connections and data streams
+
+### MCP Architecture
+
+<AccordionGroup>
+<Accordion title="MCP Servers">
+  **Data and tool providers that expose capabilities to AI models**
+  
+  - Database connectors (PostgreSQL, MySQL, MongoDB)
+  - File system access (local and cloud storage)
+  - API integrations (REST, GraphQL, WebSocket)
+  - Custom tool implementations
+  
+  **Examples**:
+  - GitHub repository access
+  - Google Workspace integration
+  - Slack message history
+  - Custom business logic tools
+</Accordion>
+
+<Accordion title="MCP Clients">
+  **AI applications that consume MCP services**
+  
+  - Claude Desktop and web interfaces
+  - Custom AI applications
+  - Comput3 Network chat interfaces
+  - Third-party AI tools and platforms
+  
+  **Capabilities**:
+  - Discover available MCP servers
+  - Authenticate with data sources
+  - Execute tool functions
+  - Process real-time data streams
+</Accordion>
+
+<Accordion title="Protocol Features">
+  **Core MCP protocol capabilities**
+  
+  - **Resource Discovery**: Find available data and tools
+  - **Authentication**: Secure access control mechanisms
+  - **Real-time Updates**: Live data synchronization
+  - **Error Handling**: Robust error reporting and recovery
+  - **Logging**: Comprehensive audit trails
+</Accordion>
+</AccordionGroup>
+
+## Comput3 MCP Integration
+
+### Supported MCP Features
+
+<Tabs>
+<Tab title="Data Sources">
+  **Connect to external data repositories**
+  
+  - **Databases**: PostgreSQL, MySQL, SQLite, MongoDB
+  - **Cloud Storage**: AWS S3, Google Cloud, Azure Blob
+  - **File Systems**: Local directories, network drives
+  - **APIs**: REST endpoints, GraphQL services
+  - **Real-time Data**: WebSocket streams, message queues
+</Tab>
+
+<Tab title="Tools and Services">
+  **Integrate with external tools and applications**
+  
+  - **Code Execution**: Python, JavaScript, shell commands
+  - **Web Browsing**: Fetch web pages and search results
+  - **Calculations**: Mathematical and statistical operations
+  - **Image Processing**: Computer vision and analysis
+  - **Custom Functions**: Business-specific tool implementations
+</Tab>
+
+<Tab title="Security Features">
+  **Enterprise-grade security and access control**
+  
+  - **Authentication**: OAuth, API keys, certificate-based auth
+  - **Permissions**: Fine-grained access control
+  - **Encryption**: End-to-end encryption for all connections
+  - **Audit Logging**: Comprehensive activity tracking
+  - **Rate Limiting**: Configurable request limits
+</Tab>
+</Tabs>
+
+## Getting Started with MCP
+
+<Steps>
+<Step title="Enable MCP Support">
+  MCP is automatically available with all Comput3 Network AI models.
+  
+  <Check>
+  No additional setup required - MCP support is built into the platform.
+  </Check>
+</Step>
+
+<Step title="Configure Data Sources">
+  Set up connections to your external data sources and tools.
+  
+  <CardGroup cols={2}>
+  <Card title="Quick Setup" icon="zap">
+    Use pre-configured MCP servers for common services like GitHub, Google Drive, and Slack.
+  </Card>
+  
+  <Card title="Custom Setup" icon="cogs">
+    Create custom MCP server configurations for your specific data sources and tools.
+  </Card>
+  </CardGroup>
+</Step>
+
+<Step title="Test Integration">
+  Verify your MCP connections work correctly with test queries.
+  
+  ```text
+  "Can you check my latest GitHub commits and summarize the changes?"
+  "What are the recent messages in our #development Slack channel?"
+  "Analyze the sales data from our PostgreSQL database for this month"
+  ```
+</Step>
+
+<Step title="Use in Conversations">
+  Start using MCP-enhanced conversations with access to your connected data and tools.
+</Step>
+</Steps>
+
+## MCP Use Cases
+
+### Development Workflows
+
+<AccordionGroup>
+<Accordion title="Code Repository Integration">
+  **Connect AI models to your codebase**
+  
+  - **GitHub Integration**: Access repositories, issues, pull requests
+  - **Code Analysis**: Review code changes and suggest improvements
+  - **Documentation**: Generate docs from code comments and structure
+  - **Bug Tracking**: Analyze issue patterns and suggest fixes
+  
+  **Example Queries**:
+  - "Review the latest pull request in my repository"
+  - "Generate documentation for the new API endpoints"
+  - "Find similar bugs in our issue history"
+</Accordion>
+
+<Accordion title="Database Operations">
+  **Query and analyze your data with AI assistance**
+  
+  - **SQL Generation**: Create complex queries from natural language
+  - **Data Analysis**: Statistical analysis and trend identification
+  - **Report Generation**: Automated reporting from database queries
+  - **Data Validation**: Check data quality and consistency
+  
+  **Example Queries**:
+  - "Show me the top 10 customers by revenue this quarter"
+  - "Generate a report on user engagement trends"
+  - "Find anomalies in our transaction data"
+</Accordion>
+
+<Accordion title="API Integration">
+  **Connect to external services and APIs**
+  
+  - **CRM Systems**: Salesforce, HubSpot integration
+  - **Communication**: Slack, Discord, email systems
+  - **Cloud Services**: AWS, GCP, Azure management
+  - **Custom APIs**: Internal business systems
+  
+  **Example Queries**:
+  - "Create a new lead in Salesforce with this contact info"
+  - "Send a summary of today's support tickets to the team"
+  - "Check the status of our AWS infrastructure"
+</Accordion>
+</AccordionGroup>
+
+### Business Intelligence
+
+<CardGroup cols={2}>
+<Card title="Real-time Analytics" icon="chart-line">
+  Connect to live data sources for up-to-date business insights and decision making.
+</Card>
+
+<Card title="Automated Reporting" icon="file-chart">
+  Generate reports automatically from multiple data sources with AI analysis.
+</Card>
+
+<Card title="Data Discovery" icon="search">
+  Use natural language to explore and understand your data landscape.
+</Card>
+
+<Card title="Predictive Analysis" icon="crystal-ball">
+  Combine historical data with AI models for forecasting and predictions.
+</Card>
+</CardGroup>
+
+## Security and Compliance
+
+### Data Protection
+
+<Warning>
+MCP connections handle sensitive data. Ensure proper security measures are in place before connecting production systems.
+</Warning>
+
+<AccordionGroup>
+<Accordion title="Authentication Methods">
+  **Secure authentication for all MCP connections**
+  
+  - **OAuth 2.0**: Industry-standard authentication flow
+  - **API Keys**: Secure key-based authentication
+  - **Certificate Auth**: X.509 certificate-based security
+  - **Multi-factor Auth**: Additional security layers
+  
+  **Best Practices**:
+  - Use least-privilege access principles
+  - Rotate credentials regularly
+  - Monitor access logs
+  - Implement connection timeouts
+</Accordion>
+
+<Accordion title="Data Encryption">
+  **End-to-end encryption for all data transfers**
+  
+  - **TLS 1.3**: Secure transport layer encryption
+  - **Field-level Encryption**: Sensitive data field protection
+  - **Key Management**: Secure key storage and rotation
+  - **Zero-trust Architecture**: Verify every connection
+</Accordion>
+
+<Accordion title="Compliance Features">
+  **Meet regulatory and compliance requirements**
+  
+  - **GDPR Compliance**: Data protection and privacy controls
+  - **SOC 2**: Security and availability standards
+  - **HIPAA**: Healthcare data protection (Enterprise tier)
+  - **Audit Logging**: Comprehensive activity tracking
+</Accordion>
+</AccordionGroup>
+
+### Access Controls
+
+<CardGroup cols={2}>
+<Card title="Role-based Access" icon="users-cog">
+  Define user roles and permissions for different MCP resources and tools.
+</Card>
+
+<Card title="Resource Scoping" icon="shield-alt">
+  Limit AI model access to specific databases, APIs, or tool subsets.
+</Card>
+
+<Card title="Time-based Access" icon="clock">
+  Configure temporary access windows and automatic credential expiration.
+</Card>
+
+<Card title="Audit Trails" icon="list">
+  Complete logging of all MCP operations for security and compliance.
+</Card>
+</CardGroup>
+
+## Performance and Scaling
+
+### Optimization
+
+<Tabs>
+<Tab title="Connection Pooling">
+  **Efficient resource management**
+  
+  - Shared connections across multiple AI conversations
+  - Automatic connection lifecycle management
+  - Connection health monitoring and recovery
+  - Load balancing across multiple data sources
+</Tab>
+
+<Tab title="Caching Strategy">
+  **Intelligent data caching**
+  
+  - Frequently accessed data cached automatically
+  - Configurable cache TTL and invalidation
+  - Context-aware caching based on conversation flow
+  - Cache warming for predictable data access
+</Tab>
+
+<Tab title="Rate Limiting">
+  **Protect external systems from overload**
+  
+  - Configurable rate limits per data source
+  - Intelligent request queuing and batching
+  - Automatic backoff and retry mechanisms
+  - Priority queuing for different user tiers
+</Tab>
+</Tabs>
+
+## Integration Examples
+
+### Common MCP Configurations
+
+<CodeGroup>
+```json GitHub Integration
+{
+  "name": "github-repo",
+  "type": "mcp-server",
+  "config": {
+    "server_url": "https://api.github.com",
+    "authentication": {
+      "type": "oauth",
+      "client_id": "your-github-app-id",
+      "scopes": ["repo", "issues", "pull_requests"]
+    },
+    "resources": [
+      "repositories",
+      "issues", 
+      "pull_requests",
+      "commits"
+    ]
+  }
+}
+```
+
+```json Database Connection
+{
+  "name": "company-database",
+  "type": "mcp-server",
+  "config": {
+    "server_url": "postgresql://host:5432/dbname",
+    "authentication": {
+      "type": "credentials",
+      "username": "readonly_user",
+      "password_env": "DB_PASSWORD"
+    },
+    "permissions": {
+      "read_only": true,
+      "allowed_tables": ["users", "orders", "products"],
+      "row_limit": 1000
+    }
+  }
+}
+```
+
+```json Slack Integration
+{
+  "name": "team-slack",
+  "type": "mcp-server", 
+  "config": {
+    "server_url": "https://slack.com/api",
+    "authentication": {
+      "type": "oauth",
+      "bot_token": "xoxb-your-bot-token",
+      "scopes": ["channels:read", "chat:write", "files:read"]
+    },
+    "resources": [
+      "channels",
+      "messages",
+      "files"
+    ]
+  }
+}
+```
+</CodeGroup>
+
+## Next Steps
+
+<CardGroup cols={3}>
+<Card title="MCP Setup" icon="cogs" href="/mcp/setup">
+  Learn how to configure MCP servers and connect your data sources.
+</Card>
+
+<Card title="Available Tools" icon="toolbox" href="/mcp/tools">
+  Explore the pre-built MCP tools and integrations available.
+</Card>
+
+<Card title="Custom Development" icon="code" href="/mcp/custom">
+  Build custom MCP servers for your specific business needs.
+</Card>
+</CardGroup>

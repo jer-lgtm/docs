@@ -1,0 +1,356 @@
+---
+title: "Claude CLI Setup"
+description: "Configure Claude CLI to use Comput3 Network for command-line AI assistance"
+icon: "terminal"
+---
+
+Set up Claude CLI with Comput3 Network to get AI assistance directly from your terminal.
+
+## Prerequisites
+
+- Node.js installed ([Download here](https://nodejs.org))
+- Comput3 API key ([Get yours here](https://app.comput3.ai))
+
+## Installation
+
+<Steps>
+<Step title="Install Claude CLI">
+  Install the Claude CLI globally using npm:
+  
+  ```bash
+  npm install -g @anthropic-ai/claude-cli
+  ```
+  
+  <Note>
+  You can also use yarn: `yarn global add @anthropic-ai/claude-cli`
+  </Note>
+</Step>
+
+<Step title="Configure Comput3 API">
+  Set up your configuration to use Comput3 as the API provider:
+  
+  ```bash
+  claude config set api-key YOUR_COMPUT3_API_KEY
+  claude config set api-base https://api.comput3.ai/v1
+  claude config set model qwen3-coder:480b
+  ```
+  
+  <Warning>
+  Replace `YOUR_COMPUT3_API_KEY` with your actual API key from the Comput3 dashboard.
+  </Warning>
+</Step>
+
+<Step title="Verify Installation">
+  Test the setup with a simple query:
+  
+  ```bash
+  claude "Hello, can you help me write a Python function?"
+  ```
+  
+  <Check>
+  You should see a response powered by Comput3's GPU infrastructure.
+  </Check>
+</Step>
+</Steps>
+
+## Configuration Options
+
+### Environment Variables
+
+Set up environment variables for easier management:
+
+<Tabs>
+<Tab title="macOS/Linux">
+  Add to your shell profile (`~/.bashrc`, `~/.zshrc`, `~/.profile`):
+  
+  ```bash
+  export ANTHROPIC_API_KEY="your_comput3_api_key"
+  export ANTHROPIC_API_BASE="https://api.comput3.ai/v1"
+  export CLAUDE_MODEL="deepseek-v3.1"
+  ```
+  
+  Then reload your shell:
+  ```bash
+  source ~/.zshrc  # or ~/.bashrc
+  ```
+</Tab>
+
+<Tab title="Windows">
+  Set environment variables in PowerShell:
+  
+  ```powershell
+  $env:ANTHROPIC_API_KEY="your_comput3_api_key"
+  $env:ANTHROPIC_API_BASE="https://api.comput3.ai/v1"
+  $env:CLAUDE_MODEL="deepseek-v3.1"
+  ```
+  
+  Or set permanently via System Properties → Environment Variables.
+</Tab>
+</Tabs>
+
+### Configuration File
+
+Create a config file at `~/.claude/config.json`:
+
+```json
+{
+  "api_key": "your_comput3_api_key",
+  "api_base": "https://api.comput3.ai/v1",
+  "model": "deepseek-v3.1",
+  "temperature": 0.7,
+  "max_tokens": 4096,
+  "timeout": 30000
+}
+```
+
+## Usage Examples
+
+### Basic Chat
+
+Start an interactive conversation:
+
+```bash
+claude chat
+```
+
+### One-time Queries
+
+Ask a single question:
+
+```bash
+claude "Explain how async/await works in JavaScript"
+```
+
+### Code Analysis
+
+Analyze a code file:
+
+```bash
+claude "Review this code for potential issues" < script.py
+```
+
+### Code Generation
+
+Generate code with specific requirements:
+
+```bash
+claude "Create a REST API endpoint in Express.js for user authentication"
+```
+
+### File Processing
+
+Process multiple files:
+
+```bash
+find . -name "*.js" -exec claude "Add JSDoc comments to this file" < {} \;
+```
+
+## Advanced Usage
+
+### Custom Prompts
+
+Create reusable prompt templates:
+
+```bash
+# Create a prompt file
+echo "You are a senior software engineer. Review the following code and suggest improvements:" > review_prompt.txt
+
+# Use the prompt
+claude "$(cat review_prompt.txt)" < my_code.py
+```
+
+### Piping and Chaining
+
+Chain commands for complex workflows:
+
+```bash
+# Generate and review code
+claude "Write a Python function to parse JSON" | claude "Review this code for best practices"
+
+# Process git diff
+git diff | claude "Summarize the changes in this diff"
+
+# Analyze logs
+tail -n 100 app.log | claude "Find any error patterns in these logs"
+```
+
+### Batch Processing
+
+Process multiple files with a script:
+
+```bash
+#!/bin/bash
+for file in src/*.js; do
+    echo "Processing $file..."
+    claude "Add TypeScript types to this JavaScript file" < "$file" > "${file%.js}.ts"
+done
+```
+
+## Available Models
+
+Configure different models for different use cases:
+
+<AccordionGroup>
+<Accordion title="Code-focused Models">
+  **Best for**: Code generation, debugging, technical explanations
+  
+  ```bash
+  claude config set model qwen3-coder:480b
+  claude config set temperature 0.2
+  ```
+</Accordion>
+
+<Accordion title="Creative Models">
+  **Best for**: Documentation, creative writing, brainstorming
+  
+  ```bash
+  claude config set model hermes4:405b
+  claude config set temperature 0.8
+  ```
+</Accordion>
+
+<Accordion title="Fast Models">
+  **Best for**: Quick queries, simple tasks
+  
+  ```bash
+  claude config set model kimi-k2
+  claude config set temperature 0.5
+  ```
+</Accordion>
+</AccordionGroup>
+
+## CLI Shortcuts and Aliases
+
+Add these aliases to your shell profile for faster access:
+
+```bash
+# Quick aliases
+alias c="claude"
+alias cr="claude 'Review this code:'"
+alias ce="claude 'Explain this code:'"
+alias cg="claude 'Generate code for:'"
+
+# Function for code review
+review() {
+    if [ -f "$1" ]; then
+        claude "Review this code for bugs and improvements:" < "$1"
+    else
+        echo "File not found: $1"
+    fi
+}
+
+# Function for documentation
+document() {
+    if [ -f "$1" ]; then
+        claude "Generate documentation for this code:" < "$1"
+    else
+        echo "File not found: $1"
+    fi
+}
+```
+
+## Integration with Development Tools
+
+### Git Hooks
+
+Add AI-powered git hooks:
+
+```bash
+#!/bin/sh
+# .git/hooks/pre-commit
+git diff --cached | claude "Review these changes for potential issues"
+```
+
+### Editor Integration
+
+Use with your favorite editor:
+
+```bash
+# Vim integration
+vnoremap <leader>c :w !claude "Explain this code"<CR>
+
+# Emacs integration  
+(defun claude-explain-region ()
+  (interactive)
+  (shell-command-on-region (region-beginning) (region-end) "claude 'Explain this code'"))
+```
+
+## Troubleshooting
+
+<AccordionGroup>
+<Accordion title="Installation Issues">
+  **Common Problems**:
+  - Node.js version compatibility
+  - Permission issues with global install
+  - Network connectivity
+  
+  **Solutions**:
+  ```bash
+  # Check Node.js version (requires 16+)
+  node --version
+  
+  # Install with sudo if needed (macOS/Linux)
+  sudo npm install -g @anthropic-ai/claude-cli
+  
+  # Use npx for one-time usage
+  npx @anthropic-ai/claude-cli "your query"
+  ```
+</Accordion>
+
+<Accordion title="API Connection Issues">
+  **Error**: "Failed to connect to API"
+  
+  **Debug Steps**:
+  ```bash
+  # Test API key
+  curl -H "Authorization: Bearer YOUR_API_KEY" https://api.comput3.ai/v1/models
+  
+  # Check configuration
+  claude config list
+  
+  # Test with verbose output
+  claude --verbose "test query"
+  ```
+</Accordion>
+
+<Accordion title="Rate Limiting">
+  **Error**: "Rate limit exceeded"
+  
+  **Solutions**:
+  - Add delays between requests
+  - Monitor usage in Comput3 dashboard
+  - Consider upgrading your plan
+  
+  ```bash
+  # Add delay in scripts
+  claude "query 1" && sleep 1 && claude "query 2"
+  ```
+</Accordion>
+</AccordionGroup>
+
+## Best Practices
+
+<CardGroup cols={2}>
+<Card title="Secure API Keys" icon="key">
+  Store API keys in environment variables, never in scripts or version control.
+</Card>
+
+<Card title="Efficient Prompting" icon="brain">
+  Be specific and provide context for better results. Include relevant code snippets.
+</Card>
+
+<Card title="Batch Operations" icon="layer-group">
+  Group related queries to minimize API calls and improve efficiency.
+</Card>
+
+<Card title="Error Handling" icon="exclamation-triangle">
+  Always handle API errors gracefully in scripts and automated workflows.
+</Card>
+</CardGroup>
+
+## Performance Tips
+
+- **Use specific models** for different tasks (fast models for simple queries)
+- **Cache responses** for repeated queries
+- **Limit token usage** with appropriate max_tokens settings
+- **Monitor usage** regularly in the Comput3 dashboard

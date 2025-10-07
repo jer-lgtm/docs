@@ -1,0 +1,204 @@
+---
+title: "Cursor Setup"
+description: "Configure Cursor to use Comput3 Network for AI-powered coding assistance"
+icon: "arrow-pointer"
+---
+
+Configure Cursor to use the Comput3 Network API for enhanced AI coding assistance. This guide shows how to set up Cursor with Comput3's distributed GPU infrastructure for faster and more powerful AI responses.
+
+## Prerequisites
+
+- Cursor editor installed ([Download here](https://cursor.sh))
+- Comput3 API key ([Get yours here](https://app.comput3.ai))
+
+## Configuration Steps
+
+<Steps>
+<Step title="Open Cursor Settings">
+  Open Cursor and navigate to **Settings** → **General** → **Models**
+  
+  <Frame>
+  <img src="/images/cursor-settings.png" alt="Cursor settings panel showing model configuration" />
+  </Frame>
+</Step>
+
+<Step title="Add Custom OpenAI API">
+  1. Click **"Add model"** or **"Override OpenAI Base URL"**
+  2. Configure the following settings:
+  
+  <ParamField path="API Base URL" type="string" required>
+  ```
+  https://api.comput3.ai/v1
+  ```
+  </ParamField>
+  
+  <ParamField path="API Key" type="string" required>
+  Your Comput3 API key from the dashboard
+  ```
+  c3_1234567890abcdef...
+  ```
+  </ParamField>
+  
+  <ParamField path="Model" type="string" default="deepseek-v3.1">
+  Use any available model from Comput3 Network
+  ```
+  deepseek-v3.1
+  hermes4:70b
+  hermes4:405b
+  qwen3-coder:480b
+  kimi-k2
+  ```
+  </ParamField>
+  
+  <Warning>
+  Keep your API key secure and never commit it to version control.
+  </Warning>
+</Step>
+
+<Step title="Test the Configuration">
+  1. Open any code file in Cursor
+  2. Press `Cmd+K` (macOS) or `Ctrl+K` (Windows/Linux) to open the AI chat
+  3. Ask a coding question to test the connection
+  
+  <Check>
+  You should see responses powered by Comput3's GPU infrastructure.
+  </Check>
+</Step>
+</Steps>
+
+## Advanced Configuration
+
+### Environment Variables (Recommended)
+
+For team projects, use environment variables to manage API keys securely:
+
+<Tabs>
+<Tab title="macOS/Linux">
+  Add to your `~/.bashrc`, `~/.zshrc`, or `~/.profile`:
+  
+  ```bash
+  export COMPUT3_API_KEY="your_api_key_here"
+  ```
+  
+  Then restart your terminal and Cursor will automatically use this key.
+</Tab>
+
+<Tab title="Windows">
+  Set environment variable in PowerShell:
+  
+  ```powershell
+  $env:COMPUT3_API_KEY="your_api_key_here"
+  ```
+  
+  Or add it permanently via System Properties → Environment Variables.
+</Tab>
+</Tabs>
+
+### Custom Model Configuration
+
+Configure specific models for different use cases:
+
+<AccordionGroup>
+<Accordion title="Code Generation Models">
+  **Best for**: Writing new code, implementing features
+  
+  ```json
+  {
+    "model": "qwen3-coder:480b",
+    "temperature": 0.2,
+    "max_tokens": 2048
+  }
+  ```
+</Accordion>
+
+<Accordion title="Code Review Models">
+  **Best for**: Code analysis, bug detection, optimization
+  
+  ```json
+  {
+    "model": "hermes4:405b",
+    "temperature": 0.1,
+    "max_tokens": 4096
+  }
+  ```
+</Accordion>
+
+<Accordion title="Documentation Models">
+  **Best for**: Writing documentation, comments, explanations
+  
+  ```json
+  {
+    "model": "kimi-k2",
+    "temperature": 0.3,
+    "max_tokens": 1024
+  }
+  ```
+</Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+<Accordion title="Connection Issues">
+  **Error**: "Failed to connect to API"
+  
+  **Solutions**:
+  - Verify your API key is correct and active
+  - Check if your firewall allows HTTPS connections
+  - Ensure the base URL is exactly: `https://api.comput3.ai/v1`
+  
+  <Tip>
+  Test your API key with a simple curl request first:
+  ```bash
+  curl -H "Authorization: Bearer YOUR_API_KEY" https://api.comput3.ai/v1/models
+  ```
+  </Tip>
+</Accordion>
+
+<Accordion title="Authentication Errors">
+  **Error**: "Invalid API key" or "Unauthorized"
+  
+  **Solutions**:
+  - Double-check your API key from the Comput3 dashboard
+  - Ensure there are no extra spaces or characters
+  - Verify your account has sufficient credits
+  
+  <Warning>
+  API keys are case-sensitive and must be copied exactly.
+  </Warning>
+</Accordion>
+
+<Accordion title="Rate Limiting">
+  **Error**: "Rate limit exceeded"
+  
+  **Solutions**:
+  - Wait for the rate limit window to reset
+  - Consider upgrading your Comput3 plan
+  - Implement request queuing in your workflow
+  
+  <Info>
+  Check your current rate limits in the [Comput3 Dashboard](https://app.comput3.ai).
+  </Info>
+</Accordion>
+</AccordionGroup>
+
+## Benefits of Using Comput3
+
+<CardGroup cols={2}>
+<Card title="Faster Response Times" icon="bolt">
+  Distributed GPU infrastructure provides significantly faster AI responses compared to standard APIs.
+</Card>
+
+<Card title="Cost Effective" icon="dollar-sign">
+  Competitive pricing with transparent per-token billing and no hidden fees.
+</Card>
+
+<Card title="High Availability" icon="shield-check">
+  99.9% uptime with automatic failover across multiple GPU clusters.
+</Card>
+
+<Card title="Privacy Focused" icon="lock">
+  Your code never leaves the secure Comput3 network infrastructure.
+</Card>
+</CardGroup>
+

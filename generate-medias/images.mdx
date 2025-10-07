@@ -1,0 +1,784 @@
+---
+title: "Image Generation"
+description: "Create stunning AI-generated images using Stable Diffusion and other advanced models"
+icon: "image"
+---
+
+Generate high-quality images using ComfyUI workflows on Comput3 Network's GPU infrastructure. Simply launch a GPU instance and start creating with powerful node-based workflows.
+
+## Quick Start
+
+<Steps>
+<Step title="Launch GPU Instance">
+  Launch a GPU instance with the ComfyUI template from your Comput3 dashboard.
+  
+  <CardGroup cols={2}>
+  <Card title="ComfyUI Template" icon="template">
+    Pre-configured instance with ComfyUI, popular models, and workflows ready to use.
+  </Card>
+  
+  <Card title="Recommended GPU" icon="microchip">
+    RTX 4090 or A100 for optimal performance with image generation workflows.
+  </Card>
+  </CardGroup>
+</Step>
+
+<Step title="Access ComfyUI">
+  Connect to your GPU instance and open the ComfyUI web interface.
+  
+  ```bash
+  # ComfyUI runs on port 8188 by default
+  http://<your-instance-ip>:8188
+  ```
+  
+  <Info>
+  The ComfyUI template automatically starts the service and makes it accessible via web browser.
+  </Info>
+</Step>
+
+<Step title="Choose a Workflow">
+  Select from pre-installed workflows or create your own:
+  
+  <Tabs>
+  <Tab title="Text-to-Image">
+    **Generate images from text descriptions**
+    - Stable Diffusion XL workflows
+    - ControlNet integration
+    - LoRA model support
+    - Batch generation capabilities
+  </Tab>
+  
+  <Tab title="Image-to-Image">
+    **Transform existing images**
+    - Style transfer workflows
+    - Upscaling and enhancement
+    - Inpainting and outpainting
+    - Facial restoration
+  </Tab>
+  
+  <Tab title="Advanced Workflows">
+    **Complex multi-step generation**
+    - Multi-model pipelines
+    - Conditional generation
+    - Custom node combinations
+    - Automated post-processing
+  </Tab>
+  </Tabs>
+</Step>
+
+<Step title="Generate and Download">
+  Run your workflow in ComfyUI and download the generated images.
+  
+  <Check>
+  Images are saved locally on your GPU instance and can be downloaded via the ComfyUI interface or SSH.
+  </Check>
+</Step>
+</Steps>
+
+## Advanced Prompt Techniques
+
+### Prompt Structure Best Practices
+
+<AccordionGroup>
+<Accordion title="Subject Description">
+  **Be specific about the main subject**:
+  
+  ❌ **Vague**: "A person"
+  ✅ **Specific**: "A middle-aged woman with curly red hair wearing a blue dress"
+  
+  ❌ **Generic**: "A building"  
+  ✅ **Detailed**: "A modern glass skyscraper with geometric patterns"
+</Accordion>
+
+<Accordion title="Action and Pose">
+  **Describe what the subject is doing**:
+  
+  - "running through a field"
+  - "sitting peacefully by a window"
+  - "dancing in the rain"
+  - "looking directly at the camera"
+  - "reaching toward the sky"
+</Accordion>
+
+<Accordion title="Environment and Setting">
+  **Set the scene and atmosphere**:
+  
+  - "in a mystical forest with glowing mushrooms"
+  - "on a busy city street at night"
+  - "in a cozy library with warm lighting"
+  - "against a dramatic storm sky"
+  - "in a minimalist white studio"
+</Accordion>
+
+<Accordion title="Style and Aesthetic">
+  **Specify the artistic style**:
+  
+  **Photography Styles**:
+  - "professional portrait photography"
+  - "street photography, candid moment"
+  - "macro photography, extreme close-up"
+  - "aerial photography, bird's eye view"
+  
+  **Art Styles**:
+  - "oil painting in impressionist style"
+  - "digital art, concept art style"
+  - "watercolor illustration, soft edges"
+  - "pencil sketch, detailed line art"
+</Accordion>
+
+<Accordion title="Technical Parameters">
+  **Add technical quality descriptors**:
+  
+  - "8k ultra high resolution"
+  - "cinematic lighting, dramatic shadows"
+  - "shallow depth of field, bokeh background"
+  - "HDR, vibrant colors, high contrast"
+  - "soft natural lighting, golden hour"
+</Accordion>
+</AccordionGroup>
+
+### Prompt Weighting and Control
+
+<Tabs>
+<Tab title="Attention Weighting">
+  **Control emphasis with parentheses and weights**:
+  
+  ```text
+  (beautiful sunset:1.3) over (mountain lake:1.1), 
+  (dramatic clouds:0.9), peaceful atmosphere
+  ```
+  
+  **Weight Guidelines**:
+  - `(keyword:1.3)` - Increase emphasis by 30%
+  - `(keyword:0.8)` - Decrease emphasis by 20%
+  - `((keyword))` - Strong emphasis (equivalent to 1.21)
+  - `[keyword]` - Slight de-emphasis (equivalent to 0.91)
+</Tab>
+
+<Tab title="Negative Prompts">
+  **Exclude unwanted elements**:
+  
+  ```text
+  Prompt: "Portrait of a woman, professional photography"
+  
+  Negative: "blurry, low quality, distorted face, bad anatomy, 
+  extra limbs, watermark, signature, text"
+  ```
+  
+  **Common Negative Prompts**:
+  - Quality issues: `blurry, low quality, pixelated, grainy`
+  - Anatomy problems: `bad anatomy, extra limbs, deformed hands`
+  - Unwanted elements: `watermark, signature, text, logo`
+  - Style issues: `cartoon, anime` (if you want photorealistic)
+</Tab>
+
+<Tab title="Style Mixing">
+  **Combine multiple artistic influences**:
+  
+  ```text
+  "Portrait in the style of (Renaissance painting:0.7) mixed with 
+  (modern photography:0.5), chiaroscuro lighting, classical composition"
+  ```
+  
+  **Effective Combinations**:
+  - Photography + Painting: `photorealistic portrait, oil painting texture`
+  - Multiple artists: `style of Van Gogh and Monet, impressionist fusion`
+  - Era mixing: `Art Deco design with modern minimalism`
+</Tab>
+</Tabs>
+
+## Model-Specific Guidelines
+
+### Stable Diffusion XL (SDXL)
+
+<CardGroup cols={2}>
+<Card title="Strengths" icon="star">
+  - Exceptional detail and resolution
+  - Great with complex compositions
+  - Excellent text rendering in images
+  - Superior photorealism capabilities
+</Card>
+
+<Card title="Optimal Settings" icon="sliders-h">
+  - **Steps**: 25-35 (30 recommended)
+  - **Guidance Scale**: 6-9 (7.5 recommended)  
+  - **Resolution**: 1024x1024 or 1152x896
+  - **Sampler**: DPM++ 2M Karras
+</Card>
+</CardGroup>
+
+**Best Prompting Practices**:
+```text
+# Good SDXL prompt structure
+"[Detailed subject description], [specific artistic style], 
+[lighting conditions], [composition notes], [quality modifiers]"
+
+# Example
+"Close-up portrait of an elderly craftsman with weathered hands, 
+Renaissance painting style, dramatic chiaroscuro lighting, 
+three-quarter view composition, oil painting texture, masterpiece quality"
+```
+
+### Stable Diffusion 2.1
+
+<CardGroup cols={2}>
+<Card title="Strengths" icon="star">
+  - Fast generation times
+  - Good for iteration and experimentation
+  - Reliable results with simple prompts
+  - Cost-effective for batch generation
+</Card>
+
+<Card title="Optimal Settings" icon="sliders-h">
+  - **Steps**: 20-30 (25 recommended)
+  - **Guidance Scale**: 7-12 (9 recommended)
+  - **Resolution**: 512x512 or 768x512
+  - **Sampler**: Euler a or DPM++ 2M
+</Card>
+</CardGroup>
+
+**Best Prompting Practices**:
+```text
+# SD 2.1 responds well to clear, direct prompts
+"[Subject], [style], [lighting], [quality]"
+
+# Example  
+"Mountain landscape, digital art style, golden hour lighting, highly detailed"
+```
+
+### DALL-E Style Model
+
+<CardGroup cols={2}>
+<Card title="Strengths" icon="star">
+  - Excellent instruction following
+  - Great with complex scene descriptions
+  - Superior text integration
+  - Photorealistic human faces
+</Card>
+
+<Card title="Optimal Settings" icon="sliders-h">
+  - **Steps**: 30-40 (35 recommended)
+  - **Guidance Scale**: 8-12 (10 recommended)
+  - **Resolution**: 1024x1024, 1024x1792, 1792x1024
+  - **Sampler**: DDIM or DPM++ SDE
+</Card>
+</CardGroup>
+
+**Best Prompting Practices**:
+```text
+# DALL-E style model excels with natural language descriptions
+"A photograph of [detailed scene description] captured with 
+[camera/lens details], [lighting conditions], [mood/atmosphere]"
+
+# Example
+"A photograph of a cozy coffee shop interior during a rainy afternoon, 
+captured with a 35mm lens, warm ambient lighting filtering through 
+large windows, creating a peaceful and inviting atmosphere"
+```
+
+## Generation Parameters
+
+### Resolution and Aspect Ratios
+
+<Tabs>
+<Tab title="Square Formats">
+  **1:1 Aspect Ratio**
+  
+  | Resolution | Use Case | Cost |
+  |------------|----------|------|
+  | 512x512 | Social media avatars, icons | 1x |
+  | 768x768 | Instagram posts, thumbnails | 1.5x |
+  | 1024x1024 | High-quality social media, prints | 2x |
+  | 1536x1536 | Large prints, detailed artwork | 3x |
+</Tab>
+
+<Tab title="Portrait Formats">
+  **Vertical Orientations**
+  
+  | Resolution | Aspect Ratio | Use Case |
+  |------------|--------------|----------|
+  | 512x768 | 2:3 | Portrait photography |
+  | 768x1024 | 3:4 | Instagram stories, mobile |
+  | 1024x1536 | 2:3 | Professional portraits |
+  | 1024x1792 | 9:16 | Vertical social media |
+</Tab>
+
+<Tab title="Landscape Formats">
+  **Horizontal Orientations**
+  
+  | Resolution | Aspect Ratio | Use Case |
+  |------------|--------------|----------|
+  | 768x512 | 3:2 | Traditional photography |
+  | 1024x768 | 4:3 | Computer wallpapers |
+  | 1344x768 | 16:9 | Widescreen, YouTube thumbnails |
+  | 1792x1024 | 16:9 | Banner images, headers |
+</Tab>
+</Tabs>
+
+### Quality vs Speed Settings
+
+<AccordionGroup>
+<Accordion title="Draft Quality (Fast)">
+  **For rapid iteration and concept exploration**
+  
+  - **Steps**: 15-20
+  - **Guidance Scale**: 6-8
+  - **Generation Time**: 1-2 seconds
+  - **Cost**: Standard pricing
+  
+  **Best for**: Brainstorming, quick concepts, batch generation
+</Accordion>
+
+<Accordion title="Standard Quality (Balanced)">
+  **For most production use cases**
+  
+  - **Steps**: 25-35
+  - **Guidance Scale**: 7-9
+  - **Generation Time**: 2-4 seconds  
+  - **Cost**: Standard pricing
+  
+  **Best for**: Social media, web use, general content creation
+</Accordion>
+
+<Accordion title="High Quality (Detailed)">
+  **For professional and print applications**
+  
+  - **Steps**: 40-50
+  - **Guidance Scale**: 8-12
+  - **Generation Time**: 4-8 seconds
+  - **Cost**: 1.5x standard pricing
+  
+  **Best for**: Print materials, professional work, detailed artwork
+</Accordion>
+
+<Accordion title="Ultra Quality (Maximum)">
+  **For the highest quality results**
+  
+  - **Steps**: 60-80
+  - **Guidance Scale**: 10-15
+  - **Generation Time**: 8-15 seconds
+  - **Cost**: 2x standard pricing
+  
+  **Best for**: Gallery prints, commercial use, artistic masterpieces
+</Accordion>
+</AccordionGroup>
+
+## Batch Generation and Variations
+
+### Generating Multiple Images
+
+<CodeGroup>
+```python Python SDK
+import requests
+
+def generate_batch_images(prompt, count=4):
+    response = requests.post(
+        "https://api.comput3.ai/v1/generate/image",
+        headers={"Authorization": "Bearer YOUR_API_KEY"},
+        json={
+            "model": "stable-diffusion-xl",
+            "prompt": prompt,
+            "width": 1024,
+            "height": 1024,
+            "num_images": count,
+            "steps": 30,
+            "guidance_scale": 7.5
+        }
+    )
+    
+    result = response.json()
+    return [img["url"] for img in result["images"]]
+
+# Generate 4 variations
+images = generate_batch_images(
+    "A futuristic city skyline at night, neon lights, cyberpunk style"
+)
+```
+
+```bash CLI Batch
+# Generate multiple variations with different seeds
+c3 generate batch \
+  --prompt "Abstract art, colorful geometric shapes" \
+  --model sdxl \
+  --count 8 \
+  --size 1024x1024
+
+# Generate with systematic variations
+c3 generate variations \
+  --base-prompt "Portrait of a person" \
+  --variations "young,middle-aged,elderly" \
+  --styles "realistic,artistic,stylized"
+```
+
+```javascript Node.js
+const generateImageBatch = async (prompt, variations) => {
+  const promises = variations.map(variation => 
+    fetch('https://api.comput3.ai/v1/generate/image', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.COMPUT3_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'stable-diffusion-xl',
+        prompt: `${prompt}, ${variation}`,
+        width: 1024,
+        height: 1024,
+        steps: 30
+      })
+    }).then(res => res.json())
+  );
+  
+  return Promise.all(promises);
+};
+
+// Generate style variations
+const results = await generateImageBatch(
+  "A mountain landscape",
+  ["oil painting style", "photorealistic", "watercolor art", "digital art"]
+);
+```
+</CodeGroup>
+
+### Seed Control and Reproducibility
+
+<Tabs>
+<Tab title="Using Seeds">
+  **Control randomness for reproducible results**:
+  
+  ```json
+  {
+    "model": "stable-diffusion-xl",
+    "prompt": "A red sports car on a mountain road",
+    "seed": 123456789,
+    "width": 1024,
+    "height": 1024,
+    "steps": 30,
+    "guidance_scale": 7.5
+  }
+  ```
+  
+  **Seed Benefits**:
+  - Reproduce exact same image
+  - Create systematic variations
+  - A/B test different parameters
+  - Debug generation issues
+</Tab>
+
+<Tab title="Seed Variations">
+  **Generate similar but different images**:
+  
+  ```python
+  base_seed = 123456789
+  
+  for i in range(5):
+      response = requests.post(api_url, json={
+          "model": "stable-diffusion-xl",
+          "prompt": "A forest path in autumn",
+          "seed": base_seed + i,  # Slight seed variation
+          "width": 1024,
+          "height": 1024
+      })
+  ```
+</Tab>
+
+<Tab title="Random Seeds">
+  **Let the system choose random seeds**:
+  
+  ```json
+  {
+    "model": "stable-diffusion-xl", 
+    "prompt": "Abstract art composition",
+    "seed": null,  // or omit seed parameter
+    "num_images": 4
+  }
+  ```
+  
+  The API will return the seeds used for each image for future reference.
+</Tab>
+</Tabs>
+
+## Image Enhancement and Post-Processing
+
+### Upscaling and Super-Resolution
+
+<AccordionGroup>
+<Accordion title="Real-ESRGAN Upscaling">
+  **Enhance image resolution and quality**
+  
+  ```bash curl
+  curl -X POST "https://api.comput3.ai/v1/enhance/upscale" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "image_url": "https://your-image-url.com/image.jpg",
+      "scale_factor": 4,
+      "model": "realesrgan"
+    }'
+  ```
+  
+  **Options**:
+  - Scale factors: 2x, 4x, 8x
+  - Models: RealESRGAN, ESRGAN, SRCNN
+  - Cost: $0.05 per upscale operation
+</Accordion>
+
+<Accordion title="Face Enhancement">
+  **Improve facial details and quality**
+  
+  ```json
+  {
+    "image_url": "https://your-image-url.com/portrait.jpg",
+    "enhancement_type": "face",
+    "strength": 0.8,
+    "preserve_identity": true
+  }
+  ```
+  
+  **Features**:
+  - Enhance facial features and skin texture
+  - Preserve original identity and characteristics
+  - Adjustable enhancement strength
+  - Cost: $0.03 per enhancement
+</Accordion>
+
+<Accordion title="Background Removal">
+  **Remove or replace backgrounds**
+  
+  ```python
+  response = requests.post(
+      "https://api.comput3.ai/v1/enhance/background",
+      headers={"Authorization": "Bearer YOUR_API_KEY"},
+      json={
+          "image_url": "https://your-image.jpg",
+          "action": "remove",  # or "replace"
+          "new_background": "solid_white"  # if replacing
+      }
+  )
+  ```
+</Accordion>
+</AccordionGroup>
+
+### Style Transfer and Artistic Effects
+
+<Tabs>
+<Tab title="Neural Style Transfer">
+  **Apply artistic styles to existing images**
+  
+  ```json
+  {
+    "content_image": "https://your-photo.jpg",
+    "style_image": "https://style-reference.jpg", 
+    "strength": 0.7,
+    "preserve_content": true
+  }
+  ```
+</Tab>
+
+<Tab title="Preset Artistic Filters">
+  **Quick artistic transformations**
+  
+  ```python
+  filters = [
+      "oil_painting", "watercolor", "pencil_sketch", 
+      "pop_art", "impressionist", "abstract"
+  ]
+  
+  for filter_name in filters:
+      response = requests.post(api_url, json={
+          "image_url": "https://your-image.jpg",
+          "filter": filter_name,
+          "intensity": 0.8
+      })
+  ```
+</Tab>
+</Tabs>
+
+## Commercial Use and Licensing
+
+### Usage Rights and Licensing
+
+<Info>
+Images generated on Comput3 Network come with different licensing options depending on your plan and intended use.
+</Info>
+
+<AccordionGroup>
+<Accordion title="Personal Use License">
+  **Included with all plans**
+  
+  ✅ **Allowed**:
+  - Personal projects and portfolios
+  - Educational and research purposes
+  - Social media posts (personal accounts)
+  - Non-commercial art and creativity
+  
+  ❌ **Not Allowed**:
+  - Commercial sales or licensing
+  - Business marketing materials
+  - Stock photo services
+  - Resale or redistribution
+</Accordion>
+
+<Accordion title="Commercial Use License">
+  **Available with Pro and Enterprise plans**
+  
+  ✅ **Allowed**:
+  - Business marketing and advertising
+  - Product packaging and branding
+  - Website and app content
+  - Print materials and merchandise
+  - Client work and services
+  - Stock photo creation
+  
+  **Additional Requirements**:
+  - Attribution may be required for certain uses
+  - Some models have specific commercial restrictions
+  - Enterprise plans include full commercial rights
+</Accordion>
+
+<Accordion title="Extended Commercial License">
+  **Available as add-on for high-volume use**
+  
+  ✅ **Includes**:
+  - Unlimited commercial usage
+  - Resale and redistribution rights
+  - No attribution requirements
+  - White-label usage rights
+  - Custom licensing terms available
+  
+  **Pricing**: Contact sales for custom pricing
+</Accordion>
+</AccordionGroup>
+
+### Model-Specific Considerations
+
+<Warning>
+Different AI models may have varying licensing restrictions. Always check the specific terms for the model you're using.
+</Warning>
+
+<Tabs>
+<Tab title="Open Source Models">
+  **Stable Diffusion and derivatives**
+  
+  - Generally permissive licensing
+  - Commercial use typically allowed
+  - May require attribution in some cases
+  - Check specific model cards for details
+</Tab>
+
+<Tab title="Proprietary Models">
+  **DALL-E style and custom models**
+  
+  - More restrictive licensing terms
+  - Commercial use may require special licensing
+  - Higher fees for commercial applications
+  - Contact support for specific terms
+</Tab>
+</Tabs>
+
+## Troubleshooting and Tips
+
+### Common Issues and Solutions
+
+<AccordionGroup>
+<Accordion title="Poor Image Quality">
+  **Symptoms**: Blurry, low-detail, or distorted images
+  
+  **Solutions**:
+  - Increase the number of steps (30-50)
+  - Adjust guidance scale (7-12 for most models)
+  - Use negative prompts to exclude quality issues
+  - Try different sampling methods
+  - Increase resolution if budget allows
+  
+  ```text
+  Negative prompt: blurry, low quality, distorted, bad anatomy, 
+  deformed, ugly, pixelated, grainy, artifacts
+  ```
+</Accordion>
+
+<Accordion title="Prompt Not Followed">
+  **Symptoms**: Generated image doesn't match the description
+  
+  **Solutions**:
+  - Be more specific and detailed in prompts
+  - Use attention weighting: `(important detail:1.3)`
+  - Break complex prompts into simpler parts
+  - Try different guidance scale values
+  - Use negative prompts to exclude unwanted elements
+  
+  **Example Improvement**:
+  ❌ "A person in a room"
+  ✅ "A young woman with brown hair sitting in a modern living room, natural lighting, realistic photography style"
+</Accordion>
+
+<Accordion title="Inconsistent Results">
+  **Symptoms**: Wildly different outputs for same prompt
+  
+  **Solutions**:
+  - Use seed values for reproducible results
+  - Increase guidance scale for more prompt adherence
+  - Use more specific and detailed prompts
+  - Try different sampling methods
+  - Generate multiple images and select best results
+</Accordion>
+
+<Accordion title="Anatomical Issues">
+  **Symptoms**: Incorrect hands, faces, or body proportions
+  
+  **Solutions**:
+  - Use negative prompts: `bad anatomy, extra limbs, deformed hands`
+  - Try models specifically trained for human subjects
+  - Use reference images or controlnets
+  - Generate multiple versions and select best anatomy
+  - Consider post-processing with face/hand enhancement
+</Accordion>
+</AccordionGroup>
+
+### Optimization Tips
+
+<CardGroup cols={2}>
+<Card title="Cost Optimization" icon="dollar-sign">
+  - Start with lower resolution for iteration
+  - Use faster models for experimentation
+  - Batch similar requests together
+  - Optimize prompts to reduce generation attempts
+</Card>
+
+<Card title="Quality Optimization" icon="star">
+  - Spend time crafting detailed prompts
+  - Use appropriate negative prompts
+  - Choose the right model for your use case
+  - Experiment with different parameters
+</Card>
+
+<Card title="Speed Optimization" icon="zap">
+  - Use lower step counts for drafts
+  - Choose faster models when quality allows
+  - Batch multiple images in single requests
+  - Use appropriate resolution for final use
+</Card>
+
+<Card title="Workflow Optimization" icon="cogs">
+  - Save successful prompts and settings
+  - Use seeds for reproducible results
+  - Create prompt templates for common use cases
+  - Organize generated images with metadata
+</Card>
+</CardGroup>
+
+## Next Steps
+
+<CardGroup cols={3}>
+<Card title="Video Generation" icon="video" href="/generate-medias/videos">
+  Learn how to create AI-generated videos and animations.
+</Card>
+
+<Card title="API Reference" icon="code" href="/api">
+  Complete API documentation for image generation endpoints.
+</Card>
+
+<Card title="Advanced Techniques" icon="graduation-cap" href="/generate-medias/advanced">
+  Explore advanced techniques like ControlNet, LoRA, and custom models.
+</Card>
+</CardGroup>

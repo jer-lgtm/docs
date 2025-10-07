@@ -1,0 +1,513 @@
+---
+title: "MCP Setup"
+description: "Configure Model Context Protocol servers and connections with Comput3 Network"
+icon: "cogs"
+---
+
+Set up Model Context Protocol (MCP) servers to connect your AI models to external data sources and tools through Comput3 Network.
+
+## Prerequisites
+
+- Comput3 Network account with API access
+- Data sources or tools you want to connect
+- Basic understanding of JSON configuration
+
+## Quick Setup
+
+<Steps>
+<Step title="Access MCP Configuration">
+  Navigate to the MCP section in your Comput3 dashboard.
+  
+  ```
+  https://app.comput3.ai/mcp
+  ```
+  
+  <Info>
+  MCP configuration is available for Standard tier and above stakers.
+  </Info>
+</Step>
+
+<Step title="Choose Integration Type">
+  Select from pre-built integrations or create custom configurations.
+  
+  <Tabs>
+  <Tab title="Pre-built Integrations">
+    **Ready-to-use connectors for popular services**
+    - GitHub repositories and issues
+    - Google Workspace (Drive, Docs, Sheets)
+    - Slack workspaces and channels
+    - Database connections (PostgreSQL, MySQL)
+    - File system access
+  </Tab>
+  
+  <Tab title="Custom Integrations">
+    **Build your own MCP server configurations**
+    - Custom API endpoints
+    - Internal business systems
+    - Specialized databases
+    - Custom tool implementations
+  </Tab>
+  </Tabs>
+</Step>
+
+<Step title="Configure Authentication">
+  Set up secure authentication for your data sources.
+  
+  <AccordionGroup>
+  <Accordion title="OAuth 2.0">
+    **For services like GitHub, Google, Slack**
+    
+    ```json
+    {
+      "authentication": {
+        "type": "oauth",
+        "client_id": "your-app-client-id",
+        "client_secret": "your-app-secret",
+        "scopes": ["read", "write"],
+        "redirect_uri": "https://app.comput3.ai/mcp/callback"
+      }
+    }
+    ```
+  </Accordion>
+  
+  <Accordion title="API Keys">
+    **For services with API key authentication**
+    
+    ```json
+    {
+      "authentication": {
+        "type": "api_key",
+        "key": "your-api-key",
+        "header": "Authorization",
+        "prefix": "Bearer"
+      }
+    }
+    ```
+  </Accordion>
+  
+  <Accordion title="Database Credentials">
+    **For direct database connections**
+    
+    ```json
+    {
+      "authentication": {
+        "type": "credentials",
+        "username": "readonly_user",
+        "password_env": "DB_PASSWORD",
+        "ssl_required": true
+      }
+    }
+    ```
+  </Accordion>
+  </AccordionGroup>
+</Step>
+
+<Step title="Test Connection">
+  Verify your MCP server configuration works correctly.
+  
+  ```bash
+  # Test MCP connection
+  curl -X POST "https://api.comput3.ai/v1/mcp/test" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
+    -d '{"server_id": "your-mcp-server-id"}'
+  ```
+  
+  <Check>
+  Successful test returns available resources and tools from your MCP server.
+  </Check>
+</Step>
+</Steps>
+
+## Configuration Examples
+
+### GitHub Repository Access
+
+<CodeGroup>
+```json Basic GitHub Setup
+{
+  "name": "company-repos",
+  "description": "Access to company GitHub repositories",
+  "server_type": "github",
+  "config": {
+    "base_url": "https://api.github.com",
+    "authentication": {
+      "type": "oauth",
+      "client_id": "your-github-app-id",
+      "scopes": ["repo", "issues", "pull_requests"]
+    },
+    "resources": {
+      "repositories": ["company/frontend", "company/backend", "company/docs"],
+      "include_issues": true,
+      "include_prs": true,
+      "include_commits": true
+    },
+    "permissions": {
+      "read_only": true,
+      "max_results": 100
+    }
+  }
+}
+```
+
+```json Advanced GitHub Setup
+{
+  "name": "github-full-access",
+  "description": "Full GitHub organization access",
+  "server_type": "github",
+  "config": {
+    "base_url": "https://api.github.com",
+    "authentication": {
+      "type": "github_app",
+      "app_id": "123456",
+      "private_key_env": "GITHUB_PRIVATE_KEY",
+      "installation_id": "789012"
+    },
+    "resources": {
+      "organization": "your-org",
+      "include_private": true,
+      "include_forks": false
+    },
+    "tools": [
+      "create_issue",
+      "comment_on_pr",
+      "create_branch",
+      "search_code"
+    ]
+  }
+}
+```
+</CodeGroup>
+
+### Database Integration
+
+<CodeGroup>
+```json PostgreSQL Setup
+{
+  "name": "analytics-db",
+  "description": "Analytics database for business intelligence",
+  "server_type": "postgresql",
+  "config": {
+    "connection": {
+      "host": "analytics.company.com",
+      "port": 5432,
+      "database": "analytics",
+      "ssl_mode": "require"
+    },
+    "authentication": {
+      "type": "credentials",
+      "username": "ai_readonly",
+      "password_env": "ANALYTICS_DB_PASSWORD"
+    },
+    "permissions": {
+      "read_only": true,
+      "allowed_schemas": ["public", "analytics"],
+      "allowed_tables": ["users", "events", "metrics"],
+      "row_limit": 10000,
+      "query_timeout": 30
+    }
+  }
+}
+```
+
+```json MongoDB Setup
+{
+  "name": "user-data",
+  "description": "User data and preferences",
+  "server_type": "mongodb",
+  "config": {
+    "connection": {
+      "uri": "mongodb+srv://cluster.mongodb.net/userdata",
+      "options": {
+        "ssl": true,
+        "authSource": "admin"
+      }
+    },
+    "authentication": {
+      "type": "credentials",
+      "username": "ai_user",
+      "password_env": "MONGO_PASSWORD"
+    },
+    "permissions": {
+      "read_only": true,
+      "allowed_collections": ["users", "preferences", "sessions"],
+      "document_limit": 1000
+    }
+  }
+}
+```
+</CodeGroup>
+
+### Slack Workspace Integration
+
+```json
+{
+  "name": "team-slack",
+  "description": "Team Slack workspace for communication",
+  "server_type": "slack",
+  "config": {
+    "workspace": "your-team.slack.com",
+    "authentication": {
+      "type": "oauth",
+      "bot_token_env": "SLACK_BOT_TOKEN",
+      "scopes": ["channels:read", "chat:write", "files:read"]
+    },
+    "resources": {
+      "channels": ["#general", "#development", "#support"],
+      "include_dms": false,
+      "include_files": true,
+      "history_limit": 1000
+    },
+    "tools": [
+      "send_message",
+      "upload_file",
+      "search_messages"
+    ]
+  }
+}
+```
+
+## Advanced Configuration
+
+### Custom MCP Servers
+
+<AccordionGroup>
+<Accordion title="REST API Server">
+  **Connect to any REST API as an MCP server**
+  
+  ```json
+  {
+    "name": "custom-api",
+    "server_type": "rest_api",
+    "config": {
+      "base_url": "https://api.yourcompany.com",
+      "authentication": {
+        "type": "api_key",
+        "key_env": "CUSTOM_API_KEY",
+        "header": "X-API-Key"
+      },
+      "endpoints": [
+        {
+          "name": "get_users",
+          "method": "GET",
+          "path": "/users",
+          "description": "Retrieve user list"
+        },
+        {
+          "name": "create_ticket",
+          "method": "POST", 
+          "path": "/tickets",
+          "description": "Create support ticket"
+        }
+      ]
+    }
+  }
+  ```
+</Accordion>
+
+<Accordion title="File System Access">
+  **Connect to local or network file systems**
+  
+  ```json
+  {
+    "name": "document-storage",
+    "server_type": "filesystem",
+    "config": {
+      "root_path": "/data/documents",
+      "permissions": {
+        "read_only": true,
+        "allowed_extensions": [".txt", ".md", ".pdf", ".docx"],
+        "max_file_size": "10MB"
+      },
+      "indexing": {
+        "enable_search": true,
+        "index_content": true,
+        "update_interval": "1h"
+      }
+    }
+  }
+  ```
+</Accordion>
+
+<Accordion title="WebSocket Streams">
+  **Real-time data streaming**
+  
+  ```json
+  {
+    "name": "live-data-feed",
+    "server_type": "websocket",
+    "config": {
+      "url": "wss://data.yourcompany.com/stream",
+      "authentication": {
+        "type": "token",
+        "token_env": "STREAM_TOKEN"
+      },
+      "subscription": {
+        "topics": ["user_events", "system_metrics"],
+        "buffer_size": 1000,
+        "max_age": "5m"
+      }
+    }
+  }
+  ```
+</Accordion>
+</AccordionGroup>
+
+### Environment Variables
+
+Secure credential management using environment variables:
+
+<Tabs>
+<Tab title="Local Development">
+  **Set up environment variables for development**
+  
+  ```bash
+  # Create .env file
+  cat > .env << EOF
+  GITHUB_CLIENT_ID=your_github_client_id
+  GITHUB_CLIENT_SECRET=your_github_secret
+  DB_PASSWORD=your_database_password
+  SLACK_BOT_TOKEN=xoxb-your-slack-token
+  CUSTOM_API_KEY=your_custom_api_key
+  EOF
+  
+  # Load environment variables
+  source .env
+  ```
+</Tab>
+
+<Tab title="Production Deployment">
+  **Secure production credential management**
+  
+  ```bash
+  # Using Docker secrets
+  docker run -d \
+    --name comput3-mcp \
+    --env-file /secure/mcp.env \
+    comput3/mcp-server
+  
+  # Using Kubernetes secrets
+  kubectl create secret generic mcp-secrets \
+    --from-literal=github-token=your-token \
+    --from-literal=db-password=your-password
+  ```
+</Tab>
+
+<Tab title="Cloud Integration">
+  **Cloud-native secret management**
+  
+  ```yaml
+  # AWS Secrets Manager
+  secrets:
+    github_token:
+      from_secret_manager: "prod/mcp/github-token"
+    db_credentials:
+      from_secret_manager: "prod/mcp/database-creds"
+  
+  # Google Secret Manager
+  secrets:
+    slack_token:
+      from_secret_manager: "projects/your-project/secrets/slack-token"
+  ```
+</Tab>
+</Tabs>
+
+## Monitoring and Debugging
+
+### Connection Health
+
+<CardGroup cols={2}>
+<Card title="Health Checks" icon="heartbeat">
+  Automatic health monitoring for all MCP connections with alerts.
+</Card>
+
+<Card title="Performance Metrics" icon="chart-line">
+  Track response times, success rates, and resource utilization.
+</Card>
+
+<Card title="Error Logging" icon="exclamation-triangle">
+  Comprehensive error logging and debugging information.
+</Card>
+
+<Card title="Usage Analytics" icon="analytics">
+  Detailed analytics on MCP resource usage and optimization opportunities.
+</Card>
+</CardGroup>
+
+### Troubleshooting
+
+<AccordionGroup>
+<Accordion title="Connection Failures">
+  **Common connection issues and solutions**
+  
+  **Symptoms**: MCP server not responding or timing out
+  
+  **Solutions**:
+  - Verify network connectivity to target services
+  - Check authentication credentials and permissions
+  - Validate JSON configuration syntax
+  - Review firewall and security group settings
+  - Test credentials independently outside MCP
+</Accordion>
+
+<Accordion title="Authentication Errors">
+  **Authentication and authorization problems**
+  
+  **Symptoms**: "Unauthorized" or "Forbidden" errors
+  
+  **Solutions**:
+  - Verify API keys or OAuth tokens are current
+  - Check required scopes and permissions
+  - Ensure environment variables are set correctly
+  - Test authentication with provider's API directly
+  - Review rate limiting and quota restrictions
+</Accordion>
+
+<Accordion title="Performance Issues">
+  **Slow response times or timeouts**
+  
+  **Symptoms**: Long delays or timeout errors
+  
+  **Solutions**:
+  - Optimize database queries and add indexes
+  - Implement caching for frequently accessed data
+  - Reduce result set sizes with filters
+  - Use connection pooling for database connections
+  - Configure appropriate timeout values
+</Accordion>
+</AccordionGroup>
+
+## Best Practices
+
+<CardGroup cols={2}>
+<Card title="Security First" icon="shield-check">
+  Always use least-privilege access and secure credential storage.
+</Card>
+
+<Card title="Performance Optimization" icon="zap">
+  Implement caching, connection pooling, and result limiting for better performance.
+</Card>
+
+<Card title="Error Handling" icon="exclamation-triangle">
+  Design robust error handling and fallback mechanisms for production use.
+</Card>
+
+<Card title="Monitoring" icon="eye">
+  Set up comprehensive monitoring and alerting for all MCP connections.
+</Card>
+</CardGroup>
+
+## Next Steps
+
+<CardGroup cols={3}>
+<Card title="Available Tools" icon="toolbox" href="/mcp/tools">
+  Explore pre-built MCP tools and integrations.
+</Card>
+
+<Card title="Custom Development" icon="code">
+  Learn how to build custom MCP servers for your needs.
+</Card>
+
+<Card title="API Reference" icon="book" href="/api">
+  Complete API documentation for MCP management.
+</Card>
+</CardGroup>

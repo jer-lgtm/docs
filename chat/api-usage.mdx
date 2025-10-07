@@ -1,0 +1,565 @@
+---
+title: "Chat API Usage"
+description: "Integrate Comput3's chat API into your applications"
+icon: "code"
+---
+
+Build custom chat applications using the Comput3 Network API with OpenAI-compatible endpoints.
+
+## Quick Start
+
+<Steps>
+<Step title="Get API Key">
+  Obtain your API key from the [Comput3 Dashboard](https://app.comput3.ai/dashboard/api-keys).
+</Step>
+
+<Step title="Make Your First Request">
+  Send a simple chat completion request:
+  
+  ```bash curl
+  curl -X POST "https://api.comput3.ai/v1/chat/completions" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "model": "deepseek-v3.1",
+      "messages": [
+        {"role": "user", "content": "Hello, world!"}
+      ]
+    }'
+  ```
+</Step>
+
+<Step title="Handle the Response">
+  Process the JSON response:
+  
+  ```json
+  {
+    "id": "chatcmpl-123",
+    "object": "chat.completion",
+    "created": 1677652288,
+    "model": "deepseek-v3.1",
+    "choices": [{
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Hello! How can I help you today?"
+      },
+      "finish_reason": "stop"
+    }],
+    "usage": {
+      "prompt_tokens": 9,
+      "completion_tokens": 12,
+      "total_tokens": 21
+    }
+  }
+  ```
+</Step>
+</Steps>
+
+## API Endpoints
+
+### Chat Completions
+
+**Endpoint**: `POST /v1/chat/completions`
+
+Create a chat completion with conversation context.
+
+<ParamField body="model" type="string" required>
+The model to use for completion. Available models:
+- `deepseek-v3.1` - Latest DeepSeek model for coding and general tasks
+- `hermes4:70b` - Hermes 4 model (70B parameters) for advanced reasoning
+- `hermes4:405b` - Largest Hermes 4 model (405B parameters) for complex tasks
+- `qwen3-coder:480b` - Massive Qwen3 Coder model for advanced coding tasks
+- `kimi-k2` - Kimi K2 model for general conversation
+</ParamField>
+
+<ParamField body="messages" type="array" required>
+Array of message objects representing the conversation history.
+
+<Expandable title="Message Object Structure">
+  <ParamField body="role" type="string" required>
+  The role of the message author: `system`, `user`, or `assistant`
+  </ParamField>
+  
+  <ParamField body="content" type="string" required>
+  The content of the message
+  </ParamField>
+  
+  <ParamField body="name" type="string">
+  Optional name for the message author
+  </ParamField>
+</Expandable>
+</ParamField>
+
+<ParamField body="temperature" type="number" default="1">
+Controls randomness. Range: 0.0 to 2.0
+</ParamField>
+
+<ParamField body="max_tokens" type="integer">
+Maximum number of tokens to generate
+</ParamField>
+
+<ParamField body="stream" type="boolean" default="false">
+Whether to stream partial message deltas
+</ParamField>
+
+<ParamField body="stop" type="string | array">
+Sequences where the API will stop generating tokens
+</ParamField>
+
+## SDK Examples
+
+### Python
+
+<CodeGroup>
+```python OpenAI SDK
+import openai
+
+client = openai.OpenAI(
+    api_key="YOUR_COMPUT3_API_KEY",
+    base_url="https://api.comput3.ai/v1"
+)
+
+response = client.chat.completions.create(
+    model="deepseek-v3.1",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Explain quantum computing"}
+    ],
+    temperature=0.7,
+    max_tokens=500
+)
+
+print(response.choices[0].message.content)
+```
+
+```python Requests Library
+import requests
+import json
+
+url = "https://api.comput3.ai/v1/chat/completions"
+headers = {
+    "Authorization": "Bearer YOUR_COMPUT3_API_KEY",
+    "Content-Type": "application/json"
+}
+
+data = {
+    "model": "deepseek-v3.1",
+    "messages": [
+        {"role": "user", "content": "Hello, how are you?"}
+    ],
+    "temperature": 0.7
+}
+
+response = requests.post(url, headers=headers, json=data)
+result = response.json()
+
+print(result["choices"][0]["message"]["content"])
+```
+
+```python Async Example
+import asyncio
+import aiohttp
+import json
+
+async def chat_completion(message):
+    url = "https://api.comput3.ai/v1/chat/completions"
+    headers = {
+        "Authorization": "Bearer YOUR_COMPUT3_API_KEY",
+        "Content-Type": "application/json"
+    }
+    
+    data = {
+        "model": "kimi-k2",
+        "messages": [{"role": "user", "content": message}]
+    }
+    
+    async with aiohttp.ClientSession() as session:
+        async with session.post(url, headers=headers, json=data) as response:
+            result = await response.json()
+            return result["choices"][0]["message"]["content"]
+
+# Usage
+async def main():
+    response = await chat_completion("What is machine learning?")
+    print(response)
+
+asyncio.run(main())
+```
+</CodeGroup>
+
+### JavaScript/Node.js
+
+<CodeGroup>
+```javascript OpenAI SDK
+import OpenAI from 'openai';
+
+const client = new OpenAI({
+  apiKey: 'YOUR_COMPUT3_API_KEY',
+  baseURL: 'https://api.comput3.ai/v1'
+});
+
+const response = await client.chat.completions.create({
+  model: 'gpt-4',
+  messages: [
+    { role: 'system', content: 'You are a helpful assistant.' },
+    { role: 'user', content: 'Explain blockchain technology' }
+  ],
+  temperature: 0.7,
+  max_tokens: 500
+});
+
+console.log(response.choices[0].message.content);
+```
+
+```javascript Fetch API
+const response = await fetch('https://api.comput3.ai/v1/chat/completions', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer YOUR_COMPUT3_API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    model: 'hermes4:70b',
+    messages: [
+      { role: 'user', content: 'Hello, world!' }
+    ]
+  })
+});
+
+const data = await response.json();
+console.log(data.choices[0].message.content);
+```
+
+```javascript React Hook
+import { useState, useCallback } from 'react';
+
+const useChatCompletion = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const sendMessage = useCallback(async (messages) => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const response = await fetch('https://api.comput3.ai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.REACT_APP_COMPUT3_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: 'hermes4:70b',
+          messages
+        })
+      });
+      
+      const data = await response.json();
+      return data.choices[0].message.content;
+    } catch (err) {
+      setError(err.message);
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  return { sendMessage, loading, error };
+};
+```
+</CodeGroup>
+
+## Streaming Responses
+
+Enable real-time response streaming for better user experience:
+
+<CodeGroup>
+```python Python Streaming
+import openai
+
+client = openai.OpenAI(
+    api_key="YOUR_COMPUT3_API_KEY",
+    base_url="https://api.comput3.ai/v1"
+)
+
+stream = client.chat.completions.create(
+    model="deepseek-v3.1",
+    messages=[{"role": "user", "content": "Write a short story"}],
+    stream=True
+)
+
+for chunk in stream:
+    if chunk.choices[0].delta.content is not None:
+        print(chunk.choices[0].delta.content, end="")
+```
+
+```javascript JavaScript Streaming
+const response = await fetch('https://api.comput3.ai/v1/chat/completions', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer YOUR_COMPUT3_API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    model: 'gpt-4',
+    messages: [{ role: 'user', content: 'Tell me a joke' }],
+    stream: true
+  })
+});
+
+const reader = response.body.getReader();
+const decoder = new TextDecoder();
+
+while (true) {
+  const { done, value } = await reader.read();
+  if (done) break;
+  
+  const chunk = decoder.decode(value);
+  const lines = chunk.split('\n');
+  
+  for (const line of lines) {
+    if (line.startsWith('data: ')) {
+      const data = line.slice(6);
+      if (data === '[DONE]') return;
+      
+      try {
+        const parsed = JSON.parse(data);
+        const content = parsed.choices[0]?.delta?.content;
+        if (content) {
+          console.log(content);
+        }
+      } catch (e) {
+        // Skip invalid JSON
+      }
+    }
+  }
+}
+```
+</CodeGroup>
+
+## Advanced Features
+
+### Function Calling
+
+Enable the model to call external functions:
+
+```python
+functions = [
+    {
+        "name": "get_weather",
+        "description": "Get current weather for a location",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "location": {
+                    "type": "string",
+                    "description": "City name"
+                }
+            },
+            "required": ["location"]
+        }
+    }
+]
+
+response = client.chat.completions.create(
+    model="deepseek-v3.1",
+    messages=[
+        {"role": "user", "content": "What's the weather in New York?"}
+    ],
+    functions=functions,
+    function_call="auto"
+)
+```
+
+### Conversation Memory
+
+Maintain conversation context across multiple requests:
+
+```python
+class ChatSession:
+    def __init__(self, system_prompt=None):
+        self.messages = []
+        if system_prompt:
+            self.messages.append({"role": "system", "content": system_prompt})
+    
+    def send_message(self, content):
+        self.messages.append({"role": "user", "content": content})
+        
+        response = client.chat.completions.create(
+            model="hermes4:70b",
+            messages=self.messages
+        )
+        
+        assistant_message = response.choices[0].message.content
+        self.messages.append({"role": "assistant", "content": assistant_message})
+        
+        return assistant_message
+
+# Usage
+chat = ChatSession("You are a helpful programming assistant.")
+response1 = chat.send_message("How do I create a Python list?")
+response2 = chat.send_message("Can you show me an example?")
+```
+
+## Error Handling
+
+Implement robust error handling for production applications:
+
+<CodeGroup>
+```python Python Error Handling
+import openai
+from openai import OpenAI
+import time
+
+client = OpenAI(
+    api_key="YOUR_COMPUT3_API_KEY",
+    base_url="https://api.comput3.ai/v1"
+)
+
+def chat_with_retry(messages, max_retries=3):
+    for attempt in range(max_retries):
+        try:
+            response = client.chat.completions.create(
+                model="hermes4:70b",
+                messages=messages
+            )
+            return response.choices[0].message.content
+            
+        except openai.RateLimitError:
+            if attempt < max_retries - 1:
+                time.sleep(2 ** attempt)  # Exponential backoff
+                continue
+            raise
+            
+        except openai.APIError as e:
+            print(f"API error: {e}")
+            raise
+            
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            raise
+```
+
+```javascript JavaScript Error Handling
+async function chatWithRetry(messages, maxRetries = 3) {
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      const response = await fetch('https://api.comput3.ai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer YOUR_COMPUT3_API_KEY',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: 'hermes4:70b',
+          messages
+        })
+      });
+
+      if (response.status === 429) {
+        // Rate limited
+        const delay = Math.pow(2, attempt) * 1000;
+        await new Promise(resolve => setTimeout(resolve, delay));
+        continue;
+      }
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      return data.choices[0].message.content;
+
+    } catch (error) {
+      if (attempt === maxRetries - 1) {
+        throw error;
+      }
+    }
+  }
+}
+```
+</CodeGroup>
+
+## Rate Limiting and Optimization
+
+### Managing Rate Limits
+
+<AccordionGroup>
+<Accordion title="Request Queuing">
+  Implement a queue system for high-volume applications:
+  
+  ```python
+  import asyncio
+  from asyncio import Semaphore
+
+  class RateLimitedClient:
+      def __init__(self, max_concurrent=5):
+          self.semaphore = Semaphore(max_concurrent)
+          self.client = OpenAI(
+              api_key="YOUR_COMPUT3_API_KEY",
+              base_url="https://api.comput3.ai/v1"
+          )
+
+      async def chat_completion(self, messages):
+          async with self.semaphore:
+              response = await self.client.chat.completions.create(
+                  model="hermes4:70b",
+                  messages=messages
+              )
+              return response.choices[0].message.content
+  ```
+</Accordion>
+
+<Accordion title="Token Optimization">
+  Optimize token usage to reduce costs:
+  
+  ```python
+  def optimize_messages(messages, max_tokens=4000):
+      """Truncate conversation history to fit within token limits"""
+      total_tokens = sum(len(msg["content"].split()) * 1.3 for msg in messages)
+      
+      while total_tokens > max_tokens and len(messages) > 2:
+          # Remove oldest messages but keep system message
+          if messages[0]["role"] == "system":
+              messages.pop(1)
+          else:
+              messages.pop(0)
+          total_tokens = sum(len(msg["content"].split()) * 1.3 for msg in messages)
+      
+      return messages
+  ```
+</Accordion>
+</AccordionGroup>
+
+## Best Practices
+
+<CardGroup cols={2}>
+<Card title="Security" icon="shield-check">
+  - Store API keys as environment variables
+  - Use HTTPS for all requests
+  - Implement proper authentication
+  - Validate and sanitize user inputs
+</Card>
+
+<Card title="Performance" icon="zap">
+  - Use appropriate models for each task
+  - Implement response caching
+  - Use streaming for long responses
+  - Monitor token usage and costs
+</Card>
+
+<Card title="Error Handling" icon="exclamation-triangle">
+  - Implement retry logic with exponential backoff
+  - Handle rate limiting gracefully
+  - Log errors for debugging
+  - Provide fallback responses
+</Card>
+
+<Card title="User Experience" icon="heart">
+  - Show loading states during API calls
+  - Implement typing indicators
+  - Cache frequent responses
+  - Provide offline functionality where possible
+</Card>
+</CardGroup>

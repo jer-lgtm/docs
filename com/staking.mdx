@@ -1,0 +1,473 @@
+---
+title: "COM Token Staking"
+description: "Complete guide to staking COM tokens for network access and rewards"
+icon: "lock"
+---
+
+Stake your COM tokens through Streamflow's secure staking protocol to earn continuous access credits for Comput3 Network services. This guide covers everything from basic staking to advanced strategies.
+
+## Staking Overview
+
+COM token staking through Streamflow is the primary mechanism for accessing Comput3 Network services without traditional payments. By locking your tokens in Streamflow's secure staking protocol, you earn credits that can be used for API calls, GPU compute, and media generation.
+
+<CardGroup cols={2}>
+<Card title="Continuous Rewards" icon="infinity">
+  Earn credits 24/7 while your tokens remain staked in the network.
+</Card>
+
+<Card title="Flexible Terms" icon="calendar">
+  Choose from multiple staking periods with different reward rates.
+</Card>
+
+<Card title="Instant Access" icon="zap">
+  Start using earned credits immediately after staking confirmation.
+</Card>
+
+<Card title="Compound Growth" icon="chart-line">
+  Restake rewards to increase your earning potential over time.
+</Card>
+</CardGroup>
+
+## How to Stake COM Tokens
+
+<Steps>
+<Step title="Connect Your Wallet">
+  Connect your Web3 wallet to the Streamflow-powered staking interface.
+  
+  <Tabs>
+  <Tab title="MetaMask">
+    1. Install MetaMask browser extension
+    2. Import or create wallet
+    3. Add Ethereum network if needed
+    4. Visit [app.comput3.ai/stake](https://app.comput3.ai/stake)
+    5. Click "Connect Wallet" (redirects to Streamflow)
+  </Tab>
+  
+  <Tab title="WalletConnect">
+    1. Open your preferred mobile wallet
+    2. Navigate to WalletConnect or DApp browser
+    3. Scan QR code from staking interface
+    4. Approve connection request
+  </Tab>
+  
+  <Tab title="Hardware Wallet">
+    1. Connect Ledger or Trezor device
+    2. Install Ethereum app on device
+    3. Use MetaMask with hardware wallet
+    4. Confirm transactions on device
+  </Tab>
+  </Tabs>
+</Step>
+
+<Step title="Choose Staking Amount">
+  Select how many COM tokens you want to stake.
+  
+  <ParamField path="Minimum Stake" type="number">
+  **10 COM** - Minimum amount required to start earning credits
+  </ParamField>
+  
+  <ParamField path="Recommended Stakes" type="array">
+  - **100 COM**: Basic tier with daily credits
+  - **500 COM**: Standard tier with enhanced rates  
+  - **2,000 COM**: Premium tier with priority access
+  - **10,000 COM**: Enterprise tier with maximum benefits
+  </ParamField>
+  
+  <Warning>
+  Only stake tokens you can afford to lock up for the chosen duration.
+  </Warning>
+</Step>
+
+<Step title="Select Staking Period">
+  Choose your staking duration based on your needs and risk tolerance.
+  
+  | Duration | APY | Credit Multiplier | Flexibility |
+  |----------|-----|-------------------|-------------|
+  | **7 Days** | 5% | 1.0x | High |
+  | **30 Days** | 8% | 1.2x | Medium |
+  | **90 Days** | 12% | 1.5x | Medium |
+  | **365 Days** | 18% | 2.0x | Low |
+  
+  <Tip>
+  Longer staking periods offer higher rewards but reduce liquidity. Consider your usage patterns when choosing.
+  </Tip>
+</Step>
+
+<Step title="Confirm Transaction">
+  Review your staking details and confirm the Streamflow staking transaction.
+  
+  ```json
+  {
+    "stakingAmount": "1000 COM",
+    "stakingPeriod": "90 days",
+    "estimatedAPY": "12%",
+    "dailyCredits": "400 credits",
+    "streamflowContract": "0x...",
+    "gasEstimate": "0.003 ETH"
+  }
+  ```
+  
+  <Check>
+  Your tokens are securely locked in Streamflow's audited smart contracts and will start earning credits immediately.
+  </Check>
+</Step>
+</Steps>
+
+## Streamflow Integration
+
+### Why Streamflow?
+
+<CardGroup cols={2}>
+<Card title="Battle-Tested Security" icon="shield-check">
+  Streamflow's smart contracts have been audited multiple times and secure billions in TVL across DeFi protocols.
+</Card>
+
+<Card title="Proven Infrastructure" icon="cogs">
+  Industry-leading token streaming and staking infrastructure trusted by major DeFi projects.
+</Card>
+
+<Card title="Advanced Features" icon="sparkles">
+  Sophisticated staking mechanics including vesting schedules, cliff periods, and automated distributions.
+</Card>
+
+<Card title="Multi-Chain Support" icon="link">
+  Native support for Ethereum, Solana, and other major blockchain networks.
+</Card>
+</CardGroup>
+
+### Streamflow Staking Features
+
+<AccordionGroup>
+<Accordion title="Smart Contract Security">
+  **Multiple security audits and formal verification**
+  
+  - Audited by Trail of Bits, Quantstamp, and other leading firms
+  - Formal verification of critical staking logic
+  - Bug bounty program with $1M+ rewards
+  - Multi-sig governance and emergency controls
+  
+  <Info>
+  All Streamflow contracts are open-source and verifiable on-chain.
+  </Info>
+</Accordion>
+
+<Accordion title="Flexible Staking Terms">
+  **Customizable staking periods and reward structures**
+  
+  - Linear and cliff-based vesting schedules
+  - Automated reward distribution
+  - Early unstaking penalties and governance
+  - Compound staking for enhanced yields
+</Accordion>
+
+<Accordion title="Real-time Monitoring">
+  **Comprehensive tracking and analytics**
+  
+  - Real-time staking position monitoring
+  - Reward accrual tracking
+  - Historical performance analytics
+  - Gas optimization for transactions
+</Accordion>
+</AccordionGroup>
+
+### Streamflow Dashboard
+
+Access your Streamflow-powered staking positions at [app.comput3.ai/stake](https://app.comput3.ai/stake):
+
+<Frame>
+<img src="/images/streamflow-staking-dashboard.png" alt="Streamflow-powered COM token staking dashboard showing positions, rewards, and management options" />
+</Frame>
+
+## Staking Interface
+
+### Dashboard Overview
+
+Access your staking dashboard at [app.comput3.ai/stake](https://app.comput3.ai/stake):
+
+<Frame>
+<img src="/images/staking-dashboard.png" alt="COM token staking dashboard showing current stakes, rewards, and available actions" />
+</Frame>
+
+**Key Features:**
+- **Current Stakes**: View all active staking positions
+- **Available Credits**: See your current credit balance
+- **Reward History**: Track earnings over time
+- **Unstaking Queue**: Manage pending unstake requests
+
+### Staking Actions
+
+<AccordionGroup>
+<Accordion title="Stake Additional Tokens">
+  **Add more tokens to existing stakes or create new positions**
+  
+  1. Click "Stake More" on your dashboard
+  2. Choose additional amount to stake
+  3. Select same or different staking period
+  4. Confirm transaction
+  
+  **Benefits**:
+  - Compound your earning potential
+  - Access higher reward tiers
+  - Diversify staking periods
+</Accordion>
+
+<Accordion title="Claim Rewards">
+  **Claim earned COM tokens from staking rewards**
+  
+  ```bash
+  # Example claiming rewards
+  comput3 claim-rewards --stake-id 12345
+  ```
+  
+  **Options**:
+  - Claim to wallet (liquid tokens)
+  - Restake rewards (compound growth)
+  - Convert to credits (immediate usage)
+</Accordion>
+
+<Accordion title="Unstake Tokens">
+  **Remove tokens from staking (subject to lock periods)**
+  
+  **Process**:
+  1. Request unstaking from dashboard
+  2. Wait for unbonding period (7-14 days)
+  3. Claim unstaked tokens to wallet
+  
+  **Important Notes**:
+  - Early unstaking may incur penalties
+  - Credits stop accumulating immediately
+  - Partial unstaking is supported
+</Accordion>
+
+<Accordion title="Emergency Unstake">
+  **Immediate unstaking with penalty fees**
+  
+  **When Available**:
+  - Network emergencies
+  - Smart contract upgrades
+  - Governance decisions
+  
+  **Penalty Structure**:
+  - 0-30 days: 25% penalty
+  - 30-90 days: 15% penalty
+  - 90+ days: 5% penalty
+</Accordion>
+</AccordionGroup>
+
+## Credit Earning System
+
+### How Credits Work
+
+Credits are earned continuously while your tokens are staked and can be used to access all Comput3 Network services without additional payments.
+
+<Tabs>
+<Tab title="Earning Rate">
+  **Credits earned per day based on staked amount**
+  
+  ```javascript
+  // Credit calculation formula
+  dailyCredits = stakedAmount * baseDailyRate * periodMultiplier * tierBonus
+  
+  // Example: 1000 COM staked for 90 days
+  dailyCredits = 1000 * 0.4 * 1.5 * 1.0 = 600 credits/day
+  ```
+</Tab>
+
+<Tab title="Usage Rates">
+  **Credit consumption for different services**
+  
+  | Service | Credit Cost | Example Usage |
+  |---------|-------------|---------------|
+  | Chat API Call | 0.1 credits | 6,000 calls/day |
+  | Image Generation | 2 credits | 300 images/day |
+  | GPU Hour (A100) | 100 credits | 6 hours/day |
+  | Video Generation | 10 credits | 60 videos/day |
+</Tab>
+
+<Tab title="Credit Management">
+  **Managing your credit balance**
+  
+  - **Auto-renewal**: Credits automatically replenish daily
+  - **Rollover**: Unused credits accumulate (up to 30-day limit)
+  - **Sharing**: Transfer credits between team members
+  - **Monitoring**: Real-time usage tracking and alerts
+</Tab>
+</Tabs>
+
+### Credit Optimization Strategies
+
+<AccordionGroup>
+<Accordion title="Maximize Earning Rate">
+  **Strategies to earn more credits per staked token**
+  
+  1. **Longer Staking Periods**: Choose 90+ day periods for multiplier bonuses
+  2. **Tier Optimization**: Stake amounts that reach next tier thresholds
+  3. **Compound Rewards**: Restake earned tokens to increase base amount
+  4. **Early Bird Bonuses**: Stake during promotional periods
+</Accordion>
+
+<Accordion title="Efficient Usage">
+  **Use credits efficiently to maximize value**
+  
+  1. **Batch Operations**: Group API calls to reduce overhead
+  2. **Off-Peak Usage**: Use GPU instances during lower-demand periods
+  3. **Model Selection**: Choose appropriate models for your use case
+  4. **Caching**: Implement caching to reduce redundant API calls
+</Accordion>
+
+<Accordion title="Portfolio Diversification">
+  **Spread risk across multiple staking positions**
+  
+  1. **Multiple Periods**: Stake across different time horizons
+  2. **Staged Entry**: Gradually increase stake over time
+  3. **Reserve Credits**: Keep some credits for unexpected usage spikes
+  4. **Team Coordination**: Coordinate staking across team members
+</Accordion>
+</AccordionGroup>
+
+## Advanced Staking Features
+
+### Delegation
+
+<Info>
+Coming Soon: Delegate your staking power to trusted validators while retaining ownership of your tokens.
+</Info>
+
+**Benefits of Delegation**:
+- Earn staking rewards without locking tokens
+- Support network validators
+- Participate in governance through delegates
+- Maintain liquidity while earning
+
+### Liquid Staking
+
+<Info>
+Future Feature: Receive liquid staking tokens (stCOM) that represent your staked position and can be traded.
+</Info>
+
+**Liquid Staking Advantages**:
+- Trade staked positions on secondary markets
+- Use staked tokens as collateral in DeFi
+- Maintain liquidity while earning rewards
+- Automated reward compounding
+
+### Governance Participation
+
+Staked COM tokens provide voting power in network governance:
+
+<CardGroup cols={2}>
+<Card title="Proposal Voting" icon="vote-yea">
+  Vote on network upgrades, parameter changes, and new features.
+</Card>
+
+<Card title="Validator Selection" icon="users">
+  Help choose validators and network operators through delegation.
+</Card>
+
+<Card title="Treasury Management" icon="vault">
+  Influence how network treasury funds are allocated and spent.
+</Card>
+
+<Card title="Fee Structure" icon="receipt">
+  Participate in decisions about network fees and reward distributions.
+</Card>
+</CardGroup>
+
+## Risks and Considerations
+
+<Warning>
+Staking involves several risks that you should understand before participating.
+</Warning>
+
+### Technical Risks
+
+<AccordionGroup>
+<Accordion title="Smart Contract Risk">
+  **Potential vulnerabilities in staking contracts**
+  
+  **Streamflow Security Measures**:
+  - Audited by Trail of Bits, Quantstamp, and other top-tier firms
+  - Formal verification of critical contract logic
+  - Active bug bounty program with $1M+ in rewards
+  - Multi-sig governance controls and emergency pause mechanisms
+  - Open-source contracts verifiable on-chain
+  - Billions in TVL secured across multiple protocols
+</Accordion>
+
+<Accordion title="Slashing Risk">
+  **Potential token penalties for network violations**
+  
+  **Current Status**: 
+  - No slashing implemented in initial version
+  - May be introduced for validators in future
+  - Delegated staking would not be subject to slashing
+</Accordion>
+
+<Accordion title="Liquidity Risk">
+  **Inability to access staked tokens during lock period**
+  
+  **Considerations**:
+  - Choose staking periods carefully
+  - Only stake tokens you don't need immediately
+  - Consider emergency unstaking penalties
+  - Plan for market volatility
+</Accordion>
+</AccordionGroup>
+
+### Market Risks
+
+- **Token Price Volatility**: COM token price may fluctuate significantly
+- **Network Adoption**: Usage growth affects token demand and rewards
+- **Regulatory Changes**: Potential regulatory impacts on token staking
+- **Competition**: Other networks may offer competitive staking rewards
+
+### Operational Risks
+
+- **Key Management**: Secure storage of wallet private keys
+- **Transaction Fees**: Gas costs for staking and unstaking operations
+- **Network Congestion**: Potential delays during high activity periods
+- **Interface Issues**: Temporary unavailability of staking interface
+
+## Best Practices
+
+### Security
+
+<CardGroup cols={2}>
+<Card title="Wallet Security" icon="shield-check">
+  - Use hardware wallets for large amounts
+  - Enable all available security features
+  - Keep private keys offline and secure
+  - Use multi-sig wallets for team staking
+</Card>
+
+<Card title="Transaction Safety" icon="lock">
+  - Always verify transaction details
+  - Check contract addresses before signing
+  - Use reputable wallet interfaces
+  - Monitor for phishing attempts
+</Card>
+</CardGroup>
+
+### Strategy
+
+1. **Start Small**: Begin with minimum amounts to learn the system
+2. **Diversify**: Don't stake all tokens in one position
+3. **Monitor**: Regularly check rewards and credit usage
+4. **Plan Ahead**: Consider your liquidity needs before staking
+5. **Stay Informed**: Follow network updates and governance proposals
+
+## Getting Help
+
+<CardGroup cols={3}>
+<Card title="Documentation" icon="book" href="/com/access-tiers">
+  Learn about different staking tiers and benefits.
+</Card>
+
+<Card title="Discord Community" icon="discord" href="https://discord.gg/comput3">
+  Get help from the community and team members.
+</Card>
+
+<Card title="Support" icon="life-ring" href="mailto:support@comput3.ai">
+  Contact our support team for technical assistance.
+</Card>
+</CardGroup>

@@ -1,0 +1,506 @@
+---
+title: "MCP Tools"
+description: "Pre-built MCP tools and integrations available on Comput3 Network"
+icon: "toolbox"
+---
+
+Explore the comprehensive library of pre-built MCP tools and integrations available on Comput3 Network for immediate use with your AI models.
+
+## Available MCP Tools
+
+### Development Tools
+
+<AccordionGroup>
+<Accordion title="GitHub Integration">
+  **Complete GitHub repository and project management**
+  
+  **Capabilities**:
+  - Repository browsing and file access
+  - Issue tracking and management
+  - Pull request review and comments
+  - Commit history and code analysis
+  - Organization and team management
+  
+  **Example Queries**:
+  - "Show me the latest commits in the frontend repository"
+  - "Create an issue for the bug we just discussed"
+  - "Review the open pull requests and summarize the changes"
+  - "Find similar issues in our repository history"
+  
+  **Setup Requirements**:
+  - GitHub App or OAuth token
+  - Repository access permissions
+  - Organization admin approval (for org-wide access)
+</Accordion>
+
+<Accordion title="GitLab Integration">
+  **GitLab project and pipeline management**
+  
+  **Capabilities**:
+  - Project and group access
+  - Merge request management
+  - CI/CD pipeline monitoring
+  - Issue and epic tracking
+  - Wiki and documentation access
+  
+  **Configuration**:
+  ```json
+  {
+    "name": "gitlab-projects",
+    "server_type": "gitlab",
+    "config": {
+      "base_url": "https://gitlab.com/api/v4",
+      "authentication": {
+        "type": "personal_access_token",
+        "token_env": "GITLAB_TOKEN"
+      }
+    }
+  }
+  ```
+</Accordion>
+
+<Accordion title="Code Execution">
+  **Safe code execution environment**
+  
+  **Supported Languages**:
+  - Python with popular libraries (pandas, numpy, matplotlib)
+  - JavaScript/Node.js with npm packages
+  - Shell commands (restricted for security)
+  - SQL queries (read-only by default)
+  
+  **Security Features**:
+  - Sandboxed execution environment
+  - Resource limits (CPU, memory, time)
+  - Network access controls
+  - File system restrictions
+</Accordion>
+</AccordionGroup>
+
+### Communication Tools
+
+<AccordionGroup>
+<Accordion title="Slack Workspace">
+  **Full Slack workspace integration**
+  
+  **Capabilities**:
+  - Channel message history and search
+  - Direct message access (with permissions)
+  - File and document sharing
+  - User and channel management
+  - Automated message posting
+  
+  **Example Usage**:
+  - "Summarize today's messages in the #development channel"
+  - "Send a status update to the team Slack"
+  - "Find discussions about the new feature in Slack history"
+  
+  **Required Permissions**:
+  ```json
+  {
+    "scopes": [
+      "channels:read",
+      "channels:history", 
+      "chat:write",
+      "files:read",
+      "users:read"
+    ]
+  }
+  ```
+</Accordion>
+
+<Accordion title="Discord Server">
+  **Discord server and community management**
+  
+  **Features**:
+  - Server and channel access
+  - Message history and search
+  - User management and roles
+  - Bot integration capabilities
+  
+  **Setup**:
+  ```json
+  {
+    "name": "community-discord",
+    "server_type": "discord",
+    "config": {
+      "bot_token_env": "DISCORD_BOT_TOKEN",
+      "guild_id": "your-server-id",
+      "permissions": {
+        "read_messages": true,
+        "send_messages": true,
+        "manage_messages": false
+      }
+    }
+  }
+  ```
+</Accordion>
+
+<Accordion title="Email Integration">
+  **Email account and management integration**
+  
+  **Providers Supported**:
+  - Gmail (via Google API)
+  - Outlook (via Microsoft Graph)
+  - IMAP/SMTP servers
+  - Custom email APIs
+  
+  **Capabilities**:
+  - Email reading and search
+  - Draft creation and sending
+  - Attachment handling
+  - Calendar integration
+</Accordion>
+</AccordionGroup>
+
+### Data and Analytics Tools
+
+<AccordionGroup>
+<Accordion title="Database Connectors">
+  **Multi-database support with read/write capabilities**
+  
+  **Supported Databases**:
+  - **PostgreSQL**: Full SQL query support
+  - **MySQL**: Complete database access
+  - **SQLite**: Local database files
+  - **MongoDB**: Document database queries
+  - **Redis**: Cache and session data
+  - **ClickHouse**: Analytics and time-series data
+  
+  **Features**:
+  - Natural language to SQL translation
+  - Query result analysis and visualization
+  - Schema discovery and documentation
+  - Data quality assessment
+</Accordion>
+
+<Accordion title="Cloud Storage">
+  **Access files and documents from cloud storage**
+  
+  **Supported Providers**:
+  - **AWS S3**: Bucket and object access
+  - **Google Drive**: File and folder management
+  - **Dropbox**: Personal and business accounts
+  - **OneDrive**: Microsoft cloud storage
+  - **Box**: Enterprise file sharing
+  
+  **Capabilities**:
+  - File listing and search
+  - Content reading and analysis
+  - File upload and management
+  - Sharing and permission management
+</Accordion>
+
+<Accordion title="Analytics Platforms">
+  **Business intelligence and analytics integration**
+  
+  **Supported Platforms**:
+  - **Google Analytics**: Website and app analytics
+  - **Mixpanel**: Product analytics
+  - **Amplitude**: User behavior analytics
+  - **Tableau**: Business intelligence dashboards
+  - **Power BI**: Microsoft analytics platform
+  
+  **Use Cases**:
+  - Automated report generation
+  - Trend analysis and insights
+  - Performance monitoring
+  - User behavior analysis
+</Accordion>
+</AccordionGroup>
+
+### Productivity Tools
+
+<AccordionGroup>
+<Accordion title="Google Workspace">
+  **Complete Google Workspace integration**
+  
+  **Services Included**:
+  - **Gmail**: Email management and search
+  - **Google Drive**: File storage and sharing
+  - **Google Docs**: Document creation and editing
+  - **Google Sheets**: Spreadsheet analysis
+  - **Google Calendar**: Event management
+  
+  **Example Workflows**:
+  - "Analyze the data in this Google Sheet and create a summary"
+  - "Schedule a meeting based on team availability"
+  - "Search my Gmail for emails about the project"
+</Accordion>
+
+<Accordion title="Microsoft 365">
+  **Microsoft 365 and Office integration**
+  
+  **Services**:
+  - **Outlook**: Email and calendar management
+  - **OneDrive**: File storage and collaboration
+  - **Word**: Document processing
+  - **Excel**: Spreadsheet analysis
+  - **Teams**: Communication and collaboration
+  
+  **Authentication**: Microsoft Graph API with OAuth 2.0
+</Accordion>
+
+<Accordion title="Notion Workspace">
+  **Notion database and page management**
+  
+  **Capabilities**:
+  - Database queries and analysis
+  - Page content reading and creation
+  - Property updates and management
+  - Relation and rollup calculations
+  
+  **Configuration**:
+  ```json
+  {
+    "name": "company-notion",
+    "server_type": "notion",
+    "config": {
+      "integration_token_env": "NOTION_TOKEN",
+      "database_ids": {
+        "projects": "database-id-1",
+        "tasks": "database-id-2"
+      }
+    }
+  }
+  ```
+</Accordion>
+</AccordionGroup>
+
+## Tool Usage Examples
+
+### Development Workflow
+
+<CodeGroup>
+```text GitHub Code Review
+"Review the latest pull request in the backend repository. 
+Check for potential security issues, code quality problems, 
+and suggest improvements. Also check if tests are included."
+```
+
+```text Database Analysis
+"Query our user database to find the top 10 most active users 
+this month. Include their signup date, last activity, and 
+total session time. Format as a table."
+```
+
+```text Slack Communication
+"Send a summary of today's development progress to the 
+#team-updates channel. Include completed tasks, 
+current blockers, and tomorrow's priorities."
+```
+</CodeGroup>
+
+### Business Intelligence
+
+<CodeGroup>
+```text Sales Analytics
+"Analyze our sales data from the PostgreSQL database. 
+Show trends for the last quarter, identify top-performing 
+products, and highlight any concerning patterns."
+```
+
+```text Customer Support
+"Search our support ticket system for similar issues to 
+the one described. Provide a summary of common solutions 
+and escalation patterns."
+```
+
+```text Marketing Analysis
+"Review our Google Analytics data for the marketing 
+campaign. Calculate ROI, identify best-performing channels, 
+and suggest optimization opportunities."
+```
+</CodeGroup>
+
+### Content Management
+
+<CodeGroup>
+```text Document Processing
+"Analyze all the PDF documents in our Google Drive 'Research' 
+folder. Extract key insights, create a summary, and identify 
+common themes across the documents."
+```
+
+```text Knowledge Base
+"Search our Notion knowledge base for information about 
+deployment procedures. Create a step-by-step checklist 
+based on the existing documentation."
+```
+
+```text Email Management
+"Review my Gmail for emails about the project launch. 
+Summarize action items, deadlines, and key decisions 
+from the email thread."
+```
+</CodeGroup>
+
+## Custom Tool Development
+
+### Building MCP Servers
+
+<Steps>
+<Step title="Choose Implementation">
+  Select your preferred technology stack for building MCP servers.
+  
+  <Tabs>
+  <Tab title="Python">
+    **Using the official MCP Python SDK**
+    
+    ```python
+    from mcp import MCPServer, Resource, Tool
+    
+    server = MCPServer("custom-tool")
+    
+    @server.resource("users")
+    def get_users():
+        # Return user data
+        return {"users": [...]}
+    
+    @server.tool("send_notification")
+    def send_notification(message: str):
+        # Send notification logic
+        return {"status": "sent"}
+    ```
+  </Tab>
+  
+  <Tab title="TypeScript">
+    **Using the MCP TypeScript SDK**
+    
+    ```typescript
+    import { MCPServer } from '@modelcontextprotocol/sdk';
+    
+    const server = new MCPServer('custom-tool');
+    
+    server.addResource('projects', async () => {
+      return { projects: await getProjects() };
+    });
+    
+    server.addTool('create_task', async (params) => {
+      return await createTask(params);
+    });
+    ```
+  </Tab>
+  
+  <Tab title="Go">
+    **Using the MCP Go SDK**
+    
+    ```go
+    package main
+    
+    import "github.com/modelcontextprotocol/go-sdk"
+    
+    func main() {
+        server := mcp.NewServer("custom-tool")
+        
+        server.AddResource("data", func() interface{} {
+            return getData()
+        })
+        
+        server.AddTool("process", func(params map[string]interface{}) interface{} {
+            return processData(params)
+        })
+        
+        server.Start()
+    }
+    ```
+  </Tab>
+  </Tabs>
+</Step>
+
+<Step title="Deploy MCP Server">
+  Host your custom MCP server for use with Comput3 Network.
+  
+  **Deployment Options**:
+  - Docker containers on any cloud provider
+  - Serverless functions (AWS Lambda, Google Cloud Functions)
+  - Traditional VPS or dedicated servers
+  - Kubernetes clusters for scalability
+</Step>
+
+<Step title="Register with Comput3">
+  Add your custom MCP server to your Comput3 account configuration.
+  
+  ```json
+  {
+    "name": "my-custom-tool",
+    "server_type": "custom",
+    "config": {
+      "url": "https://your-mcp-server.com",
+      "authentication": {
+        "type": "api_key",
+        "key_env": "CUSTOM_MCP_KEY"
+      }
+    }
+  }
+  ```
+</Step>
+</Steps>
+
+## Enterprise Features
+
+### Team Management
+
+<CardGroup cols={2}>
+<Card title="Shared Configurations" icon="users">
+  Share MCP server configurations across team members with role-based access.
+</Card>
+
+<Card title="Audit Logging" icon="list">
+  Complete audit trails for all MCP operations and data access.
+</Card>
+
+<Card title="Access Controls" icon="key">
+  Fine-grained permissions for different team roles and responsibilities.
+</Card>
+
+<Card title="Usage Monitoring" icon="chart-bar">
+  Track MCP usage across team members and optimize resource allocation.
+</Card>
+</CardGroup>
+
+### Compliance and Governance
+
+<AccordionGroup>
+<Accordion title="Data Governance">
+  **Ensure data access complies with organizational policies**
+  
+  - Data classification and labeling
+  - Access approval workflows
+  - Retention policy enforcement
+  - Data lineage tracking
+</Accordion>
+
+<Accordion title="Compliance Reporting">
+  **Generate reports for regulatory compliance**
+  
+  - GDPR data access reports
+  - SOX compliance documentation
+  - HIPAA audit trails
+  - Custom compliance frameworks
+</Accordion>
+
+<Accordion title="Risk Management">
+  **Identify and mitigate data access risks**
+  
+  - Anomaly detection for unusual access patterns
+  - Automated risk scoring
+  - Policy violation alerts
+  - Incident response workflows
+</Accordion>
+</AccordionGroup>
+
+## Getting Help
+
+<CardGroup cols={3}>
+<Card title="Documentation" icon="book" href="/mcp/setup">
+  Complete setup guide for configuring MCP servers.
+</Card>
+
+<Card title="Community" icon="users" href="https://discord.gg/comput3">
+  Join our Discord for MCP tips and community-built integrations.
+</Card>
+
+<Card title="Enterprise Support" icon="phone" href="mailto:enterprise@comput3.ai">
+  Get dedicated support for complex MCP implementations.
+</Card>
+</CardGroup>

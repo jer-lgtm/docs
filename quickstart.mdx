@@ -1,80 +1,141 @@
 ---
 title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+description: "Connect to the Comput3 Network and start computing"
 ---
 
 ## Get started in three steps
 
-Get your documentation site running locally and make your first customization.
+Connect to the decentralized GPU network and run your first workload.
 
-### Step 1: Set up your local environment
+### Step 1: Set up your account
 
 <AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
+  <Accordion icon="user-plus" title="Create your Comput3 account">
+    1. Visit [app.comput3.ai](https://app.comput3.ai) to create your account
+    2. Complete the verification process
+    3. Fund your account with credits or connect your wallet
     
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
+    <Tip>New users receive 100 free compute credits to get started!</Tip>
   </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
+  <Accordion icon="key" title="Get your API credentials">
+    1. Navigate to your [dashboard](https://app.comput3.ai/dashboard)
+    2. Go to Settings → API Keys
+    3. Generate your API key and save it securely
     
-    <Tip>Your preview updates automatically as you edit files.</Tip>
+    ```bash
+    export COMPUT3_API_KEY="your-api-key-here"
+    ```
+    
+    <Warning>Never share your API key or commit it to version control.</Warning>
   </Accordion>
 </AccordionGroup>
 
-### Step 2: Deploy your changes
+### Step 2: Install the Comput3 CLI
 
 <AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
+  <Accordion icon="download" title="Install via npm">
+    ```bash
+    npm install -g @comput3/cli
+    ```
     
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
-
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
-
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
+    Or using pip:
+    ```bash
+    pip install comput3-cli
+    ```
+  </Accordion>
+  <Accordion icon="terminal" title="Verify installation">
+    ```bash
+    comput3 --version
+    comput3 auth login
+    ```
+    
+    <Tip>The CLI will automatically use your COMPUT3_API_KEY environment variable.</Tip>
   </Accordion>
 </AccordionGroup>
 
-### Step 3: Go live
+### Step 3: Run your first GPU workload
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
+<Accordion icon="rocket" title="Deploy a sample job">
+  ```bash
+  # Run a simple GPU test
+  comput3 run --gpu-type A100 --replicas 1 \
+    --image pytorch/pytorch:latest \
+    --command "python -c 'import torch; print(torch.cuda.is_available())'"
+  
+  # Monitor your job
+  comput3 jobs list
+  comput3 logs <job-id>
+  ```
+  
+  <Success>Congratulations! You've just run your first job on the Comput3 network.</Success>
 </Accordion>
 
-## Next steps
+## Popular use cases
 
-Now that you have your docs running, explore these key features:
+Explore what you can build on Comput3:
 
 <CardGroup cols={2}>
 
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
+<Card title="AI Model Training" icon="brain" href="/essentials/markdown">
+  Train large language models and neural networks on distributed GPUs.
 </Card>
 
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
+<Card title="Inference at Scale" icon="bolt" href="/essentials/settings">
+  Deploy models for high-throughput inference with automatic scaling.
 </Card>
 
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
+<Card title="3D Rendering" icon="cube" href="/essentials/code">
+  Render complex 3D scenes and animations using GPU acceleration.
 </Card>
 
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
+<Card title="Scientific Computing" icon="flask" href="/api-reference/introduction">
+  Run simulations and data analysis on powerful compute infrastructure.
 </Card>
 
 </CardGroup>
 
+## SDK Examples
+
+<CodeGroup>
+```python Python
+from comput3 import Client
+
+client = Client(api_key="your-api-key")
+
+# Submit a job
+job = client.jobs.create(
+    gpu_type="A100",
+    replicas=2,
+    image="tensorflow/tensorflow:latest-gpu",
+    command="python train.py"
+)
+
+# Monitor progress
+status = client.jobs.get(job.id)
+print(f"Job {job.id}: {status.state}")
+```
+
+```javascript Node.js
+const { Comput3Client } = require('@comput3/sdk');
+
+const client = new Comput3Client({ 
+  apiKey: 'your-api-key' 
+});
+
+// Submit a job
+const job = await client.jobs.create({
+  gpuType: 'A100',
+  replicas: 2,
+  image: 'tensorflow/tensorflow:latest-gpu',
+  command: 'python train.py'
+});
+
+// Monitor progress
+const status = await client.jobs.get(job.id);
+console.log(`Job ${job.id}: ${status.state}`);
+```
+</CodeGroup>
+
 <Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
+  **Need help?** Join our [Discord community](https://discord.gg/comput3) or check the [API documentation](/api-reference/introduction).
 </Note>

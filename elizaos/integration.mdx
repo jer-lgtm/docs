@@ -1,0 +1,922 @@
+---
+title: "ELIZAOS Integration"
+description: "Integrate ELIZAOS agents with existing systems and workflows"
+icon: "puzzle-piece"
+---
+
+Integrate ELIZAOS agents with your existing business systems, development workflows, and data sources for seamless AI automation.
+
+## Integration Overview
+
+ELIZAOS agents can be integrated with virtually any system through:
+
+<CardGroup cols={2}>
+<Card title="API Integrations" icon="link">
+  Connect agents to REST APIs, GraphQL endpoints, and webhook systems.
+</Card>
+
+<Card title="Database Connections" icon="database">
+  Direct integration with SQL and NoSQL databases for data processing.
+</Card>
+
+<Card title="Message Queues" icon="stream">
+  Integrate with RabbitMQ, Apache Kafka, and other messaging systems.
+</Card>
+
+<Card title="Workflow Orchestration" icon="sitemap">
+  Connect with existing workflow engines and business process automation.
+</Card>
+</CardGroup>
+
+## Common Integration Patterns
+
+### CI/CD Pipeline Integration
+
+<Steps>
+<Step title="Code Review Agent">
+  Deploy an agent that automatically reviews code changes in your CI/CD pipeline.
+  
+  ```yaml
+  # GitHub Actions integration
+  name: ELIZAOS Code Review
+  on:
+    pull_request:
+      types: [opened, synchronize]
+  
+  jobs:
+    ai-review:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Trigger ELIZAOS Review
+          run: |
+            curl -X POST "https://your-elizaos.com/api/agents/code-reviewer/trigger" \
+              -H "Authorization: Bearer ${{ secrets.ELIZAOS_API_KEY }}" \
+              -d '{
+                "repository": "${{ github.repository }}",
+                "pull_request": ${{ github.event.number }},
+                "files_changed": ${{ github.event.pull_request.changed_files }}
+              }'
+  ```
+</Step>
+
+<Step title="Test Generation Agent">
+  Automatically generate test cases for new code changes.
+  
+  ```json
+  {
+    "name": "test-generator",
+    "triggers": [
+      {
+        "type": "webhook",
+        "source": "github",
+        "event": "push",
+        "filter": "src/**/*.py"
+      }
+    ],
+    "actions": [
+      {
+        "type": "analyze_code",
+        "generate_tests": true,
+        "coverage_target": 80
+      }
+    ]
+  }
+  ```
+</Step>
+
+<Step title="Documentation Agent">
+  Keep documentation up-to-date with code changes.
+  
+  ```python
+  # Agent configuration for doc updates
+  doc_agent = {
+      "name": "doc-updater",
+      "model": "deepseek-v3.1",
+      "specialization": "documentation",
+      "triggers": [
+          {
+              "type": "code_change",
+              "patterns": ["*.py", "*.js", "*.ts"],
+              "action": "update_documentation"
+          }
+      ],
+      "integrations": [
+          "github_repo",
+          "confluence_wiki",
+          "notion_docs"
+      ]
+  }
+  ```
+</Step>
+</Steps>
+
+### Customer Support Automation
+
+<AccordionGroup>
+<Accordion title="Ticket Routing Agent">
+  **Intelligent support ticket classification and routing**
+  
+  ```json
+  {
+    "name": "ticket-router",
+    "model": "hermes4:70b",
+    "specialization": "customer_support",
+    "integrations": [
+      {
+        "type": "zendesk",
+        "config": {
+          "subdomain": "yourcompany",
+          "email": "support@yourcompany.com",
+          "token_env": "ZENDESK_TOKEN"
+        }
+      }
+    ],
+    "rules": [
+      {
+        "condition": "contains_code",
+        "action": "route_to_technical_team",
+        "priority": "high"
+      },
+      {
+        "condition": "billing_related",
+        "action": "route_to_billing_team",
+        "auto_respond": true
+      }
+    ]
+  }
+  ```
+  
+  **Capabilities**:
+  - Automatic ticket classification
+  - Priority assignment based on content
+  - Intelligent routing to appropriate teams
+  - Auto-responses for common issues
+</Accordion>
+
+<Accordion title="Knowledge Base Agent">
+  **Dynamic knowledge base management**
+  
+  **Features**:
+  - Automatic FAQ generation from tickets
+  - Knowledge article updates based on resolutions
+  - Search and recommendation improvements
+  - Multi-language support
+  
+  **Integration Example**:
+  ```python
+  knowledge_agent = {
+      "name": "kb-manager",
+      "model": "kimi-k2",
+      "data_sources": [
+          "support_tickets",
+          "product_documentation", 
+          "community_forums"
+      ],
+      "capabilities": [
+          "extract_solutions",
+          "generate_faqs",
+          "update_articles",
+          "recommend_content"
+      ]
+  }
+  ```
+</Accordion>
+</AccordionGroup>
+
+### Business Process Automation
+
+<AccordionGroup>
+<Accordion title="Data Processing Pipeline">
+  **Automated data processing and analysis**
+  
+  ```json
+  {
+    "name": "data-pipeline",
+    "type": "workflow_agent",
+    "steps": [
+      {
+        "name": "data_ingestion",
+        "agent": "data-collector",
+        "sources": ["api_endpoints", "file_uploads", "database_changes"]
+      },
+      {
+        "name": "data_validation",
+        "agent": "data-validator", 
+        "rules": ["schema_validation", "quality_checks", "anomaly_detection"]
+      },
+      {
+        "name": "data_analysis",
+        "agent": "data-analyzer",
+        "models": ["statistical_analysis", "trend_detection", "forecasting"]
+      },
+      {
+        "name": "report_generation",
+        "agent": "report-generator",
+        "outputs": ["dashboard_updates", "email_reports", "slack_notifications"]
+      }
+    ]
+  }
+  ```
+</Accordion>
+
+<Accordion title="Content Moderation">
+  **Automated content review and moderation**
+  
+  **Agent Configuration**:
+  ```json
+  {
+    "name": "content-moderator",
+    "model": "hermes4:405b",
+    "specialization": "content_moderation",
+    "rules": [
+      {
+        "type": "toxicity_detection",
+        "threshold": 0.8,
+        "action": "flag_for_review"
+      },
+      {
+        "type": "spam_detection", 
+        "action": "auto_remove"
+      },
+      {
+        "type": "inappropriate_content",
+        "action": "blur_and_flag"
+      }
+    ],
+    "integrations": ["user_database", "moderation_queue", "notification_system"]
+  }
+  ```
+</Accordion>
+
+<Accordion title="Financial Analysis">
+  **Automated financial data processing and reporting**
+  
+  **Capabilities**:
+  - Transaction analysis and categorization
+  - Fraud detection and alerting
+  - Financial report generation
+  - Budget tracking and forecasting
+  - Compliance monitoring
+  
+  **Example Agent**:
+  ```python
+  financial_agent = {
+      "name": "financial-analyzer",
+      "model": "hermes4:405b",
+      "data_sources": [
+          "accounting_system",
+          "bank_apis",
+          "expense_reports",
+          "invoice_system"
+      ],
+      "capabilities": [
+          "transaction_categorization",
+          "anomaly_detection",
+          "report_generation",
+          "compliance_checking"
+      ],
+      "security": {
+          "encryption_required": True,
+          "audit_logging": True,
+          "access_controls": "strict"
+      }
+  }
+  ```
+</Accordion>
+</AccordionGroup>
+
+## Enterprise Integrations
+
+### ERP System Integration
+
+<AccordionGroup>
+<Accordion title="SAP Integration">
+  **Connect with SAP ERP systems**
+  
+  ```json
+  {
+    "name": "sap-integration",
+    "type": "erp_agent",
+    "config": {
+      "sap_system": {
+        "host": "sap.company.com",
+        "client": "100",
+        "user": "AI_USER",
+        "password_env": "SAP_PASSWORD"
+      },
+      "modules": [
+        "FI", "CO", "MM", "SD", "HR"
+      ],
+      "permissions": {
+        "read_only": true,
+        "allowed_tables": ["VBAK", "VBAP", "KNA1", "MARA"]
+      }
+    }
+  }
+  ```
+</Accordion>
+
+<Accordion title="Salesforce Integration">
+  **CRM data analysis and automation**
+  
+  **Capabilities**:
+  - Lead scoring and qualification
+  - Opportunity analysis and forecasting
+  - Customer data enrichment
+  - Automated follow-up sequences
+  
+  **Setup**:
+  ```json
+  {
+    "name": "salesforce-agent",
+    "integrations": [
+      {
+        "type": "salesforce",
+        "config": {
+          "instance_url": "https://yourcompany.salesforce.com",
+          "client_id": "your-connected-app-id",
+          "client_secret_env": "SF_CLIENT_SECRET",
+          "username": "ai-integration@yourcompany.com",
+          "password_env": "SF_PASSWORD"
+        }
+      }
+    ]
+  }
+  ```
+</Accordion>
+</AccordionGroup>
+
+### Monitoring and Observability
+
+<CardGroup cols={2}>
+<Card title="Prometheus Integration" icon="chart-line">
+  **Metrics collection and monitoring**
+  
+  - Agent performance metrics
+  - Resource utilization tracking
+  - Custom business metrics
+  - Alert manager integration
+</Card>
+
+<Card title="Grafana Dashboards" icon="chart-area">
+  **Visualization and alerting**
+  
+  - Real-time agent performance dashboards
+  - Resource usage visualization
+  - Cost tracking and optimization
+  - Custom alert configurations
+</Card>
+
+<Card title="Log Aggregation" icon="list">
+  **Centralized logging with ELK stack**
+  
+  - Elasticsearch for log storage
+  - Logstash for log processing
+  - Kibana for log visualization
+  - Custom log analysis agents
+</Card>
+
+<Card title="Distributed Tracing" icon="route">
+  **End-to-end request tracing**
+  
+  - Jaeger or Zipkin integration
+  - Agent interaction tracing
+  - Performance bottleneck identification
+  - Service dependency mapping
+</Card>
+</CardGroup>
+
+## Webhook and Event Integration
+
+### Webhook Configuration
+
+<CodeGroup>
+```json Incoming Webhooks
+{
+  "webhooks": {
+    "github_events": {
+      "url": "/webhooks/github",
+      "secret_env": "GITHUB_WEBHOOK_SECRET",
+      "events": ["push", "pull_request", "issues"],
+      "agent_triggers": [
+        {
+          "event": "push",
+          "agent": "code-analyzer",
+          "action": "analyze_changes"
+        }
+      ]
+    },
+    "slack_events": {
+      "url": "/webhooks/slack",
+      "verification_token_env": "SLACK_VERIFICATION_TOKEN",
+      "events": ["message", "file_shared"],
+      "agent_triggers": [
+        {
+          "event": "message",
+          "condition": "contains(@ai)",
+          "agent": "slack-assistant"
+        }
+      ]
+    }
+  }
+}
+```
+
+```json Outgoing Webhooks
+{
+  "outgoing_webhooks": {
+    "task_completion": {
+      "url": "https://your-system.com/api/task-complete",
+      "method": "POST",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_KEY",
+        "Content-Type": "application/json"
+      },
+      "triggers": [
+        "agent_task_completed",
+        "workflow_finished",
+        "error_occurred"
+      ]
+    }
+  }
+}
+```
+</CodeGroup>
+
+### Event-Driven Architecture
+
+<Tabs>
+<Tab title="Event Sources">
+  **Systems that can trigger agent actions**
+  
+  - File system changes (new files, modifications)
+  - Database changes (inserts, updates, deletes)
+  - API calls and webhook events
+  - Time-based triggers (cron-like scheduling)
+  - User interactions and manual triggers
+</Tab>
+
+<Tab title="Event Processing">
+  **How agents handle and process events**
+  
+  ```python
+  # Event handler configuration
+  event_handlers = {
+      "file_uploaded": {
+          "agent": "document-processor",
+          "action": "process_document",
+          "parameters": {
+              "extract_text": True,
+              "generate_summary": True,
+              "detect_language": True
+          }
+      },
+      "user_message": {
+          "agent": "chat-assistant",
+          "action": "respond_to_user",
+          "context_sources": ["conversation_history", "user_profile"]
+      }
+  }
+  ```
+</Tab>
+
+<Tab title="Event Routing">
+  **Intelligent event routing to appropriate agents**
+  
+  - Content-based routing (analyze event content)
+  - Load-based routing (distribute to available agents)
+  - Skill-based routing (match events to specialized agents)
+  - Priority-based routing (handle urgent events first)
+</Tab>
+</Tabs>
+
+## Best Practices
+
+### Agent Design Patterns
+
+<AccordionGroup>
+<Accordion title="Single Responsibility">
+  **Design agents with focused, specific purposes**
+  
+  ✅ **Good**: Separate agents for code review, testing, and documentation
+  ❌ **Avoid**: One agent trying to handle all development tasks
+  
+  **Benefits**:
+  - Easier debugging and maintenance
+  - Better resource utilization
+  - Improved fault isolation
+  - Simpler scaling decisions
+</Accordion>
+
+<Accordion title="Stateless Design">
+  **Design agents to be stateless when possible**
+  
+  ✅ **Good**: Store state in external databases or shared storage
+  ❌ **Avoid**: Relying on agent memory for critical data
+  
+  **Implementation**:
+  ```python
+  # Stateless agent design
+  def process_request(request_data):
+      # Load context from external source
+      context = load_context(request_data.user_id)
+      
+      # Process with loaded context
+      result = process_with_context(request_data, context)
+      
+      # Save updated context externally
+      save_context(request_data.user_id, result.context)
+      
+      return result.output
+  ```
+</Accordion>
+
+<Accordion title="Error Handling">
+  **Robust error handling and recovery**
+  
+  - Implement retry logic with exponential backoff
+  - Use circuit breakers for external service calls
+  - Provide meaningful error messages and logging
+  - Design graceful degradation for partial failures
+  
+  ```python
+  # Error handling example
+  @retry(max_attempts=3, backoff=exponential_backoff)
+  def call_external_api(data):
+      try:
+          response = requests.post(api_url, json=data, timeout=30)
+          response.raise_for_status()
+          return response.json()
+      except requests.exceptions.Timeout:
+          logger.error("API call timed out")
+          return {"error": "timeout", "retry": True}
+      except requests.exceptions.RequestException as e:
+          logger.error(f"API call failed: {e}")
+          return {"error": "api_failure", "retry": False}
+  ```
+</Accordion>
+</AccordionGroup>
+
+### Performance Optimization
+
+<CardGroup cols={2}>
+<Card title="Resource Efficiency" icon="zap">
+  **Optimize agent resource usage**
+  
+  - Use appropriate model sizes for tasks
+  - Implement connection pooling
+  - Cache frequently accessed data
+  - Batch similar operations together
+</Card>
+
+<Card title="Scaling Strategy" icon="expand-arrows-alt">
+  **Plan for growth and load increases**
+  
+  - Design agents for horizontal scaling
+  - Use load balancing across agent instances
+  - Implement auto-scaling based on metrics
+  - Plan resource allocation strategies
+</Card>
+
+<Card title="Monitoring" icon="eye">
+  **Comprehensive agent monitoring**
+  
+  - Track agent performance metrics
+  - Monitor resource utilization
+  - Set up alerting for failures
+  - Analyze usage patterns for optimization
+</Card>
+
+<Card title="Cost Management" icon="dollar-sign">
+  **Optimize costs while maintaining performance**
+  
+  - Use appropriate GPU instances for workloads
+  - Implement auto-shutdown for idle agents
+  - Monitor and optimize token usage
+  - Use spot instances when appropriate
+</Card>
+</CardGroup>
+
+## Advanced Integration Scenarios
+
+### Multi-Agent Workflows
+
+<CodeGroup>
+```python Research Pipeline
+# Multi-agent research workflow
+research_pipeline = {
+    "name": "research-pipeline",
+    "agents": [
+        {
+            "name": "paper-finder",
+            "model": "deepseek-v3.1",
+            "role": "find_relevant_papers",
+            "tools": ["arxiv_search", "pubmed_search", "google_scholar"]
+        },
+        {
+            "name": "paper-analyzer",
+            "model": "hermes4:405b",
+            "role": "analyze_papers",
+            "tools": ["pdf_reader", "citation_extractor", "summary_generator"]
+        },
+        {
+            "name": "insight-synthesizer",
+            "model": "hermes4:405b", 
+            "role": "synthesize_insights",
+            "tools": ["trend_analyzer", "gap_identifier", "recommendation_engine"]
+        },
+        {
+            "name": "report-writer",
+            "model": "kimi-k2",
+            "role": "generate_report",
+            "tools": ["markdown_generator", "chart_creator", "reference_formatter"]
+        }
+    ],
+    "workflow": [
+        {
+            "step": 1,
+            "agent": "paper-finder",
+            "input": "research_topic",
+            "output": "relevant_papers"
+        },
+        {
+            "step": 2,
+            "agent": "paper-analyzer",
+            "input": "relevant_papers",
+            "output": "paper_analysis",
+            "parallel": True
+        },
+        {
+            "step": 3,
+            "agent": "insight-synthesizer",
+            "input": "paper_analysis",
+            "output": "research_insights"
+        },
+        {
+            "step": 4,
+            "agent": "report-writer",
+            "input": "research_insights",
+            "output": "final_report"
+        }
+    ]
+}
+```
+
+```json E-commerce Automation
+{
+  "name": "ecommerce-automation",
+  "description": "Complete e-commerce order processing automation",
+  "agents": [
+    {
+      "name": "order-processor",
+      "model": "deepseek-v3.1",
+      "responsibilities": [
+        "validate_orders",
+        "check_inventory",
+        "process_payments"
+      ]
+    },
+    {
+      "name": "inventory-manager", 
+      "model": "hermes4:70b",
+      "responsibilities": [
+        "track_inventory",
+        "reorder_products",
+        "optimize_stock_levels"
+      ]
+    },
+    {
+      "name": "customer-communicator",
+      "model": "kimi-k2",
+      "responsibilities": [
+        "send_confirmations",
+        "provide_updates",
+        "handle_inquiries"
+      ]
+    }
+  ],
+  "integrations": [
+    "shopify_store",
+    "inventory_database",
+    "payment_processor",
+    "shipping_apis",
+    "email_service"
+  ]
+}
+```
+</CodeGroup>
+
+### Real-time System Integration
+
+<Tabs>
+<Tab title="IoT Device Management">
+  **Manage and respond to IoT device data**
+  
+  ```python
+  iot_agent = {
+      "name": "iot-manager",
+      "model": "hermes4:70b",
+      "data_streams": [
+          {
+              "type": "mqtt",
+              "broker": "iot.company.com",
+              "topics": ["sensors/+/temperature", "devices/+/status"]
+          }
+      ],
+      "actions": [
+          {
+              "trigger": "temperature > 75",
+              "action": "send_alert",
+              "targets": ["facilities_team", "hvac_system"]
+          },
+          {
+              "trigger": "device_offline",
+              "action": "diagnose_and_repair",
+              "escalate_after": "5 minutes"
+          }
+      ]
+  }
+  ```
+</Tab>
+
+<Tab title="Trading System">
+  **Automated trading and market analysis**
+  
+  ```json
+  {
+    "name": "trading-system",
+    "agents": [
+      {
+        "name": "market-analyzer",
+        "model": "hermes4:405b",
+        "data_feeds": ["market_data", "news_feeds", "social_sentiment"],
+        "analysis_frequency": "1s"
+      },
+      {
+        "name": "risk-manager",
+        "model": "deepseek-v3.1",
+        "monitoring": ["portfolio_exposure", "var_calculations", "stress_tests"],
+        "limits": {"max_position_size": 100000, "daily_loss_limit": 50000}
+      },
+      {
+        "name": "execution-agent",
+        "model": "hermes4:70b",
+        "capabilities": ["order_placement", "position_management", "liquidity_analysis"],
+        "exchanges": ["binance", "coinbase", "kraken"]
+      }
+    ]
+  }
+  ```
+</Tab>
+
+<Tab title="Security Monitoring">
+  **Automated security monitoring and response**
+  
+  ```python
+  security_agents = {
+      "threat_detector": {
+          "model": "hermes4:405b",
+          "data_sources": [
+              "network_logs",
+              "system_logs", 
+              "application_logs",
+              "threat_intelligence_feeds"
+          ],
+          "detection_rules": [
+              "anomalous_network_traffic",
+              "suspicious_login_patterns",
+              "malware_signatures",
+              "data_exfiltration_attempts"
+          ]
+      },
+      "incident_responder": {
+          "model": "deepseek-v3.1",
+          "capabilities": [
+              "isolate_compromised_systems",
+              "collect_forensic_evidence",
+              "notify_security_team",
+              "generate_incident_reports"
+          ]
+      }
+  }
+  ```
+</Tab>
+</Tabs>
+
+## Testing and Validation
+
+### Agent Testing Framework
+
+<Steps>
+<Step title="Unit Testing">
+  **Test individual agent functions**
+  
+  ```python
+  import unittest
+  from elizaos.testing import AgentTestCase
+  
+  class TestDocumentAnalyzer(AgentTestCase):
+      def setUp(self):
+          self.agent = self.create_test_agent("document-analyzer")
+      
+      def test_pdf_analysis(self):
+          result = self.agent.process({
+              "type": "pdf",
+              "content": "test_document.pdf"
+          })
+          self.assertIn("summary", result)
+          self.assertGreater(len(result["summary"]), 50)
+  ```
+</Step>
+
+<Step title="Integration Testing">
+  **Test agent interactions with external systems**
+  
+  ```python
+  def test_github_integration():
+      # Test GitHub API integration
+      agent = create_agent("github-reviewer")
+      
+      # Mock GitHub API responses
+      with mock_github_api():
+          result = agent.review_pr("owner/repo", 123)
+          assert result["status"] == "completed"
+          assert "feedback" in result
+  ```
+</Step>
+
+<Step title="Load Testing">
+  **Test agent performance under load**
+  
+  ```bash
+  # Load test agent endpoints
+  elizaos test load \
+    --agent document-analyzer \
+    --concurrent-requests 100 \
+    --duration 300s \
+    --ramp-up 30s
+  ```
+</Step>
+</Steps>
+
+## Security Considerations
+
+### Agent Security
+
+<AccordionGroup>
+<Accordion title="Sandboxing">
+  **Isolate agent execution environments**
+  
+  - Process isolation using containers
+  - Network namespace separation
+  - File system access restrictions
+  - Resource quota enforcement
+</Accordion>
+
+<Accordion title="Permission Management">
+  **Fine-grained access controls**
+  
+  ```json
+  {
+    "agent_permissions": {
+      "data_access": {
+        "allowed_databases": ["analytics"],
+        "allowed_tables": ["users", "events"],
+        "operations": ["SELECT"],
+        "row_limit": 10000
+      },
+      "api_access": {
+        "allowed_endpoints": ["/api/users", "/api/reports"],
+        "rate_limit": "100/hour",
+        "authentication_required": true
+      }
+    }
+  }
+  ```
+</Accordion>
+
+<Accordion title="Audit and Compliance">
+  **Comprehensive logging and compliance**
+  
+  - All agent actions logged with timestamps
+  - Data access tracking and reporting
+  - Compliance with GDPR, HIPAA, SOX
+  - Automated compliance reporting
+</Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={3}>
+<Card title="Setup Guide" icon="cogs" href="/elizaos/setup">
+  Learn how to deploy ELIZAOS on Comput3 Network infrastructure.
+</Card>
+
+<Card title="MCP Integration" icon="link" href="/mcp">
+  Connect external data sources and tools to your ELIZAOS agents.
+</Card>
+
+<Card title="GPU Instances" icon="microchip" href="/launch-gpu">
+  Choose the right GPU instances for your ELIZAOS deployment.
+</Card>
+</CardGroup>

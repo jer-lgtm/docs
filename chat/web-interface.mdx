@@ -1,0 +1,321 @@
+---
+title: "Web Interface"
+description: "Complete guide to using Comput3's web-based chat interface"
+icon: "browser"
+---
+
+The Comput3 web interface provides an intuitive way to chat with AI models directly in your browser.
+
+## Accessing the Web Interface
+
+Navigate to [app.comput3.ai](https://app.comput3.ai) and sign in to access the chat interface.
+
+<Frame>
+<img src="/images/chat-interface.png" alt="Comput3 web chat interface showing conversation panel and settings" />
+</Frame>
+
+## Interface Overview
+
+### Main Chat Panel
+The central area where conversations take place:
+- **Message History**: Previous messages in the current conversation
+- **Input Field**: Type your messages and questions
+- **Send Button**: Submit your message (or press Enter)
+- **Streaming Indicator**: Shows when the AI is generating a response
+
+### Model Selection
+Choose the AI model for your conversation:
+
+<Tabs>
+<Tab title="GPT-4">
+  **Best for**: Complex reasoning, analysis, creative tasks
+  
+  - Highest quality responses
+  - Best at following complex instructions
+  - More expensive per token
+  - Slower response times
+</Tab>
+
+<Tab title="GPT-3.5 Turbo">
+  **Best for**: General conversation, quick tasks
+  
+  - Fast response times
+  - Cost-effective
+  - Good for most use cases
+  - Balanced performance
+</Tab>
+
+<Tab title="Claude 3 Sonnet">
+  **Best for**: Creative writing, analysis, research
+  
+  - Excellent reasoning abilities
+  - Strong creative capabilities
+  - Good at long-form content
+  - Competitive pricing
+</Tab>
+</Tabs>
+
+### Conversation Settings
+
+<AccordionGroup>
+<Accordion title="Temperature Control">
+  Adjust the creativity vs consistency of responses:
+  
+  - **0.0 - 0.3**: Very consistent, deterministic responses
+  - **0.4 - 0.7**: Balanced creativity and consistency (recommended)
+  - **0.8 - 1.0**: Highly creative, varied responses
+  
+  <Tip>
+  Use lower temperatures for factual questions and higher temperatures for creative tasks.
+  </Tip>
+</Accordion>
+
+<Accordion title="Max Tokens">
+  Control the maximum length of responses:
+  
+  - **256 tokens**: Short responses (~200 words)
+  - **512 tokens**: Medium responses (~400 words)
+  - **1024 tokens**: Long responses (~800 words)
+  - **2048+ tokens**: Very long responses (articles, code)
+  
+  <Note>
+  Longer responses consume more tokens and cost more.
+  </Note>
+</Accordion>
+
+<Accordion title="System Prompts">
+  Set custom behavior for the AI:
+  
+  ```text
+  You are a senior software engineer specializing in Python. 
+  Provide detailed, practical advice with code examples.
+  ```
+  
+  **Common System Prompts**:
+  - Code reviewer and mentor
+  - Technical writer and documentation expert
+  - Creative writing assistant
+  - Research and analysis specialist
+</Accordion>
+</AccordionGroup>
+
+## Features and Functionality
+
+### Message Actions
+
+Each message has several action buttons:
+
+<CardGroup cols={2}>
+<Card title="Copy" icon="copy">
+  Copy the message content to your clipboard for use elsewhere.
+</Card>
+
+<Card title="Regenerate" icon="refresh">
+  Generate a new response to the same prompt with different output.
+</Card>
+
+<Card title="Edit" icon="edit">
+  Modify your message and regenerate the AI's response.
+</Card>
+
+<Card title="Share" icon="share">
+  Share individual messages or entire conversations.
+</Card>
+</CardGroup>
+
+### Conversation Management
+
+<Steps>
+<Step title="Create New Conversation">
+  Click the "New Chat" button to start a fresh conversation with no previous context.
+</Step>
+
+<Step title="Save Conversations">
+  Conversations are automatically saved. Access them from the sidebar history.
+</Step>
+
+<Step title="Rename Conversations">
+  Click the conversation title to rename it for better organization.
+</Step>
+
+<Step title="Delete Conversations">
+  Use the delete button to permanently remove conversations you no longer need.
+</Step>
+</Steps>
+
+### Advanced Features
+
+#### File Uploads
+Upload documents, images, and code files for analysis:
+
+<Tabs>
+<Tab title="Documents">
+  **Supported formats**: PDF, DOCX, TXT, MD
+  
+  ```text
+  "Analyze this research paper and summarize the key findings"
+  ```
+</Tab>
+
+<Tab title="Images">
+  **Supported formats**: PNG, JPG, JPEG, GIF, WEBP
+  
+  ```text
+  "Describe what you see in this image and identify any issues"
+  ```
+</Tab>
+
+<Tab title="Code Files">
+  **Supported formats**: All major programming languages
+  
+  ```text
+  "Review this code for potential bugs and suggest improvements"
+  ```
+</Tab>
+</Tabs>
+
+#### Export Options
+Export conversations in multiple formats:
+
+- **Markdown**: For documentation and sharing
+- **PDF**: For formal reports and presentations  
+- **JSON**: For programmatic processing
+- **Plain Text**: For simple text processing
+
+#### Collaboration Features
+Work with team members on conversations:
+
+- **Share Links**: Generate shareable URLs for conversations
+- **Team Workspaces**: Collaborate within organization boundaries
+- **Access Controls**: Manage who can view and edit conversations
+- **Comment System**: Add notes and feedback to conversations
+
+## Tips for Effective Usage
+
+### Writing Better Prompts
+
+<AccordionGroup>
+<Accordion title="Be Specific">
+  **Instead of**: "Help me with Python"
+  
+  **Try**: "Help me optimize this Python function that processes large CSV files for better memory usage"
+</Accordion>
+
+<Accordion title="Provide Context">
+  **Instead of**: "Fix this code"
+  
+  **Try**: "This Python function is supposed to validate email addresses but it's not catching invalid formats. Here's the code: [paste code]"
+</Accordion>
+
+<Accordion title="Use Examples">
+  **Instead of**: "Write a function"
+  
+  **Try**: "Write a Python function that takes a list like [\"apple\", \"banana\", \"cherry\"] and returns a dictionary with counts"
+</Accordion>
+</AccordionGroup>
+
+### Conversation Flow
+
+1. **Start with Context**: Begin conversations with relevant background information
+2. **Build Incrementally**: Ask follow-up questions to refine responses
+3. **Use References**: Refer to previous messages: "Based on the code you just wrote..."
+4. **Clarify When Needed**: Ask for clarification if responses are unclear
+
+### Model Selection Strategy
+
+<CardGroup cols={3}>
+<Card title="Quick Questions" icon="zap">
+  **Use GPT-3.5 Turbo** for:
+  - Simple factual questions
+  - Quick code explanations  
+  - Basic writing tasks
+</Card>
+
+<Card title="Complex Tasks" icon="brain">
+  **Use GPT-4** for:
+  - Complex problem solving
+  - Detailed analysis
+  - Multi-step reasoning
+</Card>
+
+<Card title="Creative Work" icon="palette">
+  **Use Claude** for:
+  - Creative writing
+  - Content generation
+  - Research synthesis
+</Card>
+</CardGroup>
+
+## Keyboard Shortcuts
+
+Speed up your workflow with these shortcuts:
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl/Cmd + Enter` | Send message |
+| `Ctrl/Cmd + N` | New conversation |
+| `Ctrl/Cmd + K` | Focus search |
+| `Ctrl/Cmd + /` | Show shortcuts |
+| `↑/↓` | Navigate message history |
+| `Ctrl/Cmd + R` | Regenerate response |
+
+## Troubleshooting
+
+<AccordionGroup>
+<Accordion title="Slow Response Times">
+  **Possible Causes**:
+  - High server load during peak hours
+  - Complex prompts requiring more processing
+  - Large file uploads being processed
+  
+  **Solutions**:
+  - Try during off-peak hours
+  - Break complex requests into smaller parts
+  - Reduce file sizes before uploading
+</Accordion>
+
+<Accordion title="Conversation Not Saving">
+  **Possible Causes**:
+  - Browser storage issues
+  - Network connectivity problems
+  - Account authentication expired
+  
+  **Solutions**:
+  - Clear browser cache and cookies
+  - Check internet connection
+  - Sign out and sign back in
+</Accordion>
+
+<Accordion title="Model Not Responding">
+  **Possible Causes**:
+  - API rate limits exceeded
+  - Invalid or expired API key
+  - Model temporarily unavailable
+  
+  **Solutions**:
+  - Check rate limit status in dashboard
+  - Verify API key is active
+  - Try a different model
+  - Contact support if issue persists
+</Accordion>
+</AccordionGroup>
+
+## Best Practices
+
+<CardGroup cols={2}>
+<Card title="Privacy Awareness" icon="shield-check">
+  Avoid sharing sensitive information like passwords, API keys, or personal data in conversations.
+</Card>
+
+<Card title="Token Management" icon="coins">
+  Monitor token usage in your dashboard to manage costs effectively.
+</Card>
+
+<Card title="Conversation Organization" icon="folder">
+  Use descriptive names for conversations and organize them by project or topic.
+</Card>
+
+<Card title="Regular Exports" icon="download">
+  Export important conversations regularly for backup and reference.
+</Card>
+</CardGroup>

@@ -1,0 +1,458 @@
+---
+title: "Generate Medias Introduction"
+description: "Create images, videos, and multimedia content using AI on Comput3 Network"
+icon: "image"
+---
+
+Harness the power of AI to generate high-quality images, videos, and multimedia content using ComfyUI on Comput3's distributed GPU infrastructure.
+
+## Overview
+
+Comput3 Network provides GPU instances pre-configured with ComfyUI for media generation:
+
+<CardGroup cols={2}>
+<Card title="ComfyUI Image Generation" icon="image" href="/generate-medias/images">
+  Launch a GPU instance with ComfyUI pre-installed to create stunning images using Stable Diffusion workflows.
+</Card>
+
+<Card title="ComfyUI Video Generation" icon="video" href="/generate-medias/videos">
+  Use ComfyUI's video workflows on GPU instances to generate dynamic videos and animations.
+</Card>
+
+<Card title="Custom Workflows" icon="workflow">
+  Create and share custom ComfyUI workflows for specialized media generation tasks.
+</Card>
+
+<Card title="GPU-Powered Processing" icon="microchip">
+  High-performance GPU instances optimized for ComfyUI and media generation workloads.
+</Card>
+</CardGroup>
+
+## Supported AI Models
+
+### Image Generation Models
+
+<AccordionGroup>
+<Accordion title="Stable Diffusion XL">
+  **Latest and most capable Stable Diffusion model**
+  
+  - **Resolution**: Up to 1024x1024 native, upscale to 4K
+  - **Styles**: Photorealistic, artistic, anime, concept art
+  - **Speed**: ~2-4 seconds per image on H100
+  - **Cost**: $0.02 per image
+  
+  **Best for**: High-quality artwork, professional imagery, commercial use
+</Accordion>
+
+<Accordion title="Stable Diffusion 2.1">
+  **Balanced performance and quality**
+  
+  - **Resolution**: 512x512 native, upscale available
+  - **Styles**: General purpose, good for most use cases
+  - **Speed**: ~1-2 seconds per image on A100
+  - **Cost**: $0.01 per image
+  
+  **Best for**: Rapid prototyping, concept exploration, batch generation
+</Accordion>
+
+<Accordion title="DALL-E 3 Compatible">
+  **OpenAI DALL-E 3 style generation**
+  
+  - **Resolution**: 1024x1024, 1024x1792, 1792x1024
+  - **Styles**: Highly detailed, photorealistic, artistic
+  - **Speed**: ~3-5 seconds per image
+  - **Cost**: $0.04 per image
+  
+  **Best for**: Marketing materials, social media content, presentations
+</Accordion>
+
+<Accordion title="Midjourney V6 Style">
+  **Midjourney-inspired aesthetic**
+  
+  - **Resolution**: Up to 2048x2048
+  - **Styles**: Artistic, cinematic, fantasy, surreal
+  - **Speed**: ~4-6 seconds per image
+  - **Cost**: $0.03 per image
+  
+  **Best for**: Creative projects, artistic exploration, concept art
+</Accordion>
+</AccordionGroup>
+
+### Video Generation Models
+
+<AccordionGroup>
+<Accordion title="Runway Gen-2 Style">
+  **Text-to-video generation**
+  
+  - **Duration**: 4-16 seconds
+  - **Resolution**: 1280x768, 768x1280, 1024x1024
+  - **Frame Rate**: 24 FPS
+  - **Cost**: $0.50 per 4-second clip
+  
+  **Best for**: Social media content, marketing videos, creative projects
+</Accordion>
+
+<Accordion title="Stable Video Diffusion">
+  **Image-to-video animation**
+  
+  - **Duration**: 2-8 seconds
+  - **Resolution**: 1024x576
+  - **Frame Rate**: 6-24 FPS
+  - **Cost**: $0.25 per 4-second clip
+  
+  **Best for**: Animating still images, product demonstrations, cinemagraphs
+</Accordion>
+
+<Accordion title="Pika Labs Style">
+  **Creative video generation**
+  
+  - **Duration**: 3-12 seconds
+  - **Resolution**: Multiple aspect ratios
+  - **Features**: Camera controls, style consistency
+  - **Cost**: $0.40 per 4-second clip
+  
+  **Best for**: Creative storytelling, experimental videos, artistic content
+</Accordion>
+</AccordionGroup>
+
+## Getting Started
+
+<Steps>
+<Step title="Launch GPU Instance">
+  Launch a GPU instance with ComfyUI pre-installed from the Comput3 dashboard.
+  
+  <CardGroup cols={2}>
+  <Card title="Quick Launch" icon="rocket">
+    Use the ComfyUI template for instant setup with popular workflows pre-loaded.
+  </Card>
+  
+  <Card title="Custom Setup" icon="cogs">
+    Launch any GPU instance and install ComfyUI manually for full customization.
+  </Card>
+  </CardGroup>
+</Step>
+
+<Step title="Access ComfyUI Interface">
+  Connect to your GPU instance and open the ComfyUI web interface.
+  
+  ```bash
+  # SSH into your instance
+  ssh -i your-key.pem ubuntu@<instance-ip>
+  
+  # ComfyUI should be running on port 8188
+  # Access via: http://<instance-ip>:8188
+  ```
+</Step>
+
+<Step title="Load or Create Workflows">
+  Choose from pre-installed workflows or create your own:
+  - Text-to-image workflows
+  - Image-to-image transformations
+  - Video generation pipelines
+  - Custom node combinations
+</Step>
+
+<Step title="Generate Content">
+  Run your workflows to generate images, videos, and other media content.
+  
+  <Tip>
+  ComfyUI's node-based interface allows for complex, reproducible workflows.
+  </Tip>
+</Step>
+</Steps>
+
+## ComfyUI Interface
+
+### Pre-configured Templates
+
+Launch GPU instances with ComfyUI templates optimized for different use cases:
+
+<Frame>
+<img src="/images/comfyui-interface.png" alt="ComfyUI node-based interface showing workflow for image generation" />
+</Frame>
+
+<CardGroup cols={2}>
+<Card title="Image Generation Template" icon="image">
+  **Pre-loaded with popular image workflows**
+  - Stable Diffusion XL models
+  - ControlNet nodes pre-configured
+  - Popular LoRA models included
+  - Upscaling and enhancement workflows
+</Card>
+
+<Card title="Video Generation Template" icon="video">
+  **Specialized for video generation workflows**
+  - AnimateDiff models and workflows
+  - Stable Video Diffusion setup
+  - Frame interpolation nodes
+  - Temporal consistency tools
+</Card>
+</CardGroup>
+
+### ComfyUI Advantages
+
+<AccordionGroup>
+<Accordion title="Node-Based Workflows">
+  **Visual workflow creation and management**
+  
+  - Drag-and-drop interface for building generation pipelines
+  - Reusable workflow components and templates
+  - Visual debugging and parameter adjustment
+  - Complex multi-step generation processes
+</Accordion>
+
+<Accordion title="Model Flexibility">
+  **Support for any Stable Diffusion compatible model**
+  
+  - Load custom checkpoints and LoRA models
+  - Switch between different model architectures
+  - Fine-tuned model integration
+  - Community model ecosystem access
+</Accordion>
+
+<Accordion title="Advanced Controls">
+  **Precise control over generation parameters**
+  
+  - ControlNet integration for guided generation
+  - Custom sampling methods and schedulers
+  - Batch processing and queue management
+  - Real-time parameter adjustment
+</Accordion>
+</AccordionGroup>
+
+### Getting ComfyUI Running
+
+<Steps>
+<Step title="Launch Template Instance">
+  Use the ComfyUI template from the GPU instance launcher for instant setup.
+</Step>
+
+<Step title="Manual Installation">
+  For custom setups, install ComfyUI on any GPU instance:
+  
+  ```bash
+  # Clone ComfyUI repository
+  git clone https://github.com/comfyanonymous/ComfyUI.git
+  cd ComfyUI
+  
+  # Install dependencies
+  pip install -r requirements.txt
+  
+  # Download base models
+  wget -O models/checkpoints/sd_xl_base_1.0.safetensors \
+    "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors"
+  
+  # Start ComfyUI server
+  python main.py --listen 0.0.0.0 --port 8188
+  ```
+</Step>
+</Steps>
+
+## Prompt Engineering
+
+### Effective Prompt Structure
+
+<Tabs>
+<Tab title="Basic Structure">
+  **Format**: `[Subject] [Action] [Environment] [Style] [Technical]`
+  
+  **Example**:
+  ```
+  A majestic golden retriever running through a sunlit meadow, 
+  impressionist painting style, soft lighting, high detail, 8k resolution
+  ```
+</Tab>
+
+<Tab title="Advanced Techniques">
+  **Weight Control**:
+  ```
+  (golden retriever:1.3) running through (sunlit meadow:0.8), 
+  impressionist style, (soft lighting:1.2)
+  ```
+  
+  **Negative Prompts**:
+  ```
+  Negative: blurry, low quality, distorted, ugly, bad anatomy
+  ```
+</Tab>
+
+<Tab title="Style Modifiers">
+  **Artistic Styles**:
+  - `in the style of Van Gogh`
+  - `digital art, concept art`
+  - `photorealistic, hyperrealistic`
+  - `anime, manga style`
+  - `oil painting, watercolor`
+  
+  **Technical Modifiers**:
+  - `8k, ultra high resolution`
+  - `professional photography`
+  - `cinematic lighting`
+  - `depth of field, bokeh`
+  - `HDR, vibrant colors`
+</Tab>
+</Tabs>
+
+### Prompt Libraries
+
+<AccordionGroup>
+<Accordion title="Photography Styles">
+  **Portrait Photography**:
+  - `professional headshot, studio lighting, shallow depth of field`
+  - `candid portrait, natural lighting, 85mm lens`
+  - `fashion photography, dramatic lighting, high contrast`
+  
+  **Landscape Photography**:
+  - `golden hour landscape, warm lighting, wide angle`
+  - `dramatic mountain vista, storm clouds, HDR`
+  - `serene lake reflection, misty morning, soft colors`
+</Accordion>
+
+<Accordion title="Artistic Styles">
+  **Digital Art**:
+  - `concept art, matte painting, detailed environment`
+  - `character design, game art, stylized rendering`
+  - `sci-fi illustration, futuristic, neon colors`
+  
+  **Traditional Art**:
+  - `oil painting, classical style, renaissance lighting`
+  - `watercolor illustration, soft edges, flowing colors`
+  - `ink drawing, line art, minimalist style`
+</Accordion>
+
+<Accordion title="Commercial Applications">
+  **Product Photography**:
+  - `product shot, white background, studio lighting`
+  - `lifestyle product photo, natural setting, soft shadows`
+  - `e-commerce photo, clean background, even lighting`
+  
+  **Marketing Content**:
+  - `social media post, trendy style, vibrant colors`
+  - `banner design, modern layout, corporate style`
+  - `advertisement photo, professional, eye-catching`
+</Accordion>
+</AccordionGroup>
+
+## Quality and Resolution Options
+
+### Image Resolutions
+
+| Resolution | Aspect Ratio | Use Case | Cost Multiplier |
+|------------|--------------|----------|-----------------|
+| 512x512 | 1:1 | Social media, avatars | 1x |
+| 768x768 | 1:1 | High-quality social media | 1.5x |
+| 1024x1024 | 1:1 | Print, detailed artwork | 2x |
+| 1024x768 | 4:3 | Traditional photography | 2x |
+| 1344x768 | 16:9 | Widescreen, banners | 2.5x |
+| 1536x1024 | 3:2 | Professional photography | 3x |
+
+### Quality Settings
+
+<Tabs>
+<Tab title="Speed Optimized">
+  **Settings**:
+  - Steps: 20-25
+  - Guidance Scale: 6-8
+  - Generation Time: 1-2 seconds
+  
+  **Best for**: Rapid prototyping, concept exploration, batch generation
+</Tab>
+
+<Tab title="Balanced">
+  **Settings**:
+  - Steps: 30-35
+  - Guidance Scale: 7-9
+  - Generation Time: 2-4 seconds
+  
+  **Best for**: General purpose, most use cases, good quality/speed balance
+</Tab>
+
+<Tab title="Quality Optimized">
+  **Settings**:
+  - Steps: 40-50
+  - Guidance Scale: 8-12
+  - Generation Time: 4-8 seconds
+  
+  **Best for**: Final artwork, print materials, professional use
+</Tab>
+</Tabs>
+
+## Pricing and Usage
+
+### Cost Structure
+
+<Info>
+Pricing is based on model complexity, resolution, and generation time. All prices include GPU compute and storage.
+</Info>
+
+**Image Generation**:
+- **SD 2.1**: $0.01 per 512x512 image
+- **SDXL**: $0.02 per 1024x1024 image
+- **DALL-E Style**: $0.04 per 1024x1024 image
+
+**Video Generation**:
+- **Basic**: $0.25 per 4-second 720p clip
+- **HD**: $0.50 per 4-second 1080p clip
+- **Premium**: $1.00 per 4-second 4K clip
+
+### Usage Optimization
+
+<CardGroup cols={2}>
+<Card title="Batch Generation" icon="layer-group">
+  Generate multiple variations in a single request to reduce overhead costs.
+</Card>
+
+<Card title="Resolution Planning" icon="expand-arrows-alt">
+  Start with lower resolutions for iteration, then upscale final versions.
+</Card>
+
+<Card title="Model Selection" icon="brain">
+  Choose the most cost-effective model that meets your quality requirements.
+</Card>
+
+<Card title="Prompt Optimization" icon="edit">
+  Refine prompts to reduce the number of generation attempts needed.
+</Card>
+</CardGroup>
+
+## Use Cases and Applications
+
+### Content Creation
+- **Social Media**: Instagram posts, Twitter headers, profile pictures
+- **Marketing**: Ad banners, product mockups, promotional materials
+- **Web Design**: Hero images, backgrounds, UI elements
+- **Print Media**: Posters, flyers, book covers, magazine layouts
+
+### Entertainment
+- **Game Development**: Concept art, textures, character designs
+- **Film/Video**: Storyboards, concept frames, visual effects plates
+- **Animation**: Background art, character references, style guides
+- **Virtual Reality**: Environment textures, 360° backgrounds
+
+### Business Applications
+- **E-commerce**: Product variations, lifestyle shots, catalog images
+- **Real Estate**: Staged interiors, architectural visualizations
+- **Fashion**: Model shots, product combinations, style guides
+- **Education**: Illustrations, diagrams, educational content
+
+### Creative Projects
+- **Art Exploration**: Style experiments, creative inspiration
+- **Personal Projects**: Custom artwork, gifts, decorations
+- **Portfolio Work**: Concept pieces, artistic studies
+- **NFT Creation**: Unique digital art, collectible series
+
+## Next Steps
+
+<CardGroup cols={3}>
+<Card title="Image Generation" icon="image" href="/generate-medias/images">
+  Learn detailed techniques for creating stunning AI-generated images.
+</Card>
+
+<Card title="Video Generation" icon="video" href="/generate-medias/videos">
+  Explore video creation with AI models and animation techniques.
+</Card>
+
+<Card title="API Reference" icon="code" href="/api">
+  Complete API documentation for programmatic media generation.
+</Card>
+</CardGroup>

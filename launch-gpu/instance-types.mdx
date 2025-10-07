@@ -1,0 +1,403 @@
+---
+title: "Instance Types"
+description: "Detailed specifications and performance benchmarks for all GPU instances"
+icon: "server"
+---
+
+Choose the right GPU instance type for your workload with detailed specifications and performance benchmarks.
+
+## GPU Comparison Matrix
+
+<Frame>
+<img src="/images/gpu-comparison-chart.png" alt="GPU performance comparison chart showing TFLOPS, memory, and pricing" />
+</Frame>
+
+## NVIDIA H100 Series
+
+### H100 80GB
+**Premium Performance for Enterprise Workloads**
+
+<CardGroup cols={2}>
+<Card title="Specifications" icon="microchip">
+  - **GPU Memory**: 80GB HBM3
+  - **Memory Bandwidth**: 3.35 TB/s
+  - **CUDA Cores**: 16,896
+  - **Tensor Cores**: 528 (4th gen)
+  - **FP32 Performance**: 67 TFLOPS
+  - **Tensor Performance**: 2000 TFLOPS (BF16)
+</Card>
+
+<Card title="System Configuration" icon="server">
+  - **CPU**: 32 vCPUs (Intel Xeon or AMD EPYC)
+  - **RAM**: 256GB DDR5
+  - **Storage**: 1TB NVMe SSD
+  - **Network**: 100 Gbps
+  - **Pricing**: $4.50/hour
+</Card>
+</CardGroup>
+
+**Best Use Cases:**
+- Large language model training (70B+ parameters)
+- Multi-modal AI model development
+- High-throughput inference serving
+- Scientific computing and simulation
+- Cryptocurrency mining and blockchain applications
+
+**Performance Benchmarks:**
+- **LLaMA 70B Training**: 45% faster than A100
+- **Stable Diffusion XL**: 2.3x faster inference
+- **BERT Large**: 3.2x training speedup
+- **GPT-3 175B**: 40% reduction in training time
+
+### H100 NVL (Multi-GPU)
+**Scale to Multiple GPUs**
+
+Available in 2x, 4x, and 8x configurations with NVLink for high-bandwidth GPU-to-GPU communication.
+
+<Tabs>
+<Tab title="2x H100 NVL">
+  - **Total GPU Memory**: 160GB
+  - **NVLink Bandwidth**: 900 GB/s
+  - **Pricing**: $8.50/hour
+  - **Best for**: Medium-scale distributed training
+</Tab>
+
+<Tab title="4x H100 NVL">
+  - **Total GPU Memory**: 320GB
+  - **NVLink Bandwidth**: 900 GB/s per GPU
+  - **Pricing**: $16.50/hour
+  - **Best for**: Large model training, multi-task inference
+</Tab>
+
+<Tab title="8x H100 NVL">
+  - **Total GPU Memory**: 640GB
+  - **NVLink Bandwidth**: Full mesh connectivity
+  - **Pricing**: $32.00/hour
+  - **Best for**: Massive model training, research clusters
+</Tab>
+</Tabs>
+
+## NVIDIA A100 Series
+
+### A100 80GB
+**Versatile High-Performance Computing**
+
+<CardGroup cols={2}>
+<Card title="Specifications" icon="microchip">
+  - **GPU Memory**: 80GB HBM2e
+  - **Memory Bandwidth**: 2.04 TB/s
+  - **CUDA Cores**: 6,912
+  - **Tensor Cores**: 432 (3rd gen)
+  - **FP32 Performance**: 19.5 TFLOPS
+  - **Tensor Performance**: 1248 TFLOPS (BF16)
+</Card>
+
+<Card title="System Configuration" icon="server">
+  - **CPU**: 24 vCPUs
+  - **RAM**: 192GB DDR4
+  - **Storage**: 500GB NVMe SSD
+  - **Network**: 25 Gbps
+  - **Pricing**: $3.50/hour
+</Card>
+</CardGroup>
+
+**Best Use Cases:**
+- Deep learning model training (up to 30B parameters)
+- Multi-model inference serving
+- Data analytics and processing
+- Computer vision applications
+- Natural language processing
+
+### A100 40GB
+**Cost-Effective Performance**
+
+<CardGroup cols={2}>
+<Card title="Specifications" icon="microchip">
+  - **GPU Memory**: 40GB HBM2e
+  - **Memory Bandwidth**: 1.56 TB/s
+  - **CUDA Cores**: 6,912
+  - **Tensor Cores**: 432 (3rd gen)
+  - **Performance**: Same compute as 80GB model
+</Card>
+
+<Card title="System Configuration" icon="server">
+  - **CPU**: 16 vCPUs
+  - **RAM**: 128GB DDR4
+  - **Storage**: 250GB NVMe SSD
+  - **Network**: 25 Gbps
+  - **Pricing**: $2.50/hour
+</Card>
+</CardGroup>
+
+**Best Use Cases:**
+- Medium-scale model training
+- Inference for production applications
+- Research and development
+- Batch processing workloads
+
+## NVIDIA V100 Series
+
+### V100 32GB
+**Proven Performance for Research**
+
+<CardGroup cols={2}>
+<Card title="Specifications" icon="microchip">
+  - **GPU Memory**: 32GB HBM2
+  - **Memory Bandwidth**: 900 GB/s
+  - **CUDA Cores**: 5,120
+  - **Tensor Cores**: 640 (1st gen)
+  - **FP32 Performance**: 15.7 TFLOPS
+  - **Tensor Performance**: 125 TFLOPS
+</Card>
+
+<Card title="System Configuration" icon="server">
+  - **CPU**: 12 vCPUs
+  - **RAM**: 96GB DDR4
+  - **Storage**: 200GB SSD
+  - **Network**: 10 Gbps
+  - **Pricing**: $2.00/hour
+</Card>
+</CardGroup>
+
+### V100 16GB
+**Entry-Level Data Center GPU**
+
+<CardGroup cols={2}>
+<Card title="Specifications" icon="microchip">
+  - **GPU Memory**: 16GB HBM2
+  - **Memory Bandwidth**: 900 GB/s
+  - **CUDA Cores**: 5,120
+  - **Tensor Cores**: 640 (1st gen)
+  - **Performance**: Same compute as 32GB model
+</Card>
+
+<Card title="System Configuration" icon="server">
+  - **CPU**: 8 vCPUs
+  - **RAM**: 64GB DDR4
+  - **Storage**: 100GB SSD
+  - **Network**: 10 Gbps
+  - **Pricing**: $1.50/hour
+</Card>
+</CardGroup>
+
+**Best Use Cases:**
+- Small to medium model training
+- Development and prototyping
+- Educational and research projects
+- Legacy application support
+
+## NVIDIA RTX Series
+
+### RTX 4090
+**High-Performance Consumer GPU**
+
+<CardGroup cols={2}>
+<Card title="Specifications" icon="microchip">
+  - **GPU Memory**: 24GB GDDR6X
+  - **Memory Bandwidth**: 1008 GB/s
+  - **CUDA Cores**: 16,384
+  - **RT Cores**: 128 (3rd gen)
+  - **Tensor Cores**: 512 (4th gen)
+  - **FP32 Performance**: 83 TFLOPS
+</Card>
+
+<Card title="System Configuration" icon="server">
+  - **CPU**: 16 vCPUs (AMD Ryzen or Intel Core)
+  - **RAM**: 64GB DDR5
+  - **Storage**: 500GB NVMe SSD
+  - **Network**: 1 Gbps
+  - **Pricing**: $1.20/hour
+</Card>
+</CardGroup>
+
+**Best Use Cases:**
+- Game development and testing
+- 3D rendering and animation
+- AI art generation (Stable Diffusion)
+- Content creation and streaming
+- Development and learning
+
+### RTX 4080
+**Balanced Performance and Cost**
+
+<CardGroup cols={2}>
+<Card title="Specifications" icon="microchip">
+  - **GPU Memory**: 16GB GDDR6X
+  - **Memory Bandwidth**: 717 GB/s
+  - **CUDA Cores**: 9,728
+  - **RT Cores**: 76 (3rd gen)
+  - **Tensor Cores**: 304 (4th gen)
+</Card>
+
+<Card title="System Configuration" icon="server">
+  - **CPU**: 12 vCPUs
+  - **RAM**: 32GB DDR5
+  - **Storage**: 250GB NVMe SSD
+  - **Network**: 1 Gbps
+  - **Pricing**: $0.90/hour
+</Card>
+</CardGroup>
+
+## Performance Benchmarks
+
+### Training Performance (Relative to V100 16GB)
+
+| Model Type | V100 16GB | A100 40GB | A100 80GB | H100 80GB |
+|------------|-----------|-----------|-----------|-----------|
+| BERT Base | 1.0x | 2.1x | 2.1x | 3.2x |
+| ResNet-50 | 1.0x | 1.8x | 1.8x | 2.5x |
+| GPT-2 Medium | 1.0x | 2.3x | 2.3x | 3.8x |
+| Stable Diffusion | 1.0x | 2.0x | 2.0x | 4.1x |
+
+### Inference Throughput (Tokens/Second)
+
+| Model | A100 40GB | A100 80GB | H100 80GB |
+|-------|-----------|-----------|-----------|
+| LLaMA 7B | 45 | 45 | 78 |
+| LLaMA 13B | 28 | 28 | 52 |
+| LLaMA 30B | N/A | 15 | 28 |
+| LLaMA 65B | N/A | 8 | 18 |
+
+### Cost-Performance Analysis
+
+<Frame>
+<img src="/images/cost-performance-chart.png" alt="Cost per TFLOPS comparison across different GPU types" />
+</Frame>
+
+## Choosing the Right Instance
+
+### Decision Matrix
+
+<AccordionGroup>
+<Accordion title="For LLM Training">
+  **Small Models (< 7B parameters)**:
+  - RTX 4090 or A100 40GB for development
+  - A100 80GB for production training
+  
+  **Medium Models (7B - 30B parameters)**:
+  - A100 80GB (single GPU)
+  - 2x A100 80GB for faster training
+  
+  **Large Models (30B+ parameters)**:
+  - H100 80GB (single GPU up to 70B)
+  - Multi-GPU H100 NVL for 100B+ models
+</Accordion>
+
+<Accordion title="For Inference Serving">
+  **Low Latency Requirements**:
+  - H100 80GB for fastest response times
+  - A100 80GB for balanced performance/cost
+  
+  **High Throughput Batch**:
+  - A100 40GB for cost-effective processing
+  - Multiple A100s for parallel serving
+  
+  **Development/Testing**:
+  - RTX 4090 for cost-effective testing
+  - V100 16GB for basic inference
+</Accordion>
+
+<Accordion title="For Creative Applications">
+  **3D Rendering**:
+  - RTX 4090 with RT cores
+  - RTX 4080 for lighter workloads
+  
+  **AI Art Generation**:
+  - RTX 4090 for Stable Diffusion
+  - A100 for custom model training
+  
+  **Video Processing**:
+  - RTX series with hardware encoders
+  - A100 for AI-based video enhancement
+</Accordion>
+
+<Accordion title="For Research & Development">
+  **Budget-Conscious**:
+  - V100 16GB for learning
+  - RTX 4080 for small experiments
+  
+  **Production Research**:
+  - A100 40GB for most projects
+  - A100 80GB for memory-intensive work
+  
+  **Cutting-Edge Research**:
+  - H100 80GB for latest capabilities
+  - Multi-GPU setups for large experiments
+</Accordion>
+</AccordionGroup>
+
+## Regional Availability
+
+<Tabs>
+<Tab title="US West (Oregon)">
+  **Available Instances**:
+  - ✅ All H100 configurations
+  - ✅ All A100 configurations  
+  - ✅ All V100 configurations
+  - ✅ All RTX configurations
+  
+  **Latency**: < 50ms to major US cities
+</Tab>
+
+<Tab title="US East (Virginia)">
+  **Available Instances**:
+  - ✅ All H100 configurations
+  - ✅ All A100 configurations
+  - ✅ All V100 configurations
+  - ✅ All RTX configurations
+  
+  **Latency**: < 30ms to East Coast
+</Tab>
+
+<Tab title="Europe (Frankfurt)">
+  **Available Instances**:
+  - ✅ A100 40GB/80GB
+  - ✅ V100 16GB/32GB
+  - ✅ RTX 4090/4080
+  - 🔄 H100 (Coming Q2 2024)
+  
+  **Latency**: < 40ms to major EU cities
+</Tab>
+
+<Tab title="Asia Pacific (Tokyo)">
+  **Available Instances**:
+  - ✅ A100 40GB
+  - ✅ V100 16GB/32GB
+  - ✅ RTX 4090
+  - 🔄 H100 (Coming Q3 2024)
+  
+  **Latency**: < 60ms to APAC region
+</Tab>
+</Tabs>
+
+## Spot Instance Pricing
+
+Save up to 70% with spot instances for fault-tolerant workloads:
+
+| Instance Type | On-Demand | Spot Price | Savings |
+|---------------|-----------|------------|---------|
+| H100 80GB | $4.50/hr | $1.35/hr | 70% |
+| A100 80GB | $3.50/hr | $1.40/hr | 60% |
+| A100 40GB | $2.50/hr | $1.00/hr | 60% |
+| V100 32GB | $2.00/hr | $0.70/hr | 65% |
+| RTX 4090 | $1.20/hr | $0.48/hr | 60% |
+
+<Warning>
+Spot instances can be interrupted with 2-minute notice when demand increases. Use for training jobs with checkpointing.
+</Warning>
+
+## Next Steps
+
+<CardGroup cols={3}>
+<Card title="Launch Instance" icon="rocket" href="https://app.comput3.ai/launch">
+  Deploy your first GPU instance with our instance launcher.
+</Card>
+
+<Card title="Instance Management" icon="cogs" href="/launch-gpu/management">
+  Learn how to monitor, scale, and manage your instances.
+</Card>
+
+<Card title="Pricing Calculator" icon="calculator" href="https://app.comput3.ai/pricing">
+  Estimate costs for your specific workload requirements.
+</Card>
+</CardGroup>

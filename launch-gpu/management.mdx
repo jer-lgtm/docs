@@ -1,0 +1,726 @@
+---
+title: "Instance Management"
+description: "Monitor, scale, and manage your GPU instances effectively"
+icon: "cogs"
+---
+
+Comprehensive guide to managing your GPU instances throughout their lifecycle, from deployment to termination.
+
+## Instance Dashboard
+
+Access your instance management dashboard at [app.comput3.ai/instances](https://app.comput3.ai/instances).
+
+<Frame>
+<img src="/images/instance-dashboard.png" alt="Instance management dashboard showing running instances, metrics, and controls" />
+</Frame>
+
+### Dashboard Features
+
+<CardGroup cols={2}>
+<Card title="Live Status" icon="heartbeat">
+  Real-time status of all your instances with health indicators and uptime tracking.
+</Card>
+
+<Card title="Resource Metrics" icon="chart-line">
+  GPU utilization, memory usage, CPU load, and network activity monitoring.
+</Card>
+
+<Card title="Cost Tracking" icon="dollar-sign">
+  Real-time cost accumulation and projected monthly spending based on usage.
+</Card>
+
+<Card title="Quick Actions" icon="bolt">
+  Start, stop, restart, and terminate instances with single-click actions.
+</Card>
+</CardGroup>
+
+## Instance Lifecycle Management
+
+<Steps>
+<Step title="Launch Phase">
+  **Initial Setup** (0-60 seconds)
+  - Instance provisioning and hardware allocation
+  - Operating system and driver installation
+  - Environment configuration and startup scripts
+  - Network and security group setup
+  
+  <Check>
+  Instance shows "Running" status when ready for connections.
+  </Check>
+</Step>
+
+<Step title="Active Phase">
+  **Normal Operation**
+  - Monitor resource utilization and performance
+  - Scale resources up or down as needed
+  - Manage data and model storage
+  - Configure auto-shutdown and scheduling
+</Step>
+
+<Step title="Maintenance Phase">
+  **Optimization and Updates**
+  - Apply system updates and patches
+  - Optimize configurations for better performance
+  - Clean up temporary files and logs
+  - Backup important data and models
+</Step>
+
+<Step title="Termination Phase">
+  **Cleanup and Shutdown**
+  - Save work and export results
+  - Backup data to persistent storage
+  - Terminate instance to stop billing
+  - Review usage reports and costs
+</Step>
+</Steps>
+
+## Connection Methods
+
+### SSH Access
+Connect to your instance via SSH for command-line access:
+
+<Tabs>
+<Tab title="macOS/Linux">
+  ```bash
+  ssh -i ~/.ssh/your-key.pem ubuntu@<instance-ip>
+  ```
+  
+  **Setup SSH Key**:
+  ```bash
+  # Generate new key pair
+  ssh-keygen -t rsa -b 4096 -f ~/.ssh/comput3-key
+  
+  # Add public key to instance during launch
+  cat ~/.ssh/comput3-key.pub
+  ```
+</Tab>
+
+<Tab title="Windows">
+  **Using PuTTY**:
+  1. Download and install PuTTY
+  2. Convert your private key to .ppk format using PuTTYgen
+  3. Configure connection with instance IP and key
+  
+  **Using PowerShell**:
+  ```powershell
+  ssh -i C:\Users\YourName\.ssh\your-key.pem ubuntu@<instance-ip>
+  ```
+</Tab>
+
+<Tab title="VS Code Remote">
+  **Remote SSH Extension**:
+  1. Install "Remote - SSH" extension
+  2. Add host configuration:
+  ```
+  Host comput3-gpu
+      HostName <instance-ip>
+      User ubuntu
+      IdentityFile ~/.ssh/your-key.pem
+  ```
+  3. Connect via Command Palette: "Remote-SSH: Connect to Host"
+</Tab>
+</Tabs>
+
+### Jupyter Lab Access
+Access Jupyter Lab through your browser:
+
+```bash
+# Start Jupyter Lab on the instance
+jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root
+
+# Access via browser
+https://<instance-ip>:8888
+```
+
+<Warning>
+Ensure port 8888 is open in your security group settings for Jupyter access.
+</Warning>
+
+### Web Terminal
+Use the built-in web terminal for quick access without SSH setup:
+
+1. Navigate to your instance in the dashboard
+2. Click "Web Terminal" button
+3. Access full terminal in your browser
+
+## Monitoring and Metrics
+
+### Real-time Monitoring
+
+<AccordionGroup>
+<Accordion title="GPU Metrics">
+  **Key Metrics to Monitor**:
+  - **GPU Utilization**: Percentage of GPU compute being used
+  - **Memory Usage**: GPU memory consumption vs. total available
+  - **Temperature**: GPU temperature for thermal throttling detection
+  - **Power Draw**: Current power consumption vs. maximum TDP
+  
+  **Monitoring Commands**:
+  ```bash
+  # Real-time GPU monitoring
+  nvidia-smi -l 1
+  
+  # Detailed GPU information
+  nvidia-ml-py
+  
+  # GPU memory usage
+  nvidia-smi --query-gpu=memory.used,memory.total --format=csv
+  ```
+</Accordion>
+
+<Accordion title="System Metrics">
+  **CPU and Memory**:
+  ```bash
+  # CPU usage
+  htop
+  
+  # Memory usage
+  free -h
+  
+  # Disk usage
+  df -h
+  
+  # Network activity
+  iftop
+  ```
+  
+  **Automated Monitoring**:
+  ```bash
+  # Install monitoring tools
+  sudo apt update
+  sudo apt install htop iotop iftop
+  
+  # System resource summary
+  cat /proc/cpuinfo | grep "model name" | head -1
+  cat /proc/meminfo | grep MemTotal
+  ```
+</Accordion>
+
+<Accordion title="Application Metrics">
+  **Training Metrics**:
+  - Loss curves and accuracy over time
+  - Training speed (samples/second)
+  - Memory allocation patterns
+  - Gradient flow and model convergence
+  
+  **Inference Metrics**:
+  - Requests per second throughput
+  - Average response latency
+  - Queue depth and processing time
+  - Error rates and success metrics
+</Accordion>
+</AccordionGroup>
+
+### Alerting and Notifications
+
+Set up automated alerts for critical events:
+
+<Tabs>
+<Tab title="Email Alerts">
+  Configure email notifications for:
+  - Instance state changes (stopped, terminated)
+  - High resource utilization (>90% for 10+ minutes)
+  - Cost thresholds exceeded
+  - System errors or failures
+</Tab>
+
+<Tab title="Slack Integration">
+  ```bash
+  # Install Slack webhook notifier
+  pip install slack-sdk
+  
+  # Send notification script
+  python notify_slack.py "Training completed on instance-123"
+  ```
+</Tab>
+
+<Tab title="Custom Webhooks">
+  ```python
+  import requests
+  
+  def send_alert(message, webhook_url):
+      payload = {
+          "text": message,
+          "instance_id": "i-1234567890abcdef0",
+          "timestamp": datetime.now().isoformat()
+      }
+      requests.post(webhook_url, json=payload)
+  ```
+</Tab>
+</Tabs>
+
+## Scaling and Auto-Management
+
+### Vertical Scaling
+Resize your instance to different GPU types:
+
+<Steps>
+<Step title="Stop Instance">
+  Gracefully shut down your instance to prepare for resizing.
+  
+  ```bash
+  sudo shutdown -h now
+  ```
+</Step>
+
+<Step title="Change Instance Type">
+  Use the dashboard or API to select a new instance type:
+  
+  ```bash curl
+  curl -X PATCH "https://api.comput3.ai/v1/instances/i-123" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
+    -d '{"instance_type": "h100-80gb"}'
+  ```
+</Step>
+
+<Step title="Restart Instance">
+  Start the instance with the new configuration.
+  
+  <Note>
+  Data on local storage is preserved during instance type changes.
+  </Note>
+</Step>
+</Steps>
+
+### Horizontal Scaling
+Deploy multiple instances for distributed workloads:
+
+```python
+# Launch multiple instances
+instances = []
+for i in range(4):
+    response = requests.post(
+        "https://api.comput3.ai/v1/instances",
+        headers={"Authorization": "Bearer YOUR_API_KEY"},
+        json={
+            "instance_type": "a100-40gb",
+            "image": "pytorch:latest",
+            "name": f"worker-{i}",
+            "cluster_config": {
+                "master_node": i == 0,
+                "cluster_name": "training-cluster"
+            }
+        }
+    )
+    instances.append(response.json()["instance_id"])
+```
+
+### Auto-Shutdown Configuration
+
+Prevent unnecessary costs with automatic shutdown:
+
+<Tabs>
+<Tab title="Idle Detection">
+  **CPU-based Auto-shutdown**:
+  ```bash
+  # Create auto-shutdown script
+  cat > /usr/local/bin/auto-shutdown.sh << 'EOF'
+  #!/bin/bash
+  IDLE_TIME=3600  # 1 hour in seconds
+  THRESHOLD=5     # CPU usage threshold
+  
+  while true; do
+      CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | awk '{print $2}' | cut -d'%' -f1)
+      if (( $(echo "$CPU_USAGE < $THRESHOLD" | bc -l) )); then
+          sleep $IDLE_TIME
+          if (( $(echo "$CPU_USAGE < $THRESHOLD" | bc -l) )); then
+              sudo shutdown -h now
+          fi
+      fi
+      sleep 300  # Check every 5 minutes
+  done
+  EOF
+  
+  chmod +x /usr/local/bin/auto-shutdown.sh
+  nohup /usr/local/bin/auto-shutdown.sh &
+  ```
+</Tab>
+
+<Tab title="GPU-based Auto-shutdown">
+  **GPU utilization monitoring**:
+  ```python
+  import subprocess
+  import time
+  import os
+  
+  def get_gpu_utilization():
+      result = subprocess.run([
+          'nvidia-smi', '--query-gpu=utilization.gpu', 
+          '--format=csv,noheader,nounits'
+      ], capture_output=True, text=True)
+      return float(result.stdout.strip())
+  
+  def auto_shutdown_on_idle(threshold=5, duration=3600):
+      idle_start = None
+      
+      while True:
+          gpu_util = get_gpu_utilization()
+          
+          if gpu_util < threshold:
+              if idle_start is None:
+                  idle_start = time.time()
+              elif time.time() - idle_start > duration:
+                  os.system('sudo shutdown -h now')
+          else:
+              idle_start = None
+              
+          time.sleep(300)  # Check every 5 minutes
+  
+  if __name__ == "__main__":
+      auto_shutdown_on_idle()
+  ```
+</Tab>
+
+<Tab title="Scheduled Shutdown">
+  **Time-based shutdown**:
+  ```bash
+  # Shutdown at specific time
+  sudo shutdown -h 23:30
+  
+  # Shutdown after specific duration
+  sudo shutdown -h +120  # 2 hours
+  
+  # Cancel scheduled shutdown
+  sudo shutdown -c
+  
+  # Add to crontab for recurring schedule
+  echo "0 2 * * * /sbin/shutdown -h now" | sudo crontab -
+  ```
+</Tab>
+</Tabs>
+
+## Data Management
+
+### Persistent Storage
+
+<AccordionGroup>
+<Accordion title="EBS Volumes">
+  **Attach additional storage**:
+  ```bash
+  # List available volumes
+  lsblk
+  
+  # Format new volume
+  sudo mkfs -t ext4 /dev/xvdf
+  
+  # Mount volume
+  sudo mkdir /data
+  sudo mount /dev/xvdf /data
+  
+  # Auto-mount on boot
+  echo '/dev/xvdf /data ext4 defaults,nofail 0 2' | sudo tee -a /etc/fstab
+  ```
+</Accordion>
+
+<Accordion title="S3 Integration">
+  **Sync data with S3**:
+  ```bash
+  # Install AWS CLI
+  pip install awscli
+  
+  # Configure credentials
+  aws configure
+  
+  # Sync training data
+  aws s3 sync s3://your-bucket/data /data/training/
+  
+  # Upload results
+  aws s3 sync /data/results/ s3://your-bucket/results/
+  
+  # Automated sync script
+  cat > /usr/local/bin/s3-sync.sh << 'EOF'
+  #!/bin/bash
+  while true; do
+      aws s3 sync /data/checkpoints/ s3://your-bucket/checkpoints/
+      sleep 300  # Sync every 5 minutes
+  done
+  EOF
+  ```
+</Accordion>
+
+<Accordion title="Backup Strategies">
+  **Automated backups**:
+  ```bash
+  # Create backup script
+  cat > /usr/local/bin/backup.sh << 'EOF'
+  #!/bin/bash
+  DATE=$(date +%Y%m%d_%H%M%S)
+  tar -czf /tmp/backup_$DATE.tar.gz /data/models/
+  aws s3 cp /tmp/backup_$DATE.tar.gz s3://your-bucket/backups/
+  rm /tmp/backup_$DATE.tar.gz
+  EOF
+  
+  # Schedule daily backups
+  echo "0 6 * * * /usr/local/bin/backup.sh" | crontab -
+  ```
+</Accordion>
+</AccordionGroup>
+
+### Data Transfer Optimization
+
+<Tabs>
+<Tab title="High-Speed Transfer">
+  **Parallel transfers**:
+  ```bash
+  # Multi-threaded S3 sync
+  aws configure set default.s3.max_concurrent_requests 20
+  aws configure set default.s3.max_bandwidth 1GB/s
+  
+  # Use rsync for incremental transfers
+  rsync -avz --progress /local/data/ user@remote:/data/
+  
+  # Parallel compression
+  tar --use-compress-program=pigz -cf archive.tar.gz /data/
+  ```
+</Tab>
+
+<Tab title="Network Optimization">
+  **Optimize network settings**:
+  ```bash
+  # Increase network buffer sizes
+  echo 'net.core.rmem_max = 134217728' | sudo tee -a /etc/sysctl.conf
+  echo 'net.core.wmem_max = 134217728' | sudo tee -a /etc/sysctl.conf
+  echo 'net.ipv4.tcp_rmem = 4096 87380 134217728' | sudo tee -a /etc/sysctl.conf
+  echo 'net.ipv4.tcp_wmem = 4096 65536 134217728' | sudo tee -a /etc/sysctl.conf
+  sudo sysctl -p
+  ```
+</Tab>
+</Tabs>
+
+## Cost Optimization
+
+### Cost Monitoring
+
+<CardGroup cols={2}>
+<Card title="Real-time Costs" icon="dollar-sign">
+  View current hourly costs and projected monthly spending in the dashboard.
+</Card>
+
+<Card title="Usage Reports" icon="chart-bar">
+  Download detailed usage reports with breakdowns by instance type and time period.
+</Card>
+
+<Card title="Budget Alerts" icon="bell">
+  Set up alerts when spending approaches your defined budget limits.
+</Card>
+
+<Card title="Cost Optimization Tips" icon="lightbulb">
+  Receive personalized recommendations for reducing costs based on usage patterns.
+</Card>
+</CardGroup>
+
+### Optimization Strategies
+
+<AccordionGroup>
+<Accordion title="Right-sizing">
+  **Choose optimal instance types**:
+  - Monitor GPU utilization over time
+  - Downgrade if consistently under 50% utilization
+  - Upgrade if hitting memory or compute limits
+  - Use spot instances for fault-tolerant workloads
+</Accordion>
+
+<Accordion title="Scheduling">
+  **Optimize runtime scheduling**:
+  - Use off-peak hours for training (typically 2-6 AM local time)
+  - Batch multiple experiments together
+  - Use preemptible instances for non-critical work
+  - Schedule automatic start/stop for predictable workloads
+</Accordion>
+
+<Accordion title="Resource Sharing">
+  **Maximize utilization**:
+  - Share instances across team members
+  - Use containerization for multi-tenant workloads
+  - Implement job queuing systems
+  - Monitor and optimize GPU memory usage
+</Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+### Common Issues
+
+<AccordionGroup>
+<Accordion title="Instance Won't Start">
+  **Possible Causes**:
+  - Insufficient capacity in selected region
+  - Invalid SSH key or security group configuration
+  - Account billing issues
+  
+  **Solutions**:
+  - Try different availability zones
+  - Verify SSH key format and permissions
+  - Check account status and billing information
+  - Contact support for capacity issues
+</Accordion>
+
+<Accordion title="SSH Connection Failed">
+  **Possible Causes**:
+  - Incorrect SSH key or permissions
+  - Security group not allowing SSH (port 22)
+  - Instance still initializing
+  
+  **Solutions**:
+  ```bash
+  # Check SSH key permissions
+  chmod 600 ~/.ssh/your-key.pem
+  
+  # Test connection with verbose output
+  ssh -v -i ~/.ssh/your-key.pem ubuntu@<instance-ip>
+  
+  # Verify security group allows SSH
+  # Port 22 should be open to your IP
+  ```
+</Accordion>
+
+<Accordion title="GPU Not Detected">
+  **Possible Causes**:
+  - NVIDIA drivers not installed
+  - CUDA version mismatch
+  - Hardware initialization failed
+  
+  **Solutions**:
+  ```bash
+  # Check GPU status
+  nvidia-smi
+  
+  # Reinstall NVIDIA drivers
+  sudo apt update
+  sudo apt install nvidia-driver-525
+  
+  # Verify CUDA installation
+  nvcc --version
+  
+  # Restart instance if needed
+  sudo reboot
+  ```
+</Accordion>
+
+<Accordion title="Out of Memory Errors">
+  **Possible Causes**:
+  - Model too large for GPU memory
+  - Memory leaks in training code
+  - Inefficient data loading
+  
+  **Solutions**:
+  ```python
+  # Monitor GPU memory
+  import torch
+  print(f"Allocated: {torch.cuda.memory_allocated() / 1e9:.2f} GB")
+  print(f"Reserved: {torch.cuda.memory_reserved() / 1e9:.2f} GB")
+  
+  # Clear GPU cache
+  torch.cuda.empty_cache()
+  
+  # Use gradient checkpointing
+  model.gradient_checkpointing_enable()
+  
+  # Reduce batch size
+  batch_size = batch_size // 2
+  ```
+</Accordion>
+</AccordionGroup>
+
+### Performance Optimization
+
+<Tabs>
+<Tab title="GPU Optimization">
+  ```python
+  # Optimize PyTorch settings
+  import torch
+  
+  # Enable mixed precision
+  torch.backends.cudnn.benchmark = True
+  torch.backends.cudnn.allow_tf32 = True
+  
+  # Use compiled models (PyTorch 2.0+)
+  model = torch.compile(model)
+  
+  # Optimize memory usage
+  torch.cuda.empty_cache()
+  ```
+</Tab>
+
+<Tab title="Data Loading">
+  ```python
+  # Optimize DataLoader
+  dataloader = torch.utils.data.DataLoader(
+      dataset,
+      batch_size=32,
+      num_workers=4,  # Use multiple CPU cores
+      pin_memory=True,  # Faster GPU transfer
+      persistent_workers=True  # Reduce worker startup time
+  )
+  ```
+</Tab>
+
+<Tab title="System Tuning">
+  ```bash
+  # Optimize system settings
+  echo 'vm.swappiness=1' | sudo tee -a /etc/sysctl.conf
+  echo 'vm.dirty_ratio=15' | sudo tee -a /etc/sysctl.conf
+  echo 'vm.dirty_background_ratio=5' | sudo tee -a /etc/sysctl.conf
+  sudo sysctl -p
+  
+  # Set CPU governor to performance
+  echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+  ```
+</Tab>
+</Tabs>
+
+## API Management
+
+Programmatically manage instances using the Comput3 API:
+
+```python
+import requests
+
+class Comput3Manager:
+    def __init__(self, api_key):
+        self.api_key = api_key
+        self.base_url = "https://api.comput3.ai/v1"
+        self.headers = {"Authorization": f"Bearer {api_key}"}
+    
+    def list_instances(self):
+        response = requests.get(f"{self.base_url}/instances", headers=self.headers)
+        return response.json()
+    
+    def get_instance(self, instance_id):
+        response = requests.get(f"{self.base_url}/instances/{instance_id}", headers=self.headers)
+        return response.json()
+    
+    def start_instance(self, instance_id):
+        response = requests.post(f"{self.base_url}/instances/{instance_id}/start", headers=self.headers)
+        return response.json()
+    
+    def stop_instance(self, instance_id):
+        response = requests.post(f"{self.base_url}/instances/{instance_id}/stop", headers=self.headers)
+        return response.json()
+    
+    def terminate_instance(self, instance_id):
+        response = requests.delete(f"{self.base_url}/instances/{instance_id}", headers=self.headers)
+        return response.json()
+
+# Usage example
+manager = Comput3Manager("YOUR_API_KEY")
+instances = manager.list_instances()
+for instance in instances["instances"]:
+    print(f"Instance {instance['id']}: {instance['state']}")
+```
+
+## Next Steps
+
+<CardGroup cols={3}>
+<Card title="API Documentation" icon="code" href="/api">
+  Complete API reference for programmatic instance management.
+</Card>
+
+<Card title="Cost Calculator" icon="calculator" href="https://app.comput3.ai/pricing">
+  Estimate costs for your specific workload requirements.
+</Card>
+
+<Card title="Support" icon="life-ring" href="mailto:support@comput3.ai">
+  Get help with advanced configuration and optimization.
+</Card>
+</CardGroup>

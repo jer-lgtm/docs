@@ -1,33 +1,54 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: 'API Reference'
+description: 'Complete guide to Comput3 Network API endpoints'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## Welcome to Comput3 API
 
-## Welcome
-
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+The Comput3 Network API provides access to our distributed GPU computing infrastructure. Our API is built on top of vLLM (c3-vllm) and offers high-throughput serving for large language models and GPU compute operations.
 
 <Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
+  title="GPU Operations API"
+  icon="microchip"
+  href="/api-reference/openapi.json"
 >
-  View the OpenAPI specification file
+  View the complete OpenAPI specification
 </Card>
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+All Comput3 API endpoints require authentication using API keys. You can obtain your API key from the [Comput3 Dashboard](https://app.comput3.ai).
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+### API Key Authentication
+
+Include your API key in the `Authorization` header using the Bearer token format:
+
+```bash
+Authorization: Bearer YOUR_API_KEY
+```
+
+### Example Request
+
+```bash curl
+curl -X GET "https://api.comput3.ai/v1/models" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json"
+```
+
+<Warning>
+  Keep your API keys secure and never expose them in client-side code. Store them as environment variables or in secure configuration files.
+</Warning>
+
+### Rate Limits
+
+API requests are subject to rate limiting to ensure fair usage:
+- **Free tier**: 100 requests per minute
+- **Pro tier**: 1,000 requests per minute  
+- **Enterprise**: Custom limits available
+
+## Base URL
+
+All API requests should be made to:
+```
+https://api.comput3.ai/v1
 ```

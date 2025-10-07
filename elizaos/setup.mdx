@@ -1,0 +1,818 @@
+---
+title: "ELIZAOS Setup"
+description: "Deploy and configure ELIZAOS on Comput3 Network infrastructure"
+icon: "play"
+---
+
+Deploy ELIZAOS on Comput3 Network to start building and running multi-agent AI systems with distributed GPU computing power.
+
+## Deployment Options
+
+<CardGroup cols={2}>
+<Card title="Managed ELIZAOS" icon="cloud">
+  **Recommended for most users**
+  
+  - Pre-configured ELIZAOS environment
+  - Automatic updates and maintenance
+  - Integrated monitoring and logging
+  - Enterprise support included
+</Card>
+
+<Card title="Self-Managed" icon="server">
+  **For advanced customization**
+  
+  - Full control over ELIZAOS configuration
+  - Custom agent development environment
+  - Direct GPU instance management
+  - Flexible resource allocation
+</Card>
+</CardGroup>
+
+## Quick Start: Managed ELIZAOS
+
+<Steps>
+<Step title="Launch ELIZAOS Instance">
+  Deploy a managed ELIZAOS environment from your Comput3 dashboard.
+  
+  <Tabs>
+  <Tab title="Single Agent Setup">
+    **Best for**: Getting started, small projects
+    
+    - **GPU**: RTX 4090 or A100 40GB
+    - **RAM**: 16GB
+    - **Storage**: 100GB SSD
+    - **Cost**: ~$1.20-2.50/hour
+  </Tab>
+  
+  <Tab title="Multi-Agent Setup">
+    **Best for**: Complex workflows, team projects
+    
+    - **GPU**: A100 80GB or H100 80GB
+    - **RAM**: 32-64GB
+    - **Storage**: 200GB SSD
+    - **Cost**: ~$3.50-4.50/hour
+  </Tab>
+  
+  <Tab title="Enterprise Setup">
+    **Best for**: Production deployments
+    
+    - **GPU**: Multiple H100s with NVLink
+    - **RAM**: 128GB+
+    - **Storage**: 500GB+ NVMe
+    - **Cost**: Custom pricing
+  </Tab>
+  </Tabs>
+</Step>
+
+<Step title="Access ELIZAOS Interface">
+  Connect to your ELIZAOS deployment through the web interface.
+  
+  ```bash
+  # ELIZAOS web interface runs on port 3000
+  https://<your-instance-ip>:3000
+  ```
+  
+  <Info>
+  The managed deployment automatically configures networking and security settings.
+  </Info>
+</Step>
+
+<Step title="Create Your First Agent">
+  Use the ELIZAOS interface to create and configure your first AI agent.
+  
+  <Frame>
+  <img src="/images/elizaos-agent-creation.png" alt="ELIZAOS agent creation interface showing configuration options" />
+  </Frame>
+</Step>
+
+<Step title="Deploy and Monitor">
+  Deploy your agent and monitor its performance through the dashboard.
+  
+  <Check>
+  Your agent will start running immediately and appear in the active agents list.
+  </Check>
+</Step>
+</Steps>
+
+## Self-Managed Installation
+
+### Prerequisites
+
+- GPU instance with ELIZAOS template or manual setup capability
+- Basic knowledge of Docker and container orchestration
+- Understanding of AI agent concepts and workflows
+
+### Installation Process
+
+<Steps>
+<Step title="Launch GPU Instance">
+  Deploy a GPU instance suitable for ELIZAOS workloads.
+  
+  **Recommended Specifications**:
+  - **Minimum**: RTX 4090 with 16GB RAM
+  - **Recommended**: A100 40GB with 32GB RAM
+  - **Optimal**: A100 80GB or H100 with 64GB+ RAM
+</Step>
+
+<Step title="Install ELIZAOS">
+  Install ELIZAOS on your GPU instance.
+  
+  <Tabs>
+  <Tab title="Docker Installation">
+    ```bash
+    # Pull ELIZAOS Docker image
+    docker pull elizaos/elizaos:latest
+    
+    # Create ELIZAOS directory
+    mkdir -p /opt/elizaos
+    cd /opt/elizaos
+    
+    # Download configuration template
+    wget https://raw.githubusercontent.com/elizaos/elizaos/main/docker-compose.yml
+    
+    # Start ELIZAOS
+    docker-compose up -d
+    ```
+  </Tab>
+  
+  <Tab title="Manual Installation">
+    ```bash
+    # Clone ELIZAOS repository
+    git clone https://github.com/elizaos/elizaos.git
+    cd elizaos
+    
+    # Install dependencies
+    npm install
+    
+    # Configure environment
+    cp .env.example .env
+    nano .env
+    
+    # Start ELIZAOS
+    npm run start:production
+    ```
+  </Tab>
+  
+  <Tab title="Kubernetes">
+    ```yaml
+    # elizaos-deployment.yaml
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: elizaos
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: elizaos
+      template:
+        metadata:
+          labels:
+            app: elizaos
+        spec:
+          containers:
+          - name: elizaos
+            image: elizaos/elizaos:latest
+            resources:
+              requests:
+                nvidia.com/gpu: 1
+                memory: "16Gi"
+              limits:
+                nvidia.com/gpu: 1
+                memory: "32Gi"
+    ```
+  </Tab>
+  </Tabs>
+</Step>
+
+<Step title="Configure Comput3 Integration">
+  Connect ELIZAOS to Comput3 Network services.
+  
+  ```json
+  {
+    "comput3": {
+      "api_key": "YOUR_COMPUT3_API_KEY",
+      "base_url": "https://api.comput3.ai/v1",
+      "default_model": "deepseek-v3.1",
+      "gpu_instance_id": "i-1234567890abcdef0"
+    }
+  }
+  ```
+</Step>
+
+<Step title="Verify Installation">
+  Test that ELIZAOS is running correctly and connected to Comput3.
+  
+  ```bash
+  # Check ELIZAOS status
+  curl http://localhost:3000/health
+  
+  # Test Comput3 connection
+  curl http://localhost:3000/api/test-comput3
+  ```
+</Step>
+</Steps>
+
+## Configuration
+
+### Environment Configuration
+
+<AccordionGroup>
+<Accordion title="Basic Configuration">
+  **Essential ELIZAOS settings**
+  
+  ```bash
+  # .env file
+  ELIZAOS_PORT=3000
+  ELIZAOS_ENV=production
+  LOG_LEVEL=info
+  
+  # Comput3 Integration
+  COMPUT3_API_KEY=your_api_key_here
+  COMPUT3_BASE_URL=https://api.comput3.ai/v1
+  COMPUT3_DEFAULT_MODEL=deepseek-v3.1
+  
+  # Database
+  DATABASE_URL=postgresql://user:pass@localhost:5432/elizaos
+  REDIS_URL=redis://localhost:6379
+  
+  # Security
+  JWT_SECRET=your_jwt_secret_here
+  ENCRYPTION_KEY=your_encryption_key_here
+  ```
+</Accordion>
+
+<Accordion title="GPU Configuration">
+  **GPU resource allocation settings**
+  
+  ```json
+  {
+    "gpu": {
+      "enabled": true,
+      "devices": ["0"],
+      "memory_fraction": 0.8,
+      "allow_growth": true
+    },
+    "agents": {
+      "max_concurrent": 4,
+      "default_gpu_memory": "4GB",
+      "memory_limit": "8GB"
+    }
+  }
+  ```
+</Accordion>
+
+<Accordion title="Network Configuration">
+  **Networking and communication settings**
+  
+  ```json
+  {
+    "network": {
+      "bind_address": "0.0.0.0",
+      "port": 3000,
+      "ssl_enabled": true,
+      "cors_origins": ["https://app.comput3.ai"]
+    },
+    "communication": {
+      "message_queue": "redis",
+      "event_bus": "nats",
+      "discovery_service": "consul"
+    }
+  }
+  ```
+</Accordion>
+</AccordionGroup>
+
+### Agent Configuration Templates
+
+<CodeGroup>
+```json Simple Task Agent
+{
+  "name": "document-analyzer",
+  "type": "task_agent",
+  "config": {
+    "model": "deepseek-v3.1",
+    "max_tokens": 4096,
+    "temperature": 0.3,
+    "tools": ["file_reader", "text_analyzer"],
+    "resources": {
+      "gpu_memory": "2GB",
+      "cpu_cores": 2,
+      "ram": "4GB"
+    }
+  },
+  "triggers": [
+    {
+      "type": "file_upload",
+      "pattern": "*.pdf",
+      "action": "analyze_document"
+    }
+  ]
+}
+```
+
+```json Collaborative Agent
+{
+  "name": "code-reviewer",
+  "type": "collaborative_agent",
+  "config": {
+    "model": "qwen3-coder:480b",
+    "specialization": "code_review",
+    "collaboration": {
+      "can_delegate": true,
+      "accepts_delegation": true,
+      "team_agents": ["test-generator", "doc-writer"]
+    },
+    "tools": ["git_client", "code_analyzer", "test_runner"],
+    "resources": {
+      "gpu_memory": "8GB",
+      "cpu_cores": 4,
+      "ram": "16GB"
+    }
+  }
+}
+```
+
+```json Monitoring Agent
+{
+  "name": "system-monitor",
+  "type": "monitoring_agent",
+  "config": {
+    "model": "hermes4:70b",
+    "monitoring": {
+      "interval": "30s",
+      "metrics": ["cpu", "memory", "gpu", "network"],
+      "thresholds": {
+        "cpu_usage": 80,
+        "memory_usage": 85,
+        "gpu_utilization": 90
+      }
+    },
+    "actions": [
+      {
+        "trigger": "high_cpu",
+        "action": "scale_resources"
+      },
+      {
+        "trigger": "agent_failure", 
+        "action": "restart_agent"
+      }
+    ]
+  }
+}
+```
+</CodeGroup>
+
+## Monitoring and Management
+
+### ELIZAOS Dashboard
+
+<Frame>
+<img src="/images/elizaos-dashboard.png" alt="ELIZAOS management dashboard showing active agents, resource usage, and system metrics" />
+</Frame>
+
+**Dashboard Features**:
+- **Active Agents**: Real-time status of all running agents
+- **Resource Usage**: GPU, CPU, and memory utilization
+- **Performance Metrics**: Agent efficiency and response times
+- **Cost Tracking**: Real-time cost monitoring and projections
+
+### Agent Lifecycle Management
+
+<Tabs>
+<Tab title="Agent States">
+  **Understanding agent lifecycle states**
+  
+  - **Created**: Agent configured but not deployed
+  - **Starting**: Agent initialization in progress
+  - **Running**: Agent actively processing tasks
+  - **Paused**: Agent temporarily suspended
+  - **Stopped**: Agent terminated but configuration preserved
+  - **Failed**: Agent encountered unrecoverable error
+</Tab>
+
+<Tab title="State Transitions">
+  **Managing agent state changes**
+  
+  ```bash
+  # Start an agent
+  elizaos agent start document-analyzer
+  
+  # Pause an agent
+  elizaos agent pause document-analyzer
+  
+  # Resume a paused agent
+  elizaos agent resume document-analyzer
+  
+  # Stop an agent
+  elizaos agent stop document-analyzer
+  
+  # View agent logs
+  elizaos agent logs document-analyzer --tail 100
+  ```
+</Tab>
+
+<Tab title="Auto-Management">
+  **Automated agent management**
+  
+  - **Health Checks**: Automatic agent health monitoring
+  - **Auto-Restart**: Restart failed agents automatically
+  - **Resource Scaling**: Dynamic resource allocation
+  - **Load Balancing**: Distribute work across agents
+</Tab>
+</Tabs>
+
+## Troubleshooting
+
+<AccordionGroup>
+<Accordion title="Installation Issues">
+  **Common installation problems**
+  
+  **GPU Driver Issues**:
+  ```bash
+  # Check GPU status
+  nvidia-smi
+  
+  # Reinstall NVIDIA drivers if needed
+  sudo apt update
+  sudo apt install nvidia-driver-525
+  sudo reboot
+  ```
+  
+  **Docker Issues**:
+  ```bash
+  # Check Docker status
+  docker version
+  
+  # Install Docker if missing
+  curl -fsSL https://get.docker.com -o get-docker.sh
+  sh get-docker.sh
+  
+  # Add user to docker group
+  sudo usermod -aG docker $USER
+  ```
+</Accordion>
+
+<Accordion title="Agent Startup Failures">
+  **Agents failing to start or crashing**
+  
+  **Common Causes**:
+  - Insufficient GPU memory allocation
+  - Model loading failures
+  - Configuration syntax errors
+  - Network connectivity issues
+  
+  **Debugging Steps**:
+  ```bash
+  # Check agent logs
+  elizaos agent logs <agent-name> --level debug
+  
+  # Verify configuration
+  elizaos config validate <agent-config.json>
+  
+  # Test model connectivity
+  elizaos test model deepseek-v3.1
+  
+  # Check resource availability
+  elizaos system resources
+  ```
+</Accordion>
+
+<Accordion title="Performance Issues">
+  **Slow agent response or high resource usage**
+  
+  **Optimization Strategies**:
+  - Adjust agent resource allocations
+  - Optimize model parameters (temperature, max_tokens)
+  - Implement request batching
+  - Use agent specialization to reduce model switching
+  - Monitor and tune GPU memory usage
+</Accordion>
+</AccordionGroup>
+
+## Security Configuration
+
+### Access Controls
+
+<CardGroup cols={2}>
+<Card title="Authentication" icon="key">
+  **Secure access to ELIZAOS interface**
+  
+  - JWT-based authentication
+  - OAuth integration support
+  - Multi-factor authentication
+  - Session management and timeouts
+</Card>
+
+<Card title="Authorization" icon="shield-check">
+  **Role-based access control**
+  
+  - Admin, developer, and viewer roles
+  - Agent-specific permissions
+  - Resource access controls
+  - Audit logging for all actions
+</Card>
+</CardGroup>
+
+### Network Security
+
+<AccordionGroup>
+<Accordion title="TLS Configuration">
+  **Secure communications**
+  
+  ```json
+  {
+    "tls": {
+      "enabled": true,
+      "cert_file": "/etc/ssl/certs/elizaos.crt",
+      "key_file": "/etc/ssl/private/elizaos.key",
+      "min_version": "1.3"
+    }
+  }
+  ```
+</Accordion>
+
+<Accordion title="Firewall Rules">
+  **Network access controls**
+  
+  ```bash
+  # Allow ELIZAOS web interface
+  sudo ufw allow 3000/tcp
+  
+  # Allow agent communication ports
+  sudo ufw allow 8000:8100/tcp
+  
+  # Allow SSH for management
+  sudo ufw allow 22/tcp
+  
+  # Enable firewall
+  sudo ufw enable
+  ```
+</Accordion>
+
+<Accordion title="Agent Isolation">
+  **Secure agent execution environment**
+  
+  - Process isolation between agents
+  - Network namespace separation
+  - Resource quota enforcement
+  - Secure inter-agent communication
+</Accordion>
+</AccordionGroup>
+
+## Performance Optimization
+
+### Resource Allocation
+
+<Tabs>
+<Tab title="GPU Optimization">
+  **Maximize GPU utilization**
+  
+  ```json
+  {
+    "gpu_config": {
+      "memory_pool": "dynamic",
+      "sharing_strategy": "time_slicing",
+      "max_agents_per_gpu": 4,
+      "memory_reservation": "2GB"
+    }
+  }
+  ```
+</Tab>
+
+<Tab title="Memory Management">
+  **Efficient memory usage**
+  
+  ```json
+  {
+    "memory_config": {
+      "agent_memory_limit": "4GB",
+      "shared_model_cache": true,
+      "garbage_collection": "aggressive",
+      "swap_enabled": false
+    }
+  }
+  ```
+</Tab>
+
+<Tab title="Network Optimization">
+  **Optimize inter-agent communication**
+  
+  ```json
+  {
+    "network_config": {
+      "message_compression": true,
+      "connection_pooling": true,
+      "max_connections": 100,
+      "timeout": 30000
+    }
+  }
+  ```
+</Tab>
+</Tabs>
+
+### Scaling Strategies
+
+<AccordionGroup>
+<Accordion title="Vertical Scaling">
+  **Scale up individual instances**
+  
+  - Upgrade to more powerful GPU instances
+  - Increase RAM and storage allocation
+  - Optimize agent resource distribution
+  - Monitor performance metrics for scaling decisions
+</Accordion>
+
+<Accordion title="Horizontal Scaling">
+  **Scale out across multiple instances**
+  
+  ```yaml
+  # Kubernetes scaling configuration
+  apiVersion: autoscaling/v2
+  kind: HorizontalPodAutoscaler
+  metadata:
+    name: elizaos-hpa
+  spec:
+    scaleTargetRef:
+      apiVersion: apps/v1
+      kind: Deployment
+      name: elizaos
+    minReplicas: 1
+    maxReplicas: 10
+    metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+  ```
+</Accordion>
+
+<Accordion title="Auto-Scaling">
+  **Automatic resource adjustment**
+  
+  - Agent-based scaling triggers
+  - Resource utilization monitoring
+  - Cost-aware scaling decisions
+  - Predictive scaling based on usage patterns
+</Accordion>
+</AccordionGroup>
+
+## Backup and Recovery
+
+### Data Backup
+
+<Steps>
+<Step title="Agent Configurations">
+  **Backup agent definitions and configurations**
+  
+  ```bash
+  # Export all agent configurations
+  elizaos export agents --output /backup/agents.json
+  
+  # Export system configuration
+  elizaos export config --output /backup/elizaos-config.json
+  ```
+</Step>
+
+<Step title="Agent State">
+  **Backup agent memory and state**
+  
+  ```bash
+  # Create agent state snapshot
+  elizaos snapshot create --agent document-analyzer
+  
+  # List available snapshots
+  elizaos snapshot list
+  
+  # Export snapshots to storage
+  elizaos snapshot export --destination s3://backups/elizaos/
+  ```
+</Step>
+
+<Step title="System Data">
+  **Backup logs, metrics, and system data**
+  
+  ```bash
+  # Archive logs
+  tar -czf /backup/logs.tar.gz /var/log/elizaos/
+  
+  # Export metrics database
+  pg_dump elizaos_metrics > /backup/metrics.sql
+  
+  # Sync to cloud storage
+  aws s3 sync /backup/ s3://elizaos-backups/$(date +%Y%m%d)/
+  ```
+</Step>
+</Steps>
+
+### Disaster Recovery
+
+<AccordionGroup>
+<Accordion title="Recovery Planning">
+  **Prepare for system failures**
+  
+  - Document recovery procedures
+  - Test backup restoration regularly
+  - Maintain off-site backup copies
+  - Plan for different failure scenarios
+</Accordion>
+
+<Accordion title="Quick Recovery">
+  **Rapid system restoration**
+  
+  ```bash
+  # Restore from backup
+  elizaos restore --backup-file /backup/elizaos-backup.tar.gz
+  
+  # Restart all agents
+  elizaos agent start-all
+  
+  # Verify system health
+  elizaos system health-check
+  ```
+</Accordion>
+</AccordionGroup>
+
+## Integration with Comput3 Services
+
+### API Integration
+
+<CodeGroup>
+```python Python Integration
+import elizaos
+from comput3 import Comput3Client
+
+# Initialize ELIZAOS client
+elizaos_client = elizaos.Client(
+    base_url="http://localhost:3000",
+    api_key="your-elizaos-api-key"
+)
+
+# Initialize Comput3 client  
+comput3_client = Comput3Client(
+    api_key="your-comput3-api-key",
+    base_url="https://api.comput3.ai/v1"
+)
+
+# Create agent with Comput3 integration
+agent_config = {
+    "name": "data-processor",
+    "model": "hermes4:70b",
+    "comput3_integration": {
+        "client": comput3_client,
+        "auto_scale": True,
+        "cost_limit": 100  # USD per day
+    }
+}
+
+agent = elizaos_client.create_agent(agent_config)
+```
+
+```javascript Node.js Integration
+const { ElizaOSClient } = require('elizaos-sdk');
+const { Comput3Client } = require('comput3-sdk');
+
+// Initialize clients
+const elizaos = new ElizaOSClient({
+  baseURL: 'http://localhost:3000',
+  apiKey: process.env.ELIZAOS_API_KEY
+});
+
+const comput3 = new Comput3Client({
+  apiKey: process.env.COMPUT3_API_KEY,
+  baseURL: 'https://api.comput3.ai/v1'
+});
+
+// Create integrated agent
+const agent = await elizaos.createAgent({
+  name: 'content-creator',
+  model: 'qwen3-coder:480b',
+  comput3Integration: {
+    client: comput3,
+    autoScale: true,
+    resourceLimits: {
+      maxGPUHours: 10,
+      maxCostPerDay: 50
+    }
+  }
+});
+```
+</CodeGroup>
+
+## Next Steps
+
+<CardGroup cols={3}>
+<Card title="Agent Integration" icon="puzzle-piece" href="/elizaos/integration">
+  Learn how to integrate ELIZAOS agents with your existing systems.
+</Card>
+
+<Card title="GPU Instances" icon="microchip" href="/launch-gpu">
+  Explore GPU instance options optimized for ELIZAOS workloads.
+</Card>
+
+<Card title="MCP Integration" icon="link" href="/mcp">
+  Connect external data sources and tools to your ELIZAOS agents.
+</Card>
+</CardGroup>

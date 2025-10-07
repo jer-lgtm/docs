@@ -1,4 +1,40 @@
 ---
-title: 'Get Plants'
-openapi: 'GET /plants'
+title: 'List Models'
+openapi: 'GET /models'
 ---
+
+Retrieve a list of available GPU models and their current status on the Comput3 Network.
+
+## Authentication Required
+
+This endpoint requires a valid API key in the Authorization header:
+
+```bash
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Example Request
+
+```bash curl
+curl -X GET "https://api.comput3.ai/v1/models" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json"
+```
+
+## Response
+
+Returns an array of available models with their specifications and availability status.
+
+```json
+{
+  "models": [
+    {
+      "id": "llama-2-7b",
+      "name": "Llama 2 7B",
+      "status": "available",
+      "gpu_type": "A100",
+      "memory_gb": 40
+    }
+  ]
+}
+```

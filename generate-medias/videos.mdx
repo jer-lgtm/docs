@@ -1,0 +1,934 @@
+---
+title: "Video Generation"
+description: "Create dynamic AI-generated videos from text prompts and images"
+icon: "video"
+---
+
+Generate engaging videos using ComfyUI's video workflows on Comput3 Network's GPU infrastructure. Launch a GPU instance with ComfyUI and access powerful video generation capabilities.
+
+## Quick Start
+
+<Steps>
+<Step title="Launch GPU Instance">
+  Launch a GPU instance with ComfyUI pre-configured for video generation.
+  
+  <CardGroup cols={2}>
+  <Card title="Video Template" icon="video">
+    Use the ComfyUI Video template with video generation workflows pre-installed.
+  </Card>
+  
+  <Card title="Recommended GPU" icon="microchip">
+    A100 or H100 recommended for video generation workflows due to high VRAM requirements.
+  </Card>
+  </CardGroup>
+</Step>
+
+<Step title="Access ComfyUI Video">
+  Connect to your instance and open ComfyUI with video generation capabilities:
+  
+  ```bash
+  # SSH into your instance
+  ssh -i your-key.pem ubuntu@<instance-ip>
+  
+  # ComfyUI Video interface
+  http://<instance-ip>:8188
+  ```
+  
+  <Info>
+  Video generation workflows require significant VRAM. Ensure your GPU instance has at least 16GB VRAM.
+  </Info>
+</Step>
+
+<Step title="Load Video Workflow">
+  Choose from available video generation workflows in ComfyUI:
+  
+  <Tabs>
+  <Tab title="Text-to-Video">
+    **AnimateDiff workflows for text-to-video generation**
+    - Stable Video Diffusion models
+    - AnimateDiff motion modules
+    - ControlNet for precise control
+    - Custom motion prompts
+  </Tab>
+  
+  <Tab title="Image-to-Video">
+    **Animate static images**
+    - SVD (Stable Video Diffusion) workflows
+    - Image conditioning nodes
+    - Motion strength controls
+    - Frame interpolation
+  </Tab>
+  
+  <Tab title="Video-to-Video">
+    **Transform existing videos**
+    - Style transfer workflows
+    - Temporal consistency nodes
+    - Frame-by-frame processing
+    - Batch video processing
+  </Tab>
+  </Tabs>
+</Step>
+
+<Step title="Configure and Generate">
+  Configure your workflow parameters in ComfyUI:
+  
+  <AccordionGroup>
+  <Accordion title="Basic Parameters">
+    **Essential settings for video generation**
+    
+    - **Prompt**: Text description of your video
+    - **Frame Count**: Number of frames to generate (24 = 1 second at 24fps)
+    - **Width/Height**: Video resolution (1024x576, 512x512, etc.)
+    - **Seed**: For reproducible results
+    - **Steps**: Denoising steps (20-50 typical range)
+  </Accordion>
+  
+  <Accordion title="Motion Controls">
+    **Control movement and animation**
+    
+    - **Motion Strength**: How much movement to add (0.5-1.5)
+    - **Motion Module**: Choose animation style (smooth, dramatic, etc.)
+    - **Context Length**: How many frames to consider for consistency
+    - **FPS**: Target frame rate for output
+  </Accordion>
+  
+  <Accordion title="Quality Settings">
+    **Optimize for quality vs speed**
+    
+    - **Sampler**: DPM++, Euler, or other sampling methods
+    - **CFG Scale**: Guidance strength (6-12 typical)
+    - **Denoising Strength**: For image-to-video workflows
+    - **Upscaling**: Post-process to higher resolutions
+  </Accordion>
+  </AccordionGroup>
+</Step>
+
+<Step title="Download and Use">
+  Your generated video will be processed and available for download in MP4 format.
+  
+  <Info>
+  Video generation typically takes 2-5 minutes depending on duration and complexity.
+  </Info>
+</Step>
+</Steps>
+
+## Video Models and Capabilities
+
+### Text-to-Video Models
+
+<AccordionGroup>
+<Accordion title="Runway Gen-2 Style">
+  **Industry-leading text-to-video generation**
+  
+  **Specifications**:
+  - **Duration**: 4-16 seconds
+  - **Resolution**: 1280x768, 768x1280, 1024x1024
+  - **Frame Rate**: 24 FPS
+  - **Aspect Ratios**: 16:9, 9:16, 1:1
+  
+  **Strengths**:
+  - Exceptional prompt following
+  - Smooth, realistic motion
+  - High visual quality and detail
+  - Great for narrative content
+  
+  **Best Use Cases**:
+  - Marketing videos and ads
+  - Social media content
+  - Concept visualization
+  - Storytelling and narrative clips
+  
+  **Pricing**: $0.50 per 4-second segment
+</Accordion>
+
+<Accordion title="Pika Labs Style">
+  **Creative and artistic video generation**
+  
+  **Specifications**:
+  - **Duration**: 3-12 seconds
+  - **Resolution**: 1024x768, 768x1024
+  - **Frame Rate**: 12-24 FPS
+  - **Unique Features**: Camera controls, style consistency
+  
+  **Strengths**:
+  - Creative and artistic interpretations
+  - Unique visual styles and effects
+  - Good motion dynamics
+  - Experimental and avant-garde results
+  
+  **Best Use Cases**:
+  - Artistic projects and experiments
+  - Creative storytelling
+  - Music videos and artistic content
+  - Experimental marketing
+  
+  **Pricing**: $0.40 per 4-second segment
+</Accordion>
+
+<Accordion title="Stable Video Diffusion">
+  **Open-source video generation**
+  
+  **Specifications**:
+  - **Duration**: 2-8 seconds
+  - **Resolution**: 1024x576, 576x1024
+  - **Frame Rate**: 6-12 FPS
+  - **Models**: SVD, SVD-XT
+  
+  **Strengths**:
+  - Cost-effective generation
+  - Good for simple animations
+  - Consistent with Stable Diffusion aesthetics
+  - Customizable and extensible
+  
+  **Best Use Cases**:
+  - Simple animations and loops
+  - Product demonstrations
+  - Educational content
+  - Budget-friendly projects
+  
+  **Pricing**: $0.20 per 4-second segment
+</Accordion>
+</AccordionGroup>
+
+### Image-to-Video Animation
+
+<Tabs>
+<Tab title="Static Image Animation">
+  **Bring still images to life**
+  
+  ```json
+  {
+    "model": "stable-video-diffusion",
+    "input_image": "https://your-image.jpg",
+    "motion_prompt": "gentle swaying in the wind",
+    "duration": 6,
+    "motion_strength": 0.7,
+    "fps": 12
+  }
+  ```
+  
+  **Animation Types**:
+  - **Subtle Motion**: Gentle movements, breathing, wind effects
+  - **Camera Movement**: Zoom, pan, rotation effects
+  - **Object Animation**: Moving elements within the scene
+  - **Atmospheric Effects**: Flowing water, moving clouds, fire
+</Tab>
+
+<Tab title="Cinemagraph Creation">
+  **Create seamless loops with selective motion**
+  
+  ```python
+  response = requests.post(api_url, json={
+      "model": "runway-gen2",
+      "input_image": "https://cafe-scene.jpg",
+      "motion_prompt": "steam rising from coffee cup, everything else static",
+      "duration": 4,
+      "loop": True,
+      "motion_strength": 0.3
+  })
+  ```
+  
+  **Popular Cinemagraph Effects**:
+  - Steam or smoke rising
+  - Water flowing or dripping
+  - Flickering lights or flames
+  - Hair or fabric moving in breeze
+  - Blinking eyes or subtle expressions
+</Tab>
+
+<Tab title="Product Animation">
+  **Animate product images for marketing**
+  
+  ```json
+  {
+    "model": "pika-labs",
+    "input_image": "https://product-photo.jpg",
+    "motion_prompt": "360-degree rotation, studio lighting",
+    "duration": 8,
+    "camera_movement": "orbital",
+    "background": "maintain_original"
+  }
+  ```
+</Tab>
+</Tabs>
+
+## Advanced Video Prompting
+
+### Effective Video Prompts
+
+<AccordionGroup>
+<Accordion title="Motion Description">
+  **Describe the type and quality of movement**
+  
+  **Camera Movement**:
+  - "slow zoom in on the subject"
+  - "smooth panning from left to right"
+  - "orbital camera movement around object"
+  - "handheld camera, slight shake"
+  - "drone shot, rising upward"
+  
+  **Subject Movement**:
+  - "person walking slowly toward camera"
+  - "leaves falling gently from tree"
+  - "waves crashing against rocks"
+  - "bird flying in slow motion"
+  - "dancer spinning gracefully"
+</Accordion>
+
+<Accordion title="Pacing and Timing">
+  **Control the speed and rhythm of motion**
+  
+  - "slow motion, dreamy pace"
+  - "fast-paced, energetic movement"
+  - "gradual acceleration"
+  - "rhythmic, pulsing motion"
+  - "sudden, dramatic movement"
+  - "gentle, flowing transitions"
+</Accordion>
+
+<Accordion title="Visual Style">
+  **Specify the aesthetic and mood**
+  
+  - "cinematic quality, film grain"
+  - "bright and vibrant colors"
+  - "moody, dramatic lighting"
+  - "soft, ethereal atmosphere"
+  - "high contrast, bold shadows"
+  - "vintage film aesthetic"
+</Accordion>
+
+<Accordion title="Scene Composition">
+  **Describe the overall scene structure**
+  
+  - "wide establishing shot of landscape"
+  - "close-up focus on facial expressions"
+  - "medium shot with shallow depth of field"
+  - "bird's eye view of the action"
+  - "intimate, personal perspective"
+</Accordion>
+</AccordionGroup>
+
+### Motion Control Parameters
+
+<Tabs>
+<Tab title="Motion Strength">
+  **Control the intensity of movement**
+  
+  ```json
+  {
+    "motion_strength": 0.3,  // Subtle, gentle movement
+    "motion_strength": 0.7,  // Moderate, noticeable motion
+    "motion_strength": 1.0   // Strong, dramatic movement
+  }
+  ```
+  
+  **Guidelines**:
+  - **0.1-0.3**: Subtle effects (breathing, gentle sway)
+  - **0.4-0.7**: Moderate motion (walking, flowing)
+  - **0.8-1.0**: Dramatic action (running, dancing)
+</Tab>
+
+<Tab title="Camera Controls">
+  **Direct camera movement and framing**
+  
+  ```json
+  {
+    "camera_movement": "pan_right",
+    "zoom": "slow_zoom_in", 
+    "angle": "low_angle",
+    "focus": "rack_focus_foreground_to_background"
+  }
+  ```
+  
+  **Camera Options**:
+  - Movement: static, pan, tilt, orbit, dolly
+  - Zoom: zoom_in, zoom_out, static
+  - Angle: eye_level, low_angle, high_angle
+  - Focus: static, rack_focus, follow_focus
+</Tab>
+
+<Tab title="Temporal Effects">
+  **Control timing and rhythm**
+  
+  ```json
+  {
+    "speed": "slow_motion",
+    "rhythm": "steady",
+    "acceleration": "gradual_speedup",
+    "loop": true
+  }
+  ```
+</Tab>
+</Tabs>
+
+## Video Enhancement and Post-Processing
+
+### Upscaling and Quality Enhancement
+
+<AccordionGroup>
+<Accordion title="Video Super-Resolution">
+  **Enhance video resolution and quality**
+  
+  ```bash curl
+  curl -X POST "https://api.comput3.ai/v1/enhance/video-upscale" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "video_url": "https://your-video.mp4",
+      "scale_factor": 2,
+      "model": "real-esrgan-video",
+      "enhance_faces": true
+    }'
+  ```
+  
+  **Options**:
+  - Scale factors: 2x, 4x
+  - Face enhancement: Improve facial details
+  - Noise reduction: Remove compression artifacts
+  - Frame interpolation: Increase frame rate
+</Accordion>
+
+<Accordion title="Frame Interpolation">
+  **Increase frame rate for smoother motion**
+  
+  ```json
+  {
+    "video_url": "https://your-video.mp4",
+    "target_fps": 60,
+    "interpolation_model": "rife",
+    "preserve_motion": true
+  }
+  ```
+  
+  **Benefits**:
+  - Smoother motion appearance
+  - Better slow-motion effects
+  - Improved playback quality
+  - Professional video standards
+</Accordion>
+
+<Accordion title="Stabilization">
+  **Reduce camera shake and improve stability**
+  
+  ```python
+  response = requests.post(api_url, json={
+      "video_url": "https://shaky-video.mp4",
+      "stabilization_strength": 0.8,
+      "crop_to_stabilize": True,
+      "smooth_motion": True
+  })
+  ```
+</Accordion>
+</AccordionGroup>
+
+### Style Transfer and Effects
+
+<Tabs>
+<Tab title="Artistic Style Transfer">
+  **Apply artistic styles to videos**
+  
+  ```json
+  {
+    "video_url": "https://your-video.mp4",
+    "style": "oil_painting",
+    "strength": 0.7,
+    "temporal_consistency": true,
+    "preserve_faces": false
+  }
+  ```
+  
+  **Available Styles**:
+  - Oil painting, watercolor, pencil sketch
+  - Pop art, abstract, impressionist
+  - Anime, cartoon, comic book
+  - Film noir, vintage, retro
+</Tab>
+
+<Tab title="Color Grading">
+  **Professional color correction and grading**
+  
+  ```json
+  {
+    "video_url": "https://your-video.mp4",
+    "color_profile": "cinematic",
+    "brightness": 0.1,
+    "contrast": 0.2,
+    "saturation": 0.15,
+    "temperature": "warm"
+  }
+  ```
+</Tab>
+
+<Tab title="Visual Effects">
+  **Add special effects and filters**
+  
+  ```python
+  effects = [
+      {"type": "motion_blur", "strength": 0.5},
+      {"type": "lens_flare", "position": [0.7, 0.3]},
+      {"type": "particle_system", "particles": "snow"},
+      {"type": "depth_of_field", "focus_distance": 0.8}
+  ]
+  ```
+</Tab>
+</Tabs>
+
+## Video Formats and Export Options
+
+### Output Formats
+
+<Tabs>
+<Tab title="MP4 (Recommended)">
+  **Universal compatibility and good compression**
+  
+  - **Codec**: H.264 or H.265
+  - **Quality**: High quality with reasonable file size
+  - **Compatibility**: Works everywhere
+  - **Use Cases**: Social media, web, general distribution
+  
+  ```json
+  {
+    "format": "mp4",
+    "codec": "h264",
+    "quality": "high",
+    "bitrate": "auto"
+  }
+  ```
+</Tab>
+
+<Tab title="WebM">
+  **Optimized for web playback**
+  
+  - **Codec**: VP9 or AV1
+  - **Quality**: Excellent compression efficiency
+  - **Compatibility**: Modern browsers
+  - **Use Cases**: Web applications, streaming
+  
+  ```json
+  {
+    "format": "webm",
+    "codec": "vp9",
+    "quality": "high"
+  }
+  ```
+</Tab>
+
+<Tab title="GIF">
+  **For short loops and social media**
+  
+  - **Duration**: Best for 2-6 seconds
+  - **Quality**: Lower file sizes
+  - **Compatibility**: Universal
+  - **Use Cases**: Social media, messaging, web
+  
+  ```json
+  {
+    "format": "gif",
+    "fps": 12,
+    "optimize": true,
+    "loop": true
+  }
+  ```
+</Tab>
+</Tabs>
+
+### Quality and Compression Settings
+
+<AccordionGroup>
+<Accordion title="High Quality (Minimal Compression)">
+  **For professional use and archival**
+  
+  ```json
+  {
+    "bitrate": "high",
+    "compression": "minimal",
+    "quality_preset": "professional"
+  }
+  ```
+  
+  - Larger file sizes
+  - Maximum detail preservation
+  - Best for editing and professional use
+</Accordion>
+
+<Accordion title="Balanced (Recommended)">
+  **Good quality with reasonable file sizes**
+  
+  ```json
+  {
+    "bitrate": "medium",
+    "compression": "balanced", 
+    "quality_preset": "standard"
+  }
+  ```
+  
+  - Good balance of quality and size
+  - Suitable for most use cases
+  - Recommended for social media and web
+</Accordion>
+
+<Accordion title="Optimized (High Compression)">
+  **Smallest file sizes for bandwidth-limited scenarios**
+  
+  ```json
+  {
+    "bitrate": "low",
+    "compression": "aggressive",
+    "quality_preset": "mobile"
+  }
+  ```
+  
+  - Smallest file sizes
+  - May sacrifice some quality
+  - Good for mobile and slow connections
+</Accordion>
+</AccordionGroup>
+
+## Batch Video Generation
+
+### Generating Video Series
+
+<CodeGroup>
+```python Python Batch
+import requests
+import time
+
+def generate_video_series(prompts, model="runway-gen2"):
+    results = []
+    
+    for i, prompt in enumerate(prompts):
+        response = requests.post(
+            "https://api.comput3.ai/v1/generate/video",
+            headers={"Authorization": "Bearer YOUR_API_KEY"},
+            json={
+                "model": model,
+                "prompt": prompt,
+                "duration": 6,
+                "width": 1280,
+                "height": 768,
+                "fps": 24
+            }
+        )
+        
+        result = response.json()
+        results.append({
+            "prompt": prompt,
+            "video_id": result["id"],
+            "status": result["status"]
+        })
+        
+        # Wait between requests to avoid rate limiting
+        time.sleep(2)
+    
+    return results
+
+# Generate a series of related videos
+story_prompts = [
+    "A person walking through a forest path at dawn",
+    "The same person discovering a hidden waterfall",
+    "Close-up of wonder and amazement on their face",
+    "Wide shot of the magnificent waterfall scene"
+]
+
+video_series = generate_video_series(story_prompts)
+```
+
+```bash CLI Batch
+# Generate multiple videos from a prompt file
+c3 generate video-batch \
+  --prompts-file story_prompts.txt \
+  --model runway-gen2 \
+  --duration 6 \
+  --size 1280x768
+
+# Generate variations of a single concept
+c3 generate video-variations \
+  --base-prompt "A cat playing in a garden" \
+  --variations "sunny day,rainy day,autumn leaves,snow" \
+  --count 4
+```
+
+```javascript Node.js Queue
+const generateVideoQueue = async (prompts) => {
+  const queue = [];
+  
+  for (const prompt of prompts) {
+    queue.push(
+      fetch('https://api.comput3.ai/v1/generate/video', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.COMPUT3_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: 'runway-gen2',
+          prompt: prompt,
+          duration: 8,
+          width: 1280,
+          height: 768
+        })
+      }).then(res => res.json())
+    );
+    
+    // Stagger requests to avoid overwhelming the API
+    await new Promise(resolve => setTimeout(resolve, 3000));
+  }
+  
+  return Promise.all(queue);
+};
+```
+</CodeGroup>
+
+### Video Concatenation and Editing
+
+<Tabs>
+<Tab title="Concatenate Videos">
+  **Combine multiple generated videos into one**
+  
+  ```json
+  {
+    "video_urls": [
+      "https://video1.mp4",
+      "https://video2.mp4", 
+      "https://video3.mp4"
+    ],
+    "transitions": [
+      {"type": "fade", "duration": 0.5},
+      {"type": "crossfade", "duration": 1.0}
+    ],
+    "output_format": "mp4"
+  }
+  ```
+</Tab>
+
+<Tab title="Add Audio">
+  **Combine video with audio tracks**
+  
+  ```json
+  {
+    "video_url": "https://your-video.mp4",
+    "audio_url": "https://background-music.mp3",
+    "audio_volume": 0.7,
+    "fade_in": 1.0,
+    "fade_out": 2.0
+  }
+  ```
+</Tab>
+
+<Tab title="Add Text Overlays">
+  **Include titles, captions, and text elements**
+  
+  ```python
+  overlay_config = {
+      "video_url": "https://your-video.mp4",
+      "text_overlays": [
+          {
+              "text": "Chapter 1: The Journey Begins",
+              "position": "center",
+              "start_time": 1.0,
+              "duration": 3.0,
+              "style": {
+                  "font": "Arial",
+                  "size": 24,
+                  "color": "white",
+                  "background": "semi_transparent_black"
+              }
+          }
+      ]
+  }
+  ```
+</Tab>
+</Tabs>
+
+## Commercial Use and Pricing
+
+### Pricing Structure
+
+<Info>
+Video generation pricing is based on duration, resolution, and model complexity. All prices include processing and storage.
+</Info>
+
+**Text-to-Video**:
+- **Runway Gen-2 Style**: $0.50 per 4-second segment
+- **Pika Labs Style**: $0.40 per 4-second segment  
+- **Stable Video**: $0.20 per 4-second segment
+
+**Image-to-Video**:
+- **Standard Animation**: $0.25 per 4-second segment
+- **Advanced Motion**: $0.35 per 4-second segment
+
+**Video Enhancement**:
+- **Upscaling**: $0.15 per 4-second segment
+- **Style Transfer**: $0.20 per 4-second segment
+- **Stabilization**: $0.10 per 4-second segment
+
+### Usage Rights
+
+<AccordionGroup>
+<Accordion title="Personal Use">
+  **Included with all plans**
+  
+  ✅ **Allowed**:
+  - Personal projects and social media
+  - Educational and research purposes
+  - Portfolio and creative work
+  - Non-commercial content creation
+</Accordion>
+
+<Accordion title="Commercial License">
+  **Available with Pro and Enterprise plans**
+  
+  ✅ **Allowed**:
+  - Marketing and advertising campaigns
+  - Social media marketing
+  - Product demonstrations
+  - Client work and services
+  - Broadcast and streaming content
+  
+  **Restrictions**:
+  - Attribution may be required
+  - Some models have usage limitations
+  - High-volume use may require special licensing
+</Accordion>
+
+<Accordion title="Broadcast License">
+  **For television, film, and major media**
+  
+  ✅ **Includes**:
+  - Television and film use
+  - Streaming platform content
+  - Major advertising campaigns
+  - No attribution requirements
+  - Extended usage rights
+  
+  **Contact sales for pricing and terms**
+</Accordion>
+</AccordionGroup>
+
+## Troubleshooting and Optimization
+
+### Common Issues
+
+<AccordionGroup>
+<Accordion title="Poor Motion Quality">
+  **Symptoms**: Jerky, unnatural, or inconsistent movement
+  
+  **Solutions**:
+  - Adjust motion strength (try 0.5-0.8 range)
+  - Use more specific motion descriptions
+  - Try different models for different motion types
+  - Increase duration for smoother motion
+  - Use temporal consistency settings
+  
+  **Example Improvements**:
+  ❌ "Person moving"
+  ✅ "Person walking slowly and smoothly toward camera"
+</Accordion>
+
+<Accordion title="Temporal Inconsistency">
+  **Symptoms**: Flickering, objects changing appearance between frames
+  
+  **Solutions**:
+  - Enable temporal consistency options
+  - Use more detailed and specific prompts
+  - Avoid overly complex scenes
+  - Try different sampling methods
+  - Consider using image-to-video for more control
+</Accordion>
+
+<Accordion title="Long Generation Times">
+  **Symptoms**: Videos taking longer than expected to generate
+  
+  **Solutions**:
+  - Reduce video duration for faster processing
+  - Lower resolution if quality allows
+  - Use faster models for iteration
+  - Generate during off-peak hours
+  - Check system status for any delays
+</Accordion>
+
+<Accordion title="Prompt Not Followed">
+  **Symptoms**: Generated video doesn't match description
+  
+  **Solutions**:
+  - Be more specific about motion and camera work
+  - Break complex prompts into simpler descriptions
+  - Use reference images when available
+  - Try different models that specialize in your content type
+  - Iterate with variations of the prompt
+</Accordion>
+</AccordionGroup>
+
+### Optimization Tips
+
+<CardGroup cols={2}>
+<Card title="Quality Optimization" icon="star">
+  - Use detailed, specific prompts
+  - Choose appropriate models for content type
+  - Consider motion strength carefully
+  - Use reference images when possible
+</Card>
+
+<Card title="Cost Optimization" icon="dollar-sign">
+  - Start with shorter durations for testing
+  - Use appropriate resolution for final use
+  - Batch similar requests together
+  - Choose cost-effective models when quality allows
+</Card>
+
+<Card title="Speed Optimization" icon="zap">
+  - Use faster models for iteration
+  - Generate during off-peak hours
+  - Prepare detailed prompts in advance
+  - Use batch processing for multiple videos
+</Card>
+
+<Card title="Workflow Optimization" icon="cogs">
+  - Save successful prompts and settings
+  - Plan video sequences in advance
+  - Use storyboards for complex projects
+  - Organize generated content with metadata
+</Card>
+</CardGroup>
+
+## Creative Applications
+
+### Marketing and Advertising
+- **Product Demos**: Showcase products in action
+- **Brand Storytelling**: Create engaging brand narratives
+- **Social Media Content**: Generate eye-catching video posts
+- **Explainer Videos**: Visualize complex concepts
+
+### Entertainment and Media
+- **Music Videos**: Create artistic visuals for music
+- **Short Films**: Generate scenes and sequences
+- **Game Trailers**: Create promotional content
+- **Documentary B-roll**: Generate supporting footage
+
+### Education and Training
+- **Educational Content**: Visualize learning materials
+- **Training Videos**: Create instructional content
+- **Scientific Visualization**: Illustrate complex processes
+- **Historical Recreation**: Visualize historical events
+
+### Art and Creative Projects
+- **Digital Art**: Create moving art pieces
+- **Experimental Film**: Explore new visual styles
+- **Interactive Installations**: Generate dynamic content
+- **NFT Collections**: Create unique digital collectibles
+
+## Next Steps
+
+<CardGroup cols={3}>
+<Card title="Advanced Techniques" icon="graduation-cap" href="/generate-medias/advanced">
+  Learn advanced video generation techniques and workflows.
+</Card>
+
+<Card title="API Reference" icon="code" href="/api">
+  Complete API documentation for video generation endpoints.
+</Card>
+
+<Card title="Community" icon="users" href="https://discord.gg/comput3">
+  Join our community to share creations and get help.
+</Card>
+</CardGroup>
