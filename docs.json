@@ -58,7 +58,8 @@
             "pages": [
               "generate-medias/introduction",
               "generate-medias/images",
-              "generate-medias/videos"
+              "generate-medias/videos",
+              "generate-medias/audio"
             ]
           },
           {

@@ -6,6 +6,89 @@ icon: "image"
 
 Generate high-quality images using ComfyUI workflows on Comput3 Network's GPU infrastructure. Simply launch a GPU instance and start creating with powerful node-based workflows.
 
+## Available Image Generation Models
+
+Choose from a wide variety of specialized image generation models:
+
+<AccordionGroup>
+<Accordion title="Qwen-Image Text to Image">
+  **Generate images with exceptional multilingual text rendering and editing capabilities**
+  
+  - **Model**: Qwen-Image's 20B MMDiT model
+  - **Specialty**: Multilingual text rendering, advanced editing
+  - **Best for**: Text-heavy images, multilingual content, detailed editing
+</Accordion>
+
+<Accordion title="OmniGen2 Text to Image">
+  **Generate high-quality images from text prompts using unified multimodal model**
+  
+  - **Model**: OmniGen2's unified 7B multimodal model
+  - **Architecture**: Dual-path architecture
+  - **Best for**: High-quality text-to-image generation, versatile applications
+</Accordion>
+
+<Accordion title="OmniGen2 Image Edit">
+  **Edit images with natural language instructions**
+  
+  - **Model**: OmniGen2's advanced image editing capabilities
+  - **Features**: Text rendering support, natural language editing
+  - **Best for**: Image modification, style changes, content editing
+</Accordion>
+
+<Accordion title="Cosmos Predict2 2B T2I">
+  **Generate physically accurate, high-fidelity images**
+  
+  - **Model**: Cosmos-Predict2 2B T2I
+  - **Specialty**: Physically accurate, detail-rich generation
+  - **Best for**: Realistic images, scientific visualization, detailed artwork
+</Accordion>
+
+<Accordion title="Chroma Text to Image">
+  **Modified Flux architecture for enhanced image generation**
+  
+  - **Model**: Chroma (modified from Flux)
+  - **Architecture**: Enhanced Flux-based architecture
+  - **Best for**: High-quality generation, architectural improvements
+</Accordion>
+
+<Accordion title="HiDream Series">
+  **Multiple HiDream models for different use cases**
+  
+  - **HiDream I1 Dev**: Development and testing
+  - **HiDream I1 Rapide**: Fast image generation
+  - **HiDream I1 Complet**: Full-featured generation
+  - **HiDream E1.1 Image Edit**: Advanced image editing (better quality than E1)
+  - **HiDream E1 Image Edit**: Image editing capabilities
+</Accordion>
+
+<Accordion title="Stable Diffusion 3.5 Series">
+  **Latest Stable Diffusion with advanced features**
+  
+  - **SD3.5 Simple**: Standard text-to-image generation
+  - **SD3.5 Grand Canny ControlNet**: Edge detection guided generation
+  - **SD3.5 Grande Profondeur**: Depth-aware image generation
+  - **SD3.5 Grand Flou**: Blur-based reference image generation
+</Accordion>
+
+<Accordion title="Stable Diffusion XL Series">
+  **High-quality SDXL models with various capabilities**
+  
+  - **SDXL Simple**: High-quality standard generation
+  - **SDXL Refiner Prompt**: Enhanced results with refiners
+  - **Révisions de Texte SDXL**: Reference image concept transfer
+  - **Révision Zéro Positive SDXL**: Text prompts with reference images
+  - **SDXL Turbo**: Single-step image generation
+</Accordion>
+
+<Accordion title="Lotus Depth">
+  **Zero-shot monocular depth estimation**
+  
+  - **Model**: Lotus Depth in ComfyUI
+  - **Specialty**: Efficient depth estimation with high detail retention
+  - **Best for**: Depth-aware applications, 3D processing
+</Accordion>
+</AccordionGroup>
+
 ## Quick Start
 
 <Steps>
@@ -18,7 +101,7 @@ Generate high-quality images using ComfyUI workflows on Comput3 Network's GPU in
   </Card>
   
   <Card title="Recommended GPU" icon="microchip">
-    RTX 4090 or A100 for optimal performance with image generation workflows.
+    RTX 4090 48GB, L40S, or A100 for optimal performance with image generation workflows.
   </Card>
   </CardGroup>
 </Step>

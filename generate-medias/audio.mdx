@@ -1,0 +1,495 @@
+---
+title: "Audio Processing"
+description: "Process audio files with WhisperX Gradio Interface for transcription, translation, and analysis"
+icon: "microphone"
+---
+
+Process audio files with advanced AI-powered transcription and analysis using WhisperX Gradio Interface on Comput3 Network's GPU infrastructure.
+
+## WhisperX Gradio Interface
+
+WhisperX is an advanced audio processing tool that provides high-quality speech recognition, translation, and analysis capabilities through an intuitive Gradio web interface.
+
+### Key Features
+
+<CardGroup cols={2}>
+<Card title="Speech-to-Text" icon="microphone">
+  Convert audio files to accurate text transcripts with high precision and low latency.
+</Card>
+
+<Card title="Multi-Language Support" icon="globe">
+  Support for 99+ languages with automatic language detection and translation capabilities.
+</Card>
+
+<Card title="Speaker Diarization" icon="users">
+  Identify and separate different speakers in audio recordings automatically.
+</Card>
+
+<Card title="Word-Level Timestamps" icon="clock">
+  Get precise timestamps for each word in the transcription for detailed analysis.
+</Card>
+</CardGroup>
+
+## Quick Start
+
+<Steps>
+<Step title="Launch GPU Instance">
+  Launch a GPU instance with the WhisperX template from your Comput3 dashboard.
+  
+  <CardGroup cols={2}>
+  <Card title="WhisperX Template" icon="template">
+    Pre-configured instance with WhisperX, Gradio interface, and all dependencies ready to use.
+  </Card>
+  
+  <Card title="Recommended GPU" icon="microchip">
+    RTX 4090 48GB, L40S, or A100 for optimal performance with audio processing.
+  </Card>
+  </CardGroup>
+</Step>
+
+<Step title="Access Gradio Interface">
+  Connect to your GPU instance and open the WhisperX Gradio interface.
+  
+  ```bash
+  # WhisperX Gradio runs on port 7860 by default
+  http://<your-instance-ip>:7860
+  ```
+  
+  <Info>
+  The WhisperX template automatically starts the Gradio service and makes it accessible via web browser.
+  </Info>
+</Step>
+
+<Step title="Upload Audio File">
+  Use the Gradio interface to upload your audio file:
+  
+  <Tabs>
+  <Tab title="Supported Formats">
+    **Audio file formats**:
+    - MP3, WAV, FLAC, M4A
+    - AAC, OGG, WMA
+    - Video files with audio tracks (MP4, AVI, MOV)
+  </Tab>
+  
+  <Tab title="File Size Limits">
+    **Processing capabilities**:
+    - Maximum file size: 1GB
+    - Maximum duration: 4 hours
+    - Batch processing: Up to 10 files simultaneously
+  </Tab>
+  </Tabs>
+</Step>
+
+<Step title="Configure Processing Options">
+  Set your processing preferences:
+  
+  - **Language**: Auto-detect or specify language
+  - **Model Size**: Choose between base, small, medium, large, or large-v2
+  - **Speaker Diarization**: Enable/disable speaker identification
+  - **Translation**: Translate to different languages
+  - **Output Format**: Choose transcript format (TXT, SRT, VTT, JSON)
+</Step>
+
+<Step title="Process and Download">
+  Click "Process" to start transcription and download results when complete.
+</Step>
+</Steps>
+
+## Processing Options
+
+### Model Selection
+
+<AccordionGroup>
+<Accordion title="Whisper Base">
+  **Fast processing with good accuracy**
+  
+  - **Size**: 39 MB
+  - **Speed**: ~16x real-time
+  - **Accuracy**: Good for clear speech
+  - **Best for**: Quick transcriptions, real-time processing
+</Accordion>
+
+<Accordion title="Whisper Small">
+  **Balanced speed and accuracy**
+  
+  - **Size**: 244 MB
+  - **Speed**: ~6x real-time
+  - **Accuracy**: Better than base model
+  - **Best for**: General purpose transcription
+</Accordion>
+
+<Accordion title="Whisper Medium">
+  **High accuracy with moderate speed**
+  
+  - **Size**: 769 MB
+  - **Speed**: ~2x real-time
+  - **Accuracy**: High quality results
+  - **Best for**: Professional transcription, important content
+</Accordion>
+
+<Accordion title="Whisper Large">
+  **Maximum accuracy**
+  
+  - **Size**: 1550 MB
+  - **Speed**: ~1x real-time
+  - **Accuracy**: Highest quality
+  - **Best for**: Critical applications, complex audio
+</Accordion>
+
+<Accordion title="Whisper Large-v2">
+  **Latest model with improved performance**
+  
+  - **Size**: 1550 MB
+  - **Speed**: ~1x real-time
+  - **Accuracy**: Best available
+  - **Best for**: Production use, highest quality requirements
+</Accordion>
+</AccordionGroup>
+
+### Language Support
+
+<AccordionGroup>
+<Accordion title="Major Languages">
+  **Fully supported languages**:
+  
+  - English, Spanish, French, German, Italian
+  - Portuguese, Russian, Chinese (Mandarin), Japanese, Korean
+  - Arabic, Hindi, Dutch, Swedish, Norwegian
+  - Polish, Czech, Hungarian, Romanian, Bulgarian
+</Accordion>
+
+<Accordion title="Regional Languages">
+  **Regional and dialect support**:
+  
+  - Chinese (Cantonese, Traditional, Simplified)
+  - Spanish (Mexico, Argentina, Spain variants)
+  - English (US, UK, Australian, Canadian)
+  - Portuguese (Brazil, Portugal)
+  - French (France, Canada, African variants)
+</Accordion>
+
+<Accordion title="Low-Resource Languages">
+  **Emerging language support**:
+  
+  - Swahili, Yoruba, Igbo, Amharic
+  - Bengali, Tamil, Telugu, Gujarati
+  - Ukrainian, Belarusian, Kazakh
+  - Thai, Vietnamese, Indonesian, Malay
+</Accordion>
+</AccordionGroup>
+
+## Advanced Features
+
+### Speaker Diarization
+
+Identify and separate different speakers in your audio:
+
+<CodeGroup>
+```python Python API
+import requests
+
+def process_audio_with_speakers(audio_file):
+    response = requests.post(
+        "http://your-instance-ip:7860/api/process",
+        files={"audio": open(audio_file, "rb")},
+        data={
+            "model": "large-v2",
+            "language": "auto",
+            "speaker_diarization": True,
+            "min_speakers": 2,
+            "max_speakers": 10
+        }
+    )
+    
+    result = response.json()
+    return result["transcript_with_speakers"]
+
+# Process meeting recording
+transcript = process_audio_with_speakers("meeting.mp3")
+print(transcript)
+```
+
+```bash CLI Usage
+# Process with speaker identification
+curl -X POST "http://your-instance-ip:7860/api/process" \
+  -F "audio=@meeting.mp3" \
+  -F "model=large-v2" \
+  -F "speaker_diarization=true" \
+  -F "min_speakers=2" \
+  -F "max_speakers=5"
+```
+
+```javascript Node.js
+const processAudio = async (audioFile) => {
+  const formData = new FormData();
+  formData.append('audio', audioFile);
+  formData.append('model', 'large-v2');
+  formData.append('speaker_diarization', 'true');
+  formData.append('min_speakers', '2');
+  formData.append('max_speakers', '8');
+  
+  const response = await fetch('http://your-instance-ip:7860/api/process', {
+    method: 'POST',
+    body: formData
+  });
+  
+  return await response.json();
+};
+```
+</CodeGroup>
+
+### Translation Capabilities
+
+Translate audio content to different languages:
+
+<Tabs>
+<Tab title="Real-time Translation">
+  **Translate while transcribing**:
+  
+  ```python
+  # Transcribe and translate in one step
+  result = requests.post(
+      "http://your-instance-ip:7860/api/process",
+      files={"audio": open("spanish_audio.mp3", "rb")},
+      data={
+          "model": "large-v2",
+          "source_language": "es",  # Spanish
+          "target_language": "en",  # English
+          "translate": True
+      }
+  )
+  ```
+</Tab>
+
+<Tab title="Batch Translation">
+  **Process multiple files**:
+  
+  ```python
+  import os
+  
+  audio_files = ["file1.mp3", "file2.wav", "file3.m4a"]
+  translations = []
+  
+  for audio_file in audio_files:
+      result = requests.post(
+          "http://your-instance-ip:7860/api/process",
+          files={"audio": open(audio_file, "rb")},
+          data={
+              "model": "medium",
+              "translate": True,
+              "target_language": "en"
+          }
+      )
+      translations.append(result.json())
+  ```
+</Tab>
+</Tabs>
+
+### Word-Level Timestamps
+
+Get precise timing information for each word:
+
+<AccordionGroup>
+<Accordion title="Timestamp Formats">
+  **Multiple output formats**:
+  
+  - **JSON**: Detailed word-level data with confidence scores
+  - **SRT**: SubRip subtitle format with timestamps
+  - **VTT**: WebVTT format for web applications
+  - **TXT**: Plain text with timestamps
+</Accordion>
+
+<Accordion title="Confidence Scores">
+  **Quality indicators**:
+  
+  - Word-level confidence scores (0-1)
+  - Segment-level quality metrics
+  - Speaker identification confidence
+  - Language detection confidence
+</Accordion>
+</AccordionGroup>
+
+## Use Cases
+
+### Content Creation
+
+<CardGroup cols={2}>
+<Card title="Podcast Transcription" icon="podcast">
+  Convert podcast episodes to searchable text with speaker identification and timestamps.
+</Card>
+
+<Card title="Video Subtitles" icon="closed-captioning">
+  Generate accurate subtitles for videos with precise timing and multiple language support.
+</Card>
+
+<Card title="Meeting Notes" icon="clipboard">
+  Automatically transcribe meetings and generate structured notes with speaker attribution.
+</Card>
+
+<Card title="Content Analysis" icon="chart-line">
+  Analyze audio content for keywords, sentiment, and engagement metrics.
+</Card>
+</CardGroup>
+
+### Business Applications
+
+<CardGroup cols={2}>
+<Card title="Customer Support" icon="headset">
+  Transcribe customer calls for quality assurance and training purposes.
+</Card>
+
+<Card title="Legal Documentation" icon="gavel">
+  Create accurate transcripts of depositions, hearings, and legal proceedings.
+</Card>
+
+<Card title="Educational Content" icon="graduation-cap">
+  Convert lectures and educational materials to accessible text formats.
+</Card>
+
+<Card title="Media Production" icon="film">
+  Generate scripts and captions for media production workflows.
+</Card>
+</CardGroup>
+
+## Performance Optimization
+
+### GPU Acceleration
+
+<AccordionGroup>
+<Accordion title="CUDA Optimization">
+  **GPU-accelerated processing**:
+  
+  - Automatic GPU detection and utilization
+  - CUDA memory optimization
+  - Batch processing for multiple files
+  - Real-time processing capabilities
+</Accordion>
+
+<Accordion title="Memory Management">
+  **Efficient resource usage**:
+  
+  - Dynamic model loading and unloading
+  - Memory-efficient audio processing
+  - Automatic cleanup after processing
+  - Support for large audio files
+</Accordion>
+</AccordionGroup>
+
+### Processing Speed
+
+| Model | GPU Type | Processing Speed | Memory Usage |
+|-------|----------|------------------|--------------|
+| Base | RTX 4090 48GB | ~32x real-time | 2GB |
+| Small | RTX 4090 48GB | ~12x real-time | 4GB |
+| Medium | RTX 4090 48GB | ~4x real-time | 6GB |
+| Large | RTX 4090 48GB | ~2x real-time | 8GB |
+| Large-v2 | RTX 4090 48GB | ~1.5x real-time | 10GB |
+
+## API Integration
+
+### REST API Endpoints
+
+<AccordionGroup>
+<Accordion title="Process Audio">
+  **Main processing endpoint**:
+  
+  ```http
+  POST /api/process
+  Content-Type: multipart/form-data
+  
+  Parameters:
+  - audio: Audio file (required)
+  - model: Model size (base, small, medium, large, large-v2)
+  - language: Source language (auto-detect if not specified)
+  - translate: Enable translation (true/false)
+  - target_language: Target language for translation
+  - speaker_diarization: Enable speaker identification
+  - min_speakers: Minimum number of speakers
+  - max_speakers: Maximum number of speakers
+  ```
+</Accordion>
+
+<Accordion title="Get Status">
+  **Check processing status**:
+  
+  ```http
+  GET /api/status/{job_id}
+  
+  Response:
+  {
+    "status": "processing|completed|error",
+    "progress": 0.75,
+    "estimated_time_remaining": 30,
+    "result": {...}
+  }
+  ```
+</Accordion>
+
+<Accordion title="List Models">
+  **Available models**:
+  
+  ```http
+  GET /api/models
+  
+  Response:
+  {
+    "models": [
+      {"name": "base", "size": "39MB", "languages": 99},
+      {"name": "small", "size": "244MB", "languages": 99},
+      {"name": "medium", "size": "769MB", "languages": 99},
+      {"name": "large", "size": "1550MB", "languages": 99},
+      {"name": "large-v2", "size": "1550MB", "languages": 99}
+    ]
+  }
+  ```
+</Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+### Common Issues
+
+<AccordionGroup>
+<Accordion title="Audio Quality Issues">
+  **Poor transcription quality**:
+  
+  - Use higher quality audio files (16kHz+ sample rate)
+  - Reduce background noise before processing
+  - Try different model sizes (larger models for better accuracy)
+  - Specify the correct language if auto-detection fails
+</Accordion>
+
+<Accordion title="Processing Errors">
+  **File processing failures**:
+  
+  - Check file format compatibility
+  - Ensure file size is under 1GB limit
+  - Verify audio file is not corrupted
+  - Check GPU memory availability
+</Accordion>
+
+<Accordion title="Performance Issues">
+  **Slow processing speeds**:
+  
+  - Use smaller models for faster processing
+  - Ensure GPU is properly utilized
+  - Close other applications to free up resources
+  - Consider using batch processing for multiple files
+</Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={3}>
+<Card title="Image Generation" icon="image" href="/generate-medias/images">
+  Create stunning images using ComfyUI and Stable Diffusion workflows.
+</Card>
+
+<Card title="Video Generation" icon="video" href="/generate-medias/videos">
+  Generate dynamic videos and animations with ComfyUI video workflows.
+</Card>
+
+<Card title="Launch GPU" icon="rocket" href="/launch-gpu/introduction">
+  Learn how to deploy GPU instances for media generation workloads.
+</Card>
+</CardGroup>
