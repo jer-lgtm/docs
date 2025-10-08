@@ -89,21 +89,21 @@ Launch GPU instances with:
 ## Getting Started
 
 <Steps>
-<Step title="Choose Instance Type">
-  Select the GPU type and configuration that matches your workload requirements.
+<Step title="Choose Deployment Option">
+  Select one of the 4 pre-configured deployment options that matches your workload requirements.
   
   <Info>
-  Use our [Instance Selector Tool](https://app.comput3.ai/instance-selector) to find the optimal configuration.
+  Visit [launch.comput3.ai](https://launch.comput3.ai) to access the deployment dashboard.
   </Info>
 </Step>
 
-<Step title="Configure Environment">
-  Choose from pre-configured environments or bring your own Docker image:
+<Step title="Select GPU Type">
+  Choose the appropriate GPU type for your selected deployment option:
   
-  - **PyTorch**: Latest PyTorch with CUDA support
-  - **TensorFlow**: TensorFlow with GPU acceleration
-  - **Jupyter**: JupyterLab with ML libraries
-  - **Custom**: Your own Docker image or environment
+  - **Media Fast**: RTX 4090 48GB or L40S for media processing
+  - **Ollama Coder**: A100 40GB or H100 for coding models
+  - **Ollama Fast**: RTX 4090 48GB or A100 40GB for quick responses
+  - **Ollama Large**: H100, H200, or B200 for large models
 </Step>
 
 <Step title="Launch Instance">
@@ -117,104 +117,104 @@ Launch GPU instances with:
 
 ## Deployment Options
 
-### Web Interface
-Deploy instances through the intuitive web dashboard:
+### Dashboard Interface
+Deploy instances through the intuitive web dashboard at [launch.comput3.ai](https://launch.comput3.ai):
 
 <Frame>
 <img src="/images/gpu-launch-interface.png" alt="Comput3 GPU launch interface showing instance configuration options" />
 </Frame>
 
-### API Deployment
-Programmatically launch instances using the REST API:
+### Quick Launch
+All deployment options are available through the dashboard interface at [launch.comput3.ai](https://launch.comput3.ai). Simply:
 
-```bash curl
-curl -X POST "https://api.comput3.ai/v1/instances" \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "instance_type": "h100",
-    "image": "pytorch:latest",
-    "ssh_key": "ssh-rsa AAAAB3...",
-    "region": "us-west-1"
-  }'
-```
+1. **Select your deployment option** from the 4 available choices
+2. **Choose your GPU type** based on your requirements
+3. **Click Launch** to deploy your instance
+4. **Access your instance** through the provided connection details
 
-### CLI Tool
-Use the Comput3 CLI for command-line deployment:
+<Info>
+Instances are typically ready in under 60 seconds and come with pre-configured environments optimized for your selected use case.
+</Info>
 
-```bash
-c3 launch --type h100 --image pytorch:latest --region us-west-1
-```
+## Deployment Options
 
-## Pre-configured Environments
+Choose from 4 pre-configured deployment options optimized for different use cases:
 
 <AccordionGroup>
-<Accordion title="PyTorch Environment">
-  **Includes**:
-  - PyTorch 2.1+ with CUDA 12.1
-  - torchvision, torchaudio
-  - Jupyter Lab
-  - Common ML libraries (pandas, numpy, sklearn)
+<Accordion title="Launch Media Fast">
+  **Optimized for media processing with CSM and Whisper capabilities**
   
-  **Best for**: Deep learning research and training
+  **Includes**:
+  - CSM (Computer Speech and Music) models
+  - Whisper for speech recognition
+  - Media processing libraries
+  - Audio/video analysis tools
+  
+  **Best for**: Speech recognition, audio processing, media analysis
 </Accordion>
 
-<Accordion title="TensorFlow Environment">
-  **Includes**:
-  - TensorFlow 2.14+ with GPU support
-  - Keras, TensorBoard
-  - Jupyter Lab
-  - Data science stack
+<Accordion title="Launch Ollama Coder">
+  **The most advanced open-source coding models**
   
-  **Best for**: ML model development and deployment
+  **Includes**:
+  - Code Llama models
+  - DeepSeek Coder
+  - Qwen Coder
+  - Advanced coding assistants
+  
+  **Best for**: Code generation, debugging, software development
 </Accordion>
 
-<Accordion title="CUDA Development">
-  **Includes**:
-  - CUDA Toolkit 12.1
-  - cuDNN, NCCL
-  - Development tools (nvcc, nsight)
-  - Sample projects
+<Accordion title="Launch Ollama Fast">
+  **Optimized for quick responses with smaller models**
   
-  **Best for**: CUDA programming and optimization
+  **Includes**:
+  - Fast inference models
+  - Optimized for speed
+  - Lightweight language models
+  - Quick response capabilities
+  
+  **Best for**: Real-time chat, quick queries, rapid prototyping
 </Accordion>
 
-<Accordion title="Stable Diffusion">
-  **Includes**:
-  - Automatic1111 WebUI
-  - Popular models pre-loaded
-  - Extensions and tools
-  - Optimized for inference
+<Accordion title="Launch Ollama Large">
+  **Full-featured setup for running larger language models**
   
-  **Best for**: AI image generation and experimentation
+  **Includes**:
+  - Large language models (70B+ parameters)
+  - Advanced reasoning capabilities
+  - Multi-modal models
+  - Enterprise-grade performance
+  
+  **Best for**: Complex reasoning, research, advanced AI applications
 </Accordion>
 </AccordionGroup>
 
-## Use Cases
+## Use Cases by Deployment Option
 
-### Machine Learning Training
-- **Large Language Models**: Train transformer models on multiple GPUs
-- **Computer Vision**: Image classification, object detection, segmentation
-- **Reinforcement Learning**: Game AI, robotics, optimization
-- **Time Series**: Financial modeling, forecasting, anomaly detection
+### Launch Media Fast
+- **Speech Recognition**: Transcribe audio files and live speech
+- **Audio Processing**: Music analysis, sound effects, audio enhancement
+- **Video Analysis**: Content analysis, scene detection, object tracking
+- **Media Conversion**: Format conversion, compression, optimization
 
-### AI Inference
-- **Real-time APIs**: Deploy models with low-latency inference
-- **Batch Processing**: Process large datasets efficiently
-- **Model Serving**: Host multiple models with auto-scaling
-- **Edge Deployment**: Test models before edge deployment
+### Launch Ollama Coder
+- **Code Generation**: Generate code from natural language descriptions
+- **Code Review**: Automated code analysis and improvement suggestions
+- **Debugging**: Identify and fix bugs in existing codebases
+- **Documentation**: Generate technical documentation and comments
 
-### Research and Development
-- **Experimentation**: Rapid prototyping and testing
-- **Hyperparameter Tuning**: Parallel optimization runs
-- **Data Analysis**: Large-scale data processing
-- **Visualization**: 3D rendering and scientific visualization
+### Launch Ollama Fast
+- **Real-time Chat**: Fast conversational AI for customer support
+- **Quick Queries**: Rapid information retrieval and summarization
+- **Prototyping**: Fast iteration on AI-powered features
+- **Lightweight Applications**: Mobile and edge AI applications
 
-### Creative Applications
-- **3D Rendering**: Blender, Maya, Cinema 4D acceleration
-- **Video Processing**: Real-time video effects and encoding
-- **Game Development**: Asset creation and testing
-- **AI Art**: Stable Diffusion, Midjourney alternatives
+### Launch Ollama Large
+- **Complex Reasoning**: Advanced problem-solving and analysis
+- **Research**: Scientific research and data analysis
+- **Enterprise AI**: Large-scale business intelligence and automation
+- **Multi-modal AI**: Image, text, and audio processing combined
 
 ## Pricing Model
 
