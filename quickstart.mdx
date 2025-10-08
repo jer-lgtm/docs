@@ -3,11 +3,11 @@ title: "Quickstart"
 description: "Connect to the Comput3 Network and start computing"
 ---
 
-## Get started in three steps
+## Get started in one step
 
-Connect to the decentralized GPU network and run your first workload.
+Connect to the decentralized GPU network and start computing.
 
-### Step 1: Set up your account
+### Set up your account
 
 <AccordionGroup>
   <Accordion icon="user-plus" title="Create your Comput3 account">
@@ -30,66 +30,26 @@ Connect to the decentralized GPU network and run your first workload.
   </Accordion>
 </AccordionGroup>
 
-### Step 2: Install the Comput3 CLI
-
-<AccordionGroup>
-  <Accordion icon="download" title="Install via npm">
-    ```bash
-    npm install -g @comput3/cli
-    ```
-    
-    Or using pip:
-    ```bash
-    pip install comput3-cli
-    ```
-  </Accordion>
-  <Accordion icon="terminal" title="Verify installation">
-    ```bash
-    comput3 --version
-    comput3 auth login
-    ```
-    
-    <Tip>The CLI will automatically use your COMPUT3_API_KEY environment variable.</Tip>
-  </Accordion>
-</AccordionGroup>
-
-### Step 3: Run your first GPU workload
-
-<Accordion icon="rocket" title="Deploy a sample job">
-  ```bash
-  # Run a simple GPU test
-  comput3 run --gpu-type A100 --replicas 1 \
-    --image pytorch/pytorch:latest \
-    --command "python -c 'import torch; print(torch.cuda.is_available())'"
-  
-  # Monitor your job
-  comput3 jobs list
-  comput3 logs <job-id>
-  ```
-  
-  <Success>Congratulations! You've just run your first job on the Comput3 network.</Success>
-</Accordion>
-
 ## Popular use cases
 
-Explore what you can build on Comput3:
+Explore what you can build with Comput3 AI models:
 
 <CardGroup cols={2}>
 
-<Card title="AI Model Training" icon="brain" href="/essentials/markdown">
-  Train large language models and neural networks on distributed GPUs.
+<Card title="Code Generation" icon="code" href="/api-reference/introduction">
+  Generate code, debug issues, and get programming assistance from advanced AI models.
 </Card>
 
-<Card title="Inference at Scale" icon="bolt" href="/essentials/settings">
-  Deploy models for high-throughput inference with automatic scaling.
+<Card title="Content Creation" icon="pen" href="/api-reference/introduction">
+  Create articles, documentation, and creative content with AI-powered writing.
 </Card>
 
-<Card title="3D Rendering" icon="cube" href="/essentials/code">
-  Render complex 3D scenes and animations using GPU acceleration.
+<Card title="Data Analysis" icon="chart-line" href="/api-reference/introduction">
+  Get insights from data, generate reports, and perform complex analysis tasks.
 </Card>
 
-<Card title="Scientific Computing" icon="flask" href="/api-reference/introduction">
-  Run simulations and data analysis on powerful compute infrastructure.
+<Card title="Conversational AI" icon="comments" href="/chat/introduction">
+  Build chatbots, virtual assistants, and interactive AI applications.
 </Card>
 
 </CardGroup>
@@ -100,39 +60,40 @@ Explore what you can build on Comput3:
 ```python Python
 from comput3 import Client
 
-client = Client(api_key="your-api-key")
+client = Client(api_key="your-api-key", base_url="https://api.comput3.ai")
 
-# Submit a job
-job = client.jobs.create(
-    gpu_type="A100",
-    replicas=2,
-    image="tensorflow/tensorflow:latest-gpu",
-    command="python train.py"
+# Generate text using AI models
+response = client.chat.completions.create(
+    model="deepseek-v3.1",
+    messages=[
+        {"role": "user", "content": "Write a Python function to calculate fibonacci numbers"}
+    ],
+    max_tokens=500,
+    temperature=0.7
 )
 
-# Monitor progress
-status = client.jobs.get(job.id)
-print(f"Job {job.id}: {status.state}")
+print(response.choices[0].message.content)
 ```
 
 ```javascript Node.js
 const { Comput3Client } = require('@comput3/sdk');
 
 const client = new Comput3Client({ 
-  apiKey: 'your-api-key' 
+  apiKey: 'your-api-key',
+  baseUrl: 'https://api.comput3.ai'
 });
 
-// Submit a job
-const job = await client.jobs.create({
-  gpuType: 'A100',
-  replicas: 2,
-  image: 'tensorflow/tensorflow:latest-gpu',
-  command: 'python train.py'
+// Generate text using AI models
+const response = await client.chat.completions.create({
+  model: 'deepseek-v3.1',
+  messages: [
+    { role: 'user', content: 'Write a Python function to calculate fibonacci numbers' }
+  ],
+  max_tokens: 500,
+  temperature: 0.7
 });
 
-// Monitor progress
-const status = await client.jobs.get(job.id);
-console.log(`Job ${job.id}: ${status.state}`);
+console.log(response.choices[0].message.content);
 ```
 </CodeGroup>
 

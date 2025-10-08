@@ -1,9 +1,9 @@
 ---
-title: 'Create Compute Job'
-openapi: 'POST /jobs'
+title: 'Create Chat Completion'
+openapi: 'POST /chat/completions'
 ---
 
-Create a new GPU compute job on the Comput3 Network.
+Generate AI responses using Comput3's language models.
 
 ## Authentication Required
 
@@ -16,12 +16,14 @@ Authorization: Bearer YOUR_API_KEY
 ## Example Request
 
 ```bash curl
-curl -X POST "https://api.comput3.ai/v1/jobs" \
+curl -X POST "https://api.comput3.ai/v1/chat/completions" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "model": "deepseek-v3.1",
-    "prompt": "Hello, world!",
+    "messages": [
+      {"role": "user", "content": "Hello, world!"}
+    ],
     "max_tokens": 100,
     "temperature": 0.7
   }'
@@ -29,20 +31,35 @@ curl -X POST "https://api.comput3.ai/v1/jobs" \
 
 ## Request Body
 
-- `model` (string, required): The model ID to use for computation (e.g., "deepseek-v3.1", "hermes4:70b", "qwen3-coder:480b")
-- `prompt` (string, required): Input prompt for the model
+- `model` (string, required): The model ID to use (e.g., "deepseek-v3.1", "hermes4:70b", "qwen3-coder:480b")
+- `messages` (array, required): Array of message objects with role and content
 - `max_tokens` (integer): Maximum number of tokens to generate
-- `temperature` (float): Sampling temperature (0.0 to 1.0)
+- `temperature` (float): Sampling temperature (0.0 to 2.0)
 
 ## Response
 
-Returns the created job with its unique identifier and status.
+Returns the chat completion with the AI-generated response.
 
 ```json
 {
-  "id": "job_123abc",
-  "status": "queued",
+  "id": "chatcmpl-123abc",
+  "object": "chat.completion",
+  "created": 1677652288,
   "model": "deepseek-v3.1",
-  "created_at": "2024-01-01T00:00:00Z"
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Hello! How can I help you today?"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 9,
+    "completion_tokens": 12,
+    "total_tokens": 21
+  }
 }
 ```
