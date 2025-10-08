@@ -123,7 +123,12 @@
     "primary": {
       "type": "button",
       "label": "Launch App",
-      "href": "https://app.comput3.ai"
+      "href": "https://launch.comput3.ai"
+    },
+    "secondary": {
+      "type": "button",
+      "label": "Chat",
+      "href": "https://console.comput3.ai"
     }
   },
   "contextual": {
