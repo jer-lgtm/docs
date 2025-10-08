@@ -116,19 +116,14 @@
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:support@comput3.ai"
+        "label": "Chat",
+        "href": "https://console.comput3.ai"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Launch App",
       "href": "https://launch.comput3.ai"
-    },
-    "secondary": {
-      "type": "button",
-      "label": "Chat",
-      "href": "https://console.comput3.ai"
     }
   },
   "contextual": {
