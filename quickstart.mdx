@@ -64,7 +64,7 @@ client = Client(api_key="your-api-key", base_url="https://api.comput3.ai")
 
 # Generate text using AI models
 response = client.chat.completions.create(
-    model="deepseek-v3.1",
+    model="hermes4:70b",
     messages=[
         {"role": "user", "content": "Write a Python function to calculate fibonacci numbers"}
     ],
@@ -85,7 +85,7 @@ const client = new Comput3Client({
 
 // Generate text using AI models
 const response = await client.chat.completions.create({
-  model: 'deepseek-v3.1',
+  model: 'hermes4:70b',
   messages: [
     { role: 'user', content: 'Write a Python function to calculate fibonacci numbers' }
   ],

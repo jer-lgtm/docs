@@ -21,7 +21,7 @@ Build custom chat applications using the Comput3 Network API with OpenAI-compati
     -H "Authorization: Bearer YOUR_API_KEY" \
     -H "Content-Type: application/json" \
     -d '{
-      "model": "deepseek-v3.1",
+      "model": "hermes4:70b",
       "messages": [
         {"role": "user", "content": "Hello, world!"}
       ]
@@ -37,7 +37,7 @@ Build custom chat applications using the Comput3 Network API with OpenAI-compati
     "id": "chatcmpl-123",
     "object": "chat.completion",
     "created": 1677652288,
-    "model": "deepseek-v3.1",
+    "model": "hermes4:70b",
     "choices": [{
       "index": 0,
       "message": {
@@ -66,11 +66,14 @@ Create a chat completion with conversation context.
 
 <ParamField body="model" type="string" required>
 The model to use for completion. Available models:
-- `deepseek-v3.1` - Latest DeepSeek model for coding and general tasks
 - `hermes4:70b` - Hermes 4 model (70B parameters) for advanced reasoning
 - `hermes4:405b` - Largest Hermes 4 model (405B parameters) for complex tasks
-- `qwen3-coder:480b` - Massive Qwen3 Coder model for advanced coding tasks
+- `deepseek-v3.1` - Latest DeepSeek model for coding and general tasks
 - `kimi-k2` - Kimi K2 model for general conversation
+- `qwen3-coder:480b` - Massive Qwen3 Coder model for advanced coding tasks
+- `qwen3-max` - Large-scale reasoning and analysis
+- `grok-code-fast-1` - Fast coding assistance
+- `claude-sonnet-4` - Creative writing and analysis
 </ParamField>
 
 <ParamField body="messages" type="array" required>
@@ -121,7 +124,7 @@ client = openai.OpenAI(
 )
 
 response = client.chat.completions.create(
-    model="deepseek-v3.1",
+    model="hermes4:70b",
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "Explain quantum computing"}
@@ -144,7 +147,7 @@ headers = {
 }
 
 data = {
-    "model": "deepseek-v3.1",
+    "model": "hermes4:70b",
     "messages": [
         {"role": "user", "content": "Hello, how are you?"}
     ],
@@ -284,7 +287,7 @@ client = openai.OpenAI(
 )
 
 stream = client.chat.completions.create(
-    model="deepseek-v3.1",
+    model="hermes4:70b",
     messages=[{"role": "user", "content": "Write a short story"}],
     stream=True
 )
@@ -363,7 +366,7 @@ functions = [
 ]
 
 response = client.chat.completions.create(
-    model="deepseek-v3.1",
+    model="hermes4:70b",
     messages=[
         {"role": "user", "content": "What's the weather in New York?"}
     ],

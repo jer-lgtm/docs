@@ -92,7 +92,7 @@
           "model": {
             "type": "string",
             "description": "The model to use for completion",
-            "enum": ["deepseek-v3.1", "hermes4:70b", "hermes4:405b", "qwen3-coder:480b", "kimi-k2"]
+            "enum": ["hermes4:70b", "hermes4:405b", "deepseek-v3.1", "kimi-k2", "qwen3-coder:480b", "qwen3-max", "grok-code-fast-1", "claude-sonnet-4"]
           },
           "messages": {
             "type": "array",

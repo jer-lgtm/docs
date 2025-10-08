@@ -54,7 +54,7 @@ Configure Visual Studio Code with AI extensions to use the Comput3 Network API f
       {
         "title": "Comput3 DeepSeek",
         "provider": "openai",
-        "model": "deepseek-v3.1",
+        "model": "hermes4:70b",
         "apiKey": "YOUR_COMPUT3_API_KEY",
         "apiBase": "https://api.comput3.ai/v1"
       },
@@ -121,13 +121,16 @@ Configure Visual Studio Code with AI extensions to use the Comput3 Network API f
   Your Comput3 API key
   </ParamField>
   
-  <ParamField path="Model" type="string" default="deepseek-v3.1">
+  <ParamField path="Model" type="string" default="hermes4:70b">
   ```
-  deepseek-v3.1
   hermes4:70b
   hermes4:405b
-  qwen3-coder:480b
+  deepseek-v3.1
   kimi-k2
+  qwen3-coder:480b
+  qwen3-max
+  grok-code-fast-1
+  claude-sonnet-4
   ```
   </ParamField>
 </Step>
@@ -243,7 +246,7 @@ Create `.vscode/settings.json` in your project:
 {
   "codegpt.apiKey": "${env:COMPUT3_API_KEY}",
   "codegpt.apiBase": "https://api.comput3.ai/v1",
-  "codegpt.model": "deepseek-v3.1",
+  "codegpt.model": "hermes4:70b",
   "codegpt.temperature": 0.2,
   "codegpt.maxTokens": 2048
 }

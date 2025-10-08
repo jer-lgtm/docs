@@ -32,7 +32,7 @@ Set up Claude CLI with Comput3 Network to get AI assistance directly from your t
   ```bash
   claude config set api-key YOUR_COMPUT3_API_KEY
   claude config set api-base https://api.comput3.ai/v1
-  claude config set model qwen3-coder:480b
+  claude config set model hermes4:70b
   ```
   
   <Warning>
@@ -66,7 +66,7 @@ Set up environment variables for easier management:
   ```bash
   export ANTHROPIC_API_KEY="your_comput3_api_key"
   export ANTHROPIC_API_BASE="https://api.comput3.ai/v1"
-  export CLAUDE_MODEL="deepseek-v3.1"
+  export CLAUDE_MODEL="hermes4:70b"
   ```
   
   Then reload your shell:
@@ -81,7 +81,7 @@ Set up environment variables for easier management:
   ```powershell
   $env:ANTHROPIC_API_KEY="your_comput3_api_key"
   $env:ANTHROPIC_API_BASE="https://api.comput3.ai/v1"
-  $env:CLAUDE_MODEL="deepseek-v3.1"
+  $env:CLAUDE_MODEL="hermes4:70b"
   ```
   
   Or set permanently via System Properties → Environment Variables.
@@ -96,7 +96,7 @@ Create a config file at `~/.claude/config.json`:
 {
   "api_key": "your_comput3_api_key",
   "api_base": "https://api.comput3.ai/v1",
-  "model": "deepseek-v3.1",
+  "model": "hermes4:70b",
   "temperature": 0.7,
   "max_tokens": 4096,
   "timeout": 30000
@@ -195,7 +195,7 @@ Configure different models for different use cases:
   **Best for**: Code generation, debugging, technical explanations
   
   ```bash
-  claude config set model qwen3-coder:480b
+  claude config set model hermes4:70b
   claude config set temperature 0.2
   ```
 </Accordion>

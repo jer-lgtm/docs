@@ -91,7 +91,7 @@ ELIZAOS agents can be integrated with virtually any system through:
   # Agent configuration for doc updates
   doc_agent = {
       "name": "doc-updater",
-      "model": "deepseek-v3.1",
+      "model": "hermes4:70b",
       "specialization": "documentation",
       "triggers": [
           {
@@ -609,7 +609,7 @@ research_pipeline = {
     "agents": [
         {
             "name": "paper-finder",
-            "model": "deepseek-v3.1",
+            "model": "hermes4:70b",
             "role": "find_relevant_papers",
             "tools": ["arxiv_search", "pubmed_search", "google_scholar"]
         },
@@ -669,7 +669,7 @@ research_pipeline = {
   "agents": [
     {
       "name": "order-processor",
-      "model": "deepseek-v3.1",
+      "model": "hermes4:70b",
       "responsibilities": [
         "validate_orders",
         "check_inventory",
@@ -754,7 +754,7 @@ research_pipeline = {
       },
       {
         "name": "risk-manager",
-        "model": "deepseek-v3.1",
+        "model": "hermes4:70b",
         "monitoring": ["portfolio_exposure", "var_calculations", "stress_tests"],
         "limits": {"max_position_size": 100000, "daily_loss_limit": 50000}
       },
@@ -790,7 +790,7 @@ research_pipeline = {
           ]
       },
       "incident_responder": {
-          "model": "deepseek-v3.1",
+          "model": "hermes4:70b",
           "capabilities": [
               "isolate_compromised_systems",
               "collect_forensic_evidence",

@@ -12,6 +12,80 @@ Choose the right GPU instance type for your workload with detailed specification
 <img src="/images/gpu-comparison-chart.png" alt="GPU performance comparison chart showing TFLOPS, memory, and pricing" />
 </Frame>
 
+## NVIDIA B200 Series
+
+### B200
+**Next-Generation AI Performance**
+
+<CardGroup cols={2}>
+<Card title="Specifications" icon="microchip">
+  - **GPU Memory**: 192GB HBM3e
+  - **Memory Bandwidth**: 8.0 TB/s
+  - **CUDA Cores**: 20,480
+  - **Tensor Cores**: 640 (5th gen)
+  - **FP32 Performance**: 100+ TFLOPS
+  - **Tensor Performance**: 4000+ TFLOPS (BF16)
+</Card>
+
+<Card title="System Configuration" icon="server">
+  - **CPU**: 64 vCPUs (Intel Xeon or AMD EPYC)
+  - **RAM**: 512GB DDR5
+  - **Storage**: 2TB NVMe SSD
+  - **Network**: 200 Gbps
+  - **Pricing**: $8.00/hour
+</Card>
+</CardGroup>
+
+**Best Use Cases:**
+- Large language model training (100B+ parameters)
+- Multi-modal AI model development
+- High-throughput inference serving
+- Scientific computing and simulation
+- Next-generation AI research
+
+**Performance Benchmarks:**
+- **LLaMA 70B Training**: 2x faster than H100
+- **GPT-4 Scale Models**: 60% faster training
+- **Stable Diffusion XL**: 3x faster inference
+- **BERT Large**: 4x training speedup
+
+## NVIDIA H200 Series
+
+### H200
+**High-Performance AI Inference**
+
+<CardGroup cols={2}>
+<Card title="Specifications" icon="microchip">
+  - **GPU Memory**: 141GB HBM3e
+  - **Memory Bandwidth**: 4.8 TB/s
+  - **CUDA Cores**: 18,432
+  - **Tensor Cores**: 576 (4th gen)
+  - **FP32 Performance**: 80+ TFLOPS
+  - **Tensor Performance**: 3000+ TFLOPS (BF16)
+</Card>
+
+<Card title="System Configuration" icon="server">
+  - **CPU**: 48 vCPUs (Intel Xeon or AMD EPYC)
+  - **RAM**: 384GB DDR5
+  - **Storage**: 1.5TB NVMe SSD
+  - **Network**: 150 Gbps
+  - **Pricing**: $6.50/hour
+</Card>
+</CardGroup>
+
+**Best Use Cases:**
+- Large language model inference
+- High-throughput AI serving
+- Multi-modal AI applications
+- Scientific computing
+- Enterprise AI workloads
+
+**Performance Benchmarks:**
+- **LLaMA 70B Inference**: 1.5x faster than H100
+- **GPT-3.5 Scale Models**: 2x faster inference
+- **Stable Diffusion XL**: 2.5x faster inference
+- **BERT Large**: 2.8x inference speedup
+
 ## NVIDIA H100 Series
 
 ### H100 80GB
@@ -188,17 +262,18 @@ Available in 2x, 4x, and 8x configurations with NVLink for high-bandwidth GPU-to
 
 ## NVIDIA RTX Series
 
-### RTX 4090
-**High-Performance Consumer GPU**
+### RTX 4090 48GB
+**High-Performance Development GPU**
 
 <CardGroup cols={2}>
 <Card title="Specifications" icon="microchip">
-  - **GPU Memory**: 24GB GDDR6X
+  - **GPU Memory**: 48GB GDDR6X
   - **Memory Bandwidth**: 1008 GB/s
   - **CUDA Cores**: 16,384
   - **RT Cores**: 128 (3rd gen)
   - **Tensor Cores**: 512 (4th gen)
   - **FP32 Performance**: 83 TFLOPS
+  - **Tensor Performance**: 165 TFLOPS (BF16)
 </Card>
 
 <Card title="System Configuration" icon="server">

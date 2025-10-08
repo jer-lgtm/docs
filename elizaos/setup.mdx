@@ -38,7 +38,7 @@ Deploy ELIZAOS on Comput3 Network to start building and running multi-agent AI s
   <Tab title="Single Agent Setup">
     **Best for**: Getting started, small projects
     
-    - **GPU**: RTX 4090 or A100 40GB
+    - **GPU**: RTX 4090 48GB or A100 40GB
     - **RAM**: 16GB
     - **Storage**: 100GB SSD
     - **Cost**: ~$1.20-2.50/hour
@@ -47,7 +47,7 @@ Deploy ELIZAOS on Comput3 Network to start building and running multi-agent AI s
   <Tab title="Multi-Agent Setup">
     **Best for**: Complex workflows, team projects
     
-    - **GPU**: A100 80GB or H100 80GB
+    - **GPU**: A100 80GB, H100 80GB, or H200
     - **RAM**: 32-64GB
     - **Storage**: 200GB SSD
     - **Cost**: ~$3.50-4.50/hour
@@ -56,7 +56,7 @@ Deploy ELIZAOS on Comput3 Network to start building and running multi-agent AI s
   <Tab title="Enterprise Setup">
     **Best for**: Production deployments
     
-    - **GPU**: Multiple H100s with NVLink
+    - **GPU**: Multiple H100s, H200s, or B200s with NVLink
     - **RAM**: 128GB+
     - **Storage**: 500GB+ NVMe
     - **Cost**: Custom pricing
@@ -109,9 +109,9 @@ Deploy ELIZAOS on Comput3 Network to start building and running multi-agent AI s
   Deploy a GPU instance suitable for ELIZAOS workloads.
   
   **Recommended Specifications**:
-  - **Minimum**: RTX 4090 with 16GB RAM
+  - **Minimum**: RTX 4090 48GB with 16GB RAM
   - **Recommended**: A100 40GB with 32GB RAM
-  - **Optimal**: A100 80GB or H100 with 64GB+ RAM
+  - **Optimal**: A100 80GB, H100, H200, or B200 with 64GB+ RAM
 </Step>
 
 <Step title="Install ELIZAOS">
@@ -193,7 +193,7 @@ Deploy ELIZAOS on Comput3 Network to start building and running multi-agent AI s
     "comput3": {
       "api_key": "YOUR_COMPUT3_API_KEY",
       "base_url": "https://api.comput3.ai/v1",
-      "default_model": "deepseek-v3.1",
+      "default_model": "hermes4:70b",
       "gpu_instance_id": "i-1234567890abcdef0"
     }
   }
@@ -230,7 +230,7 @@ Deploy ELIZAOS on Comput3 Network to start building and running multi-agent AI s
   # Comput3 Integration
   COMPUT3_API_KEY=your_api_key_here
   COMPUT3_BASE_URL=https://api.comput3.ai/v1
-  COMPUT3_DEFAULT_MODEL=deepseek-v3.1
+  COMPUT3_DEFAULT_MODEL=hermes4:70b
   
   # Database
   DATABASE_URL=postgresql://user:pass@localhost:5432/elizaos
@@ -291,7 +291,7 @@ Deploy ELIZAOS on Comput3 Network to start building and running multi-agent AI s
   "name": "document-analyzer",
   "type": "task_agent",
   "config": {
-    "model": "deepseek-v3.1",
+    "model": "hermes4:70b",
     "max_tokens": 4096,
     "temperature": 0.3,
     "tools": ["file_reader", "text_analyzer"],
@@ -316,7 +316,7 @@ Deploy ELIZAOS on Comput3 Network to start building and running multi-agent AI s
   "name": "code-reviewer",
   "type": "collaborative_agent",
   "config": {
-    "model": "qwen3-coder:480b",
+    "model": "hermes4:70b",
     "specialization": "code_review",
     "collaboration": {
       "can_delegate": true,
@@ -471,7 +471,7 @@ Deploy ELIZAOS on Comput3 Network to start building and running multi-agent AI s
   elizaos config validate <agent-config.json>
   
   # Test model connectivity
-  elizaos test model deepseek-v3.1
+  elizaos test model hermes4:70b
   
   # Check resource availability
   elizaos system resources
@@ -788,7 +788,7 @@ const comput3 = new Comput3Client({
 // Create integrated agent
 const agent = await elizaos.createAgent({
   name: 'content-creator',
-  model: 'qwen3-coder:480b',
+  model: 'hermes4:70b',
   comput3Integration: {
     client: comput3,
     autoScale: true,
